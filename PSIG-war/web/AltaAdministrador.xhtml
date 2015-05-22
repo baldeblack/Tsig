@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="LayoutAdmin.xhtml">
+            <ui:define name="titulo">Alta Administrador</ui:define>
+            <ui:define name="content">
+                <br />
+                <div class="panel with-nav-tabs panel-primary">
+                      <div class="panel-heading">
+                          <h3>Alta Administrador</h3>
+                      </div>
+                      <div class="panel-body">
+                        <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                        <h:form class="form-horizontal">
+                            <h:outputLabel value="login"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.login}" id="login"></h:inputText>
+                            <h:outputLabel value="clave"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.clave}" id="clave"></h:inputText>
+                            <h:outputLabel value="nombre"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.nombre}" id="nombre"></h:inputText>
+                            <h:outputLabel value="apellido"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.apellido}" id="apellido"></h:inputText>
+                            <h:outputLabel value="cedula"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.cedula}" id="cedula"></h:inputText>
+                            <h:outputLabel  value="telefono"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.telefono}" id="telefono"></h:inputText>
+                            <h:outputLabel value="email"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.email}" id="email"></h:inputText>
+                            <h:outputLabel value="rol"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaAdministrador.rol}" id="rol"></h:inputText>
+
+                            <h:commandButton class="btn btn-success" action="#{altaAdministrador.crearAdministrador}" value="Crear"></h:commandButton>
+                            
+                       </h:form>
+                      </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

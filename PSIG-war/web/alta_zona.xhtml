@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <h:outputStylesheet name="./css/bootstrap.css" />
+        <h:outputStylesheet name="./css/bootstrap-theme.min.css" />
+        <h:outputScript name="./js/jquery.js" />
+        <h:outputScript name="./js/bootstrap.js" />
+        <h:outputStylesheet name="./css/login.css" />
+        <title>Login</title>
+    </h:head>
+        <h:body>  
+            <h1>Alta Zona</h1>
+                <div class="container">
+                    <h:form id="form">
+                        <div>
+                            <h:outputLabel value="Nombre de la zona" />
+                            <h:inputText value="#{AltaZona.nombre_zona}" />
+                        </div>
+                        <div>
+                            <h:outputLabel value="Descripcion de la zona" />
+                            <h:inputText value="#{AltaZona.descripcion_zona}" />
+                        </div>
+                        <div>
+                            <h:outputLabel value="Demanda" />
+                            <h:inputText value="#{AltaZona.demanda}" />
+                        </div>
+                      	 <div class="control-group form-actions text-center">
+                            <h:commandButton type="submit" value="Login" action="#{AltaZona.crearZona()}" class="btn btn-success"/>
+                        </div>
+                        <div id="map_container" style="width: 500px; height: 500px;"></div>
+                        <script src="resources/openLayers/OpenLayers.js" />
+                        <script src="resources/js/zona.js" />
+                        <h:inputHidden id="zonaSelec" value="#{AltaZona.zona_puntos}" />
+                        </h:form>
+                
+        </div>
+    </h:body>
+</html>

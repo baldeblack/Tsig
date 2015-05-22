@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./LayoutAdmin.xhtml">
+
+            <ui:define name="titulo">
+                Editar Propietario
+            </ui:define>
+
+            <ui:define name="content">
+                <br />
+                <div class="panel with-nav-tabs panel-primary">
+                      <div class="panel-heading">
+                          <h3>Editar Propietario</h3>
+                      </div>
+                      <div class="panel-body">
+                            <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                            <h:form class="form-horizontal">
+                                <h:outputLabel value="id"></h:outputLabel>
+                                <h:inputText class="form-control" readonly="true" value="#{altaPropietario.prop.idPropietario}" id="id"></h:inputText>
+                                <h:outputLabel value="nombre"></h:outputLabel>
+                                <h:inputText class="form-control" value="#{altaPropietario.prop.nombre}" id="nombre"></h:inputText>
+                                <h:outputLabel value="apellido"></h:outputLabel>
+                                <h:inputText class="form-control" value="#{altaPropietario.prop.apellido}" id="apellido"></h:inputText>
+                                <h:outputLabel  value="telefono"></h:outputLabel>
+                                <h:inputText class="form-control" value="#{altaPropietario.prop.telefono}" id="telefono"></h:inputText>
+                                <h:outputLabel value="email"></h:outputLabel>
+                                <h:inputText class="form-control" value="#{altaPropietario.prop.email}" id="email"></h:inputText>
+                                <h:outputLabel value="ci"></h:outputLabel>
+                                <h:inputText class="form-control" value="#{altaPropietario.prop.ci}" id="ci"></h:inputText>
+                                <h:commandButton class="btn btn-success"  action="#{altaPropietario.editarPropietario()}" value="Editar"></h:commandButton>
+
+                            </h:form>
+                      </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

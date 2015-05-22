@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="LayoutAdmin.xhtml">
+
+            <ui:define name="titulo">
+                Lista Administrador
+            </ui:define>
+
+            <ui:define name="content">
+                <br />
+                <div class="panel with-nav-tabs panel-primary">
+                      <div class="panel-heading">
+                          <h3>Lista Administrador</h3>
+                      </div>
+                      <div class="panel-body">
+                        <h:form>
+                            <h:dataTable var="p" value="#{altaAdministrador.listarAdministradores()}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Id</f:facet>
+                                    <h:outputText value="#{p.idAdmin}"></h:outputText>  
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nombre</f:facet>
+                                    <h:outputText value="#{p.nombre}"></h:outputText>  
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Apellido</f:facet>
+                                    <h:outputText value="#{p.apellido}"></h:outputText>  
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nick</f:facet>
+                                    <h:outputText value="#{p.login}"></h:outputText>  
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Email</f:facet>
+                                    <h:outputText value="#{p.email}"></h:outputText>  
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Acciones</f:facet>
+                                    <h:commandLink action="#{altaAdministrador.editAdministrador(p)}" >
+                                        <i class="fa fa-pencil"></i>
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                      </div>
+                </div>
+              
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

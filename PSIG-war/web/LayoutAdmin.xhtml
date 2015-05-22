@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <!--<h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>-->
+        <h:outputStylesheet name="css/bootstrap.css" />
+        <h:outputStylesheet name="css/font-awesome.css"/>
+        <h:outputStylesheet name="css/admin.css"/>
+        <h:outputScript name="js/jquery.js" />
+        <h:outputScript name="js/bootstrap.js" />
+        <h:outputScript name="js/admin.js" />
+        <title>Admin Panel - <ui:insert name="titulo">titulo</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <div class="contenedor-header">
+            <!--<div id="top" class="top">
+                <ui:insert name="top">Top</ui:insert>
+            </div>-->
+            
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span>Menu</span> 
+                    </button>
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+                        <span>User</span> 
+                    </button>
+                    <a class="navbar-brand" href="">
+                        PanelAdmin
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-ex2-collapse">
+                    <!--<h2 class="navbar-text">Alta Catastrofe</h2>-->
+                    <ul class="nav navbar-right top-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <h:outputLabel value="Bienvendo! " />
+                                <h:outputText value="#{loginBean.usuarioSession}" />
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:form>
+                                        <h:commandLink action="#{sesionBean.cerrarSesion}">
+                                            <span class="fa fa-sign-out"></span>
+                                            Cerrar Sesion
+                                        </h:commandLink>
+                                </h:form></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- MENU VERTICAL -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <h:link outcome="/ListarAdministradores">
+                                <i class="fa fa-list"></i>
+                                Lista Administrador
+                            </h:link>
+                        </li>
+                        <li><a href="#"><i class="fa fa-list"></i> Lista Inmuebles</a></li>
+                        <li>
+                            <h:link outcome="/ListaPropietarios">
+                                <i class="fa fa-list"></i>
+                                Lista Propietario
+                            </h:link>
+                        </li>
+                        <li><!--<a href="/AltaAdministrador"><i class="fa fa-plus-square"></i> Alta Administrador</a>-->
+                            <h:link outcome="/AltaAdministrador">
+                                <i class="fa fa-plus-square"></i>
+                                Alta Administrador
+                            </h:link>
+                        </li>
+                        <li><a href="#"><i class="fa fa-plus-square"></i> Alta Inmuebles</a></li>
+                        <li>
+                            <h:link outcome="/AltaPropietario">
+                                <i class="fa fa-plus-square"></i>
+                                Alta Propietario
+                            </h:link>
+                        </li> 
+                        <li><a href="#"><i class="fa fa-file"></i> Reportes</a></li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div id="content" class="row">
+                <div class="contenido">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+        </div>
+    </h:body>
+
+</html>

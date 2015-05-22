@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="templates/templateADM.xhtml">
+	<ui:define name="title">Alta Inmueble</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<panel header="Alta Zona" id="panel">
+				<messages id="msgs" />
+	
+				<h:panelGrid columns="3">
+					<br />
+					<h:outputText value="Nombre de la Zona: " />
+					<inputText id="titulo" value="#{AltaInmueble.titulo}"
+						required="true" label="titulo"
+						requiredMessage="Debe ingresar el nombre de la zona" style="width:250px;">
+					<f:validateLength minimum="4" maximum="20" />
+					</inputText>
+
+					<br />					
+					<h:outputText value="Importancia: " />
+					<inputText id="importancia" value="#{AltaInmueble.tipo}"
+						required="true" label="Importancia"
+						requiredMessage="Debe ingresar la importancia de la zona" style="width:250px;">
+					<f:validateLongRange minimum="1" maximum="10" />
+					</inputText>										
+					
+					<br />
+					<commandButton onmouseover="SavePoligono();" value="Registrar"
+					update="panel" actionListener="#{AltaInmueble.crearInmueble}" />
+					
+				</h:panelGrid>
+				
+				<spacer height="10" />
+				<div id="map" style="width: 800px; height: 500px;"></div>
+				<script type="text/javascript" src="OpenLayers/OpenLayers.js"></script>
+				<script src="js/InmuebleJS.js" />				
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+     
+  
+</html>

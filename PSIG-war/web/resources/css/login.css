@@ -1,0 +1,16 @@
+
+.div_login{
+  border: 1px solid #2D2B37;
+  border-radius: 15px;
+  box-shadow:0 1px 0 #cfcfcf;
+}
+
+.msjError{
+    color:red;
+    list-style: none;
+}
+
+.msjSuccess{
+    color:limegreen;
+    list-style: none;
+}

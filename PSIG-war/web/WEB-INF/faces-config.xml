@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+    <managed-bean>
+        <managed-bean-name>altaInmueble</managed-bean-name>
+        <managed-bean-class>com.bean.AltaInmueble</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>altaAdministrador</managed-bean-name>
+        <managed-bean-class>com.bean.AltaAdministrador</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>altaPropietario</managed-bean-name>
+        <managed-bean-class>com.bean.AltaPropietario</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{loginBean.checkLogin}</from-action>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/LayoutAdmin.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{sesionBean.cerrarSesion}</from-action>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/AltaPropietario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ListaPropietarios</from-outcome>
+            <to-view-id>/ListaPropietarios.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/ListaPropietarios.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{altaPropietario.editarPropietario(pa)}</from-action>
+            <from-outcome>EditarPropietario</from-outcome>
+            <to-view-id>/EditarPropietario.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/EditarPropietario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ListaPropietarios</from-outcome>
+            <to-view-id>/ListaPropietarios.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/AltaAdministrador.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ListarAdministradores</from-outcome>
+            <to-view-id>/ListarAdministradores.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/EditarAdministrador.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ListarAdministradores</from-outcome>
+            <to-view-id>/ListarAdministradores.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

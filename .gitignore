@@ -10,3 +10,12 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/PSIG-ejb/build/
+/PSIG-ejb/nbproject/private/
+/PSIG-war/build/
+/PSIG-war/nbproject/private/
+/build/
+/dist/
+/PSIG-war/dist/
+/PSIG-ejb/dist/
+/nbproject/private/
