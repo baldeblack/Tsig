@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class AltaPropietario {
     
+    private int idPropietario;
     private String nombre;
     private String apellido;
     private int telefono;
@@ -132,4 +133,16 @@ public class AltaPropietario {
     public void setProp(Propietario prop) {
         this.prop = prop;
     }
+
+    public int getIdPropietario() {
+        return idPropietario;
+    }
+
+    public void setIdPropietario(int idPropietario) {
+        this.idPropietario = idPropietario;
+    }
+
+
+    
+    
 }

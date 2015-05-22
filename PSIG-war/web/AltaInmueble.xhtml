@@ -1,47 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-<ui:composition template="templates/templateADM.xhtml">
-	<ui:define name="title">Alta Inmueble</ui:define>
-	<ui:define name="content">
-		<h:form id="form">
-			<panel header="Alta Zona" id="panel">
-				<messages id="msgs" />
-	
-				<h:panelGrid columns="3">
-					<br />
-					<h:outputText value="Nombre de la Zona: " />
-					<inputText id="titulo" value="#{AltaInmueble.titulo}"
-						required="true" label="titulo"
-						requiredMessage="Debe ingresar el nombre de la zona" style="width:250px;">
-					<f:validateLength minimum="4" maximum="20" />
-					</inputText>
 
-					<br />					
-					<h:outputText value="Importancia: " />
-					<inputText id="importancia" value="#{AltaInmueble.tipo}"
-						required="true" label="Importancia"
-						requiredMessage="Debe ingresar la importancia de la zona" style="width:250px;">
-					<f:validateLongRange minimum="1" maximum="10" />
-					</inputText>										
-					
-					<br />
-					<commandButton onmouseover="SavePoligono();" value="Registrar"
-					update="panel" actionListener="#{AltaInmueble.crearInmueble}" />
-					
-				</h:panelGrid>
-				
-				<spacer height="10" />
-				<div id="map" style="width: 800px; height: 500px;"></div>
-				<script type="text/javascript" src="OpenLayers/OpenLayers.js"></script>
-				<script src="js/InmuebleJS.js" />				
-			</p:panel>
-		</h:form>
-	</ui:define>
+    <body>
 
-</ui:composition>
-     
-  
+        <ui:composition template="./LayoutAdmin.xhtml">
+
+            <ui:define name="titulo">
+                Alta Inmueble
+            </ui:define>
+
+            <ui:define name="content">
+                <br />
+                <div class="panel with-nav-tabs panel-primary">
+                      <div class="panel-heading">
+                          <h3>Alta Inmueble</h3>
+                      </div>
+                      <div class="panel-body">
+                           <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                        <h:form class="form-horizontal">
+                            <h:outputLabel value="proposito"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.proposito}" id="proposito"></h:inputText>
+                            <h:outputLabel value="estado"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.estado}" id="estado"></h:inputText>
+                            <h:outputLabel value="tipo"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.tipo}" id="tipo"></h:inputText>
+                            <h:outputLabel value="valormax"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.valormax}" id="valormax"></h:inputText>
+                            <h:outputLabel value="valormin"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.valormin}" id="valormin"></h:inputText>
+                            <h:outputLabel  value="direccion"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.direccion}" id="direccion"></h:inputText>
+                            <h:outputLabel value="padron"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.padron}" id="padron"></h:inputText>
+                            <h:outputLabel value="banios"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.banios}" id="banios"></h:inputText>
+                            <h:outputLabel value="habitaciones"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.habitaciones}" id="habitaciones"></h:inputText>
+                            <h:outputLabel value="pisos"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.pisos}" id="pisos"></h:inputText>
+                            <h:outputLabel value="garage"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.garage}" id="garage"></h:inputText>
+                            <h:outputLabel value="jardin"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.jardin}" id="jardin"></h:inputText>
+                            <h:outputLabel value="descripcion"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.descripcion}" id="descripcion"></h:inputText>
+                            <h:outputLabel value="titulo"></h:outputLabel>
+                            <h:inputText class="form-control" value="#{altaInmueble.titulo}" id="titulo"></h:inputText>
+                            
+                            <h:outputLabel value="Propietario"></h:outputLabel>
+                            <h:selectOneMenu value="#{altaInmueble.propietario}">
+                                <f:selectItem itemLabel="Seleccione un propietario" />
+                                <f:selectItems value="#{altaInmueble.propietarioSeleccionado}" />
+                            </h:selectOneMenu>
+                            
+                            <h:commandButton class="btn btn-success" action="#{altaInmueble.crearInmueble()}" value="Crear"></h:commandButton>
+                            
+                       </h:form>
+                      </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
 </html>

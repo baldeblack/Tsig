@@ -49,15 +49,22 @@ public class PropietarioFacade extends AbstractFacade<Propietario> implements Pr
         return getEntityManager().createQuery(query).getResultList();                
     }
     
+    @Override
     public Propietario findPropietario(int ci){
         List<Propietario> allprop = findAll();                     
         
-        for(int i=0;i< allprop.size()-1;i++){
+        for(Propietario prop : allprop){
+            if(prop.getCi().equals(ci)){
+                return prop;
+            }
+            /*
             Propietario prop = (Propietario) allprop.get(i);
+            
+            
             if(prop.getCi().equals(ci)){
                 //busco si tiene el mismo login y si es asi lo retorno
                 return prop;
-            } 
+            } */
         }   
         return null;
     }
