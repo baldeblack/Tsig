@@ -9,24 +9,24 @@
     </h:head>
     <h:body>
               
-                    <h:form>
-                        <h1><h:outputText value="Crear Inmueble"/></h1>
-                        <h:panelGrid columns="2">
-                           <h:outputLabel value="Titulo:" for="Titulo" />
-                           <h:inputText id="titulo" value="#{inmuebleBean.titulo}" title="Titulo" />
-                            <h:outputLabel value="Tipo:" for="tipo" />
-                            <h:inputText id="tipo" value="#{inmuebleBean.tipo}" title="tipo" /> 
-                            <h:outputLabel value="Baño:" for="banio" />
-                            <h:inputText id="banio" value="#{inmuebleBean.banios}" title="banio" />
-                            <h:outputLabel value="Descripcion: " for="descripcion" />
-                            <h:inputText id="descripcion" value="#{inmuebleBean.descripcion}" title="descripcion" />
-                            <h:outputLabel value="direccion" for="direccion" />
-                            <h:inputText id="direccion" value="#{inmuebleBean.direccion}" title="direccion" />
-                            <h:outputLabel value="estado:" for="estado" />
-                            <h:inputText id="estado" value="#{inmuebleBean.estado}" title="estado" />                                                                                
-                        </h:panelGrid>
-                        <h:commandButton value="Guardar" action="#{inmuebleBean.altaInmueble()}"/>
-                    </h:form>
+                <h:form>
+                    <h1><h:outputText value="Crear Inmueble"/></h1>
+                    <h:panelGrid columns="2">
+                       <h:outputLabel value="Titulo:" for="Titulo" />
+                       <h:inputText id="titulo" value="#{inmuebleBean.titulo}" title="Titulo" />
+                        <h:outputLabel value="Tipo:" for="tipo" />
+                        <h:inputText id="tipo" value="#{inmuebleBean.tipo}" title="tipo" /> 
+                        <h:outputLabel value="Baño:" for="banio" />
+                        <h:inputText id="banio" value="#{inmuebleBean.banios}" title="banio" />
+                        <h:outputLabel value="Descripcion: " for="descripcion" />
+                        <h:inputText id="descripcion" value="#{inmuebleBean.descripcion}" title="descripcion" />
+                        <h:outputLabel value="direccion" for="direccion" />
+                        <h:inputText id="direccion" value="#{inmuebleBean.direccion}" title="direccion" />
+                        <h:outputLabel value="estado:" for="estado" />
+                        <h:inputText id="estado" value="#{inmuebleBean.estado}" title="estado" />                                                                                
+                    </h:panelGrid>
+                    <h:commandButton value="Guardar" action="#{inmuebleBean.altaInmueble()}"/>
+                </h:form>
                <div id="map" style="width: 800px; height: 500px;"></div>
 	       <script type="text/javascript" src="OpenLayers/OpenLayers.js"></script>
 	       <script src="js/InmuebleJS.js" />        

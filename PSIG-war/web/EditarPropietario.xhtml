@@ -21,8 +21,7 @@
                       <div class="panel-body">
                             <h:messages errorClass="msjError" infoClass="msjSuccess" />
                             <h:form class="form-horizontal">
-                                <h:outputLabel value="id"></h:outputLabel>
-                                <h:inputText class="form-control" readonly="true" value="#{altaPropietario.prop.idPropietario}" id="id"></h:inputText>
+                                <h:inputHidden class="form-control" value="#{altaPropietario.prop.idPropietario}" id="idPropietario"></h:inputHidden>
                                 <h:outputLabel value="nombre"></h:outputLabel>
                                 <h:inputText class="form-control" value="#{altaPropietario.prop.nombre}" id="nombre"></h:inputText>
                                 <h:outputLabel value="apellido"></h:outputLabel>
@@ -31,8 +30,7 @@
                                 <h:inputText class="form-control" value="#{altaPropietario.prop.telefono}" id="telefono"></h:inputText>
                                 <h:outputLabel value="email"></h:outputLabel>
                                 <h:inputText class="form-control" value="#{altaPropietario.prop.email}" id="email"></h:inputText>
-                                <h:outputLabel value="ci"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaPropietario.prop.ci}" id="ci"></h:inputText>
+                                <h:inputHidden class="form-control" value="#{altaPropietario.prop.ci}" id="ci" ></h:inputHidden>
                                 <h:commandButton class="btn btn-success"  action="#{altaPropietario.editarPropietario()}" value="Editar"></h:commandButton>
 
                             </h:form>
