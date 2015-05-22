@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         <h:outputStylesheet name="css/bootstrap.css" />
         <h:outputScript name="js/jquery.js" />
         <h:outputScript name="js/bootstrap.js" />
+        
         <title>Inmobiliaria</title>
     </h:head>
     <h:body>  
@@ -22,7 +22,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Project name</a>
+                    <a class="navbar-brand" href="#">Proyecto Tsig Grupo 15</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <!--<ul class="nav navbar-nav">
@@ -30,6 +30,8 @@
                     </ul>-->
                     <ul class="nav navbar-nav navbar-right">
                         <!--<li><h:link outcome="/admin" value="Admin"/></li>-->
+                        <li><h:link outcome="/AltaInm" value="Inmueble"/></li>
+                        <li><h:link outcome="/alta_zona" value="Zonas"/></li>
                         <li><h:link outcome="/login" value="LogIn"/></li>
                     </ul>
                     <!--<h:form class="navbar-form navbar-right" role="form">
@@ -50,7 +52,11 @@
             <div class="jumbotron">
                 <h1>Bienvenido a Imobiliaria!!!</h1>
             </div>
-
+            <div style="width:100%; height:500px" id="map">
+            </div>
+            <script src="OpenLayers.js" target="body" />
+            <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
+            <script src="js/Index_mapa.js" target="body" />
         </div>
         <footer>
             <p>Company 2014</p>

@@ -66,13 +66,13 @@ public class InmuebleBean implements Serializable{
 
     public boolean altaInmueble(){                                    
         
+        System.out.println("valores x "+ x + "valor y"+ y);
+        
         zon.setGidzona(1);
         zon.setNombre("Palermo");    
         adm.setIdAdmin(1);
         prop.setIdPropietario(1);
        
-         x= "-34.912892"; 
-         y= "-56.183171";
         inmueble.setBanios(banios);
         inmueble.setDescripcion("Prueba");
         inmueble.setDireccion(descripcion);
@@ -91,24 +91,7 @@ public class InmuebleBean implements Serializable{
         inmueble.setValormin(100.22);
         inmueble.setTitulo(titulo);
         
-       /* inmueble.setBanios(banios);
-        inmueble.setDescripcion(descripcion);
-        inmueble.setDireccion(direccion);
-        inmueble.setEstado(estado);
-        inmueble.setGarage(garage);
-        inmueble.setGidzona(gidzona);
-        inmueble.setHabitaciones(habitaciones);       
-        inmueble.setIdAdmin((Administrador) idAdmin);
-        inmueble.setIdPropietario((Propietario) idPropietario);
-        inmueble.setJardin(jardin);
-        inmueble.setPadron(padron);
-        inmueble.setPisos(pisos);
-        inmueble.setProposito(proposito);
-        inmueble.setTipo(tipo);
-        inmueble.setValormax(valormax);
-        inmueble.setValormin(valormin);
-        inmueble.setTitulo(titulo);*/
-       
+        System.out.println("valores x "+ x + "valor y"+ y);
         inmuebleL.crearInmueble(inmueble, x, y);
         return true;
     }
