@@ -8,6 +8,7 @@ package com.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,10 +23,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author vane
- */
 @Entity
 @Table(name = "inmueble")
 @XmlRootElement
@@ -92,6 +89,8 @@ public class Inmueble implements Serializable {
     @OneToMany(mappedBy = "gidInm")
     private Collection<Consulta> consultaCollection;
     @JoinColumn(name = "gidzona", referencedColumnName = "gidzona")
+    
+  
     @ManyToOne
     private Zonas gidzona;
     @JoinColumn(name = "id_propietario", referencedColumnName = "id_propietario")

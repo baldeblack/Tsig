@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import org.apache.log4j.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -35,6 +36,10 @@ public class InmuebleL {
     private InmuebleFacadeLocal inmfacade;
     private ImagenesFacadeLocal imagenfacade;
     
+    
+    static final Logger logger = Logger.getLogger(InmuebleL.class.getName()); 
+    
+    
    /* public boolean crearInmueble(Inmueble inm, String x, String y){        
         inmfacade.crearInmueble(inm,x,y);
         return true;
@@ -47,13 +52,18 @@ public class InmuebleL {
             String consulta = "SELECT MAX(i.gidInm) FROM Inmueble as i";            
             Query query = em.createQuery(consulta);
             Object pp = query.getSingleResult(); 
+            
+            pp = (Integer)pp;
             int Idinm;
             //reviso si la tabla esta bacia
             if(pp != null){
                 Idinm = 1 + pp.hashCode();
+                
+                logger.warn("Valor id  "+Idinm);
             }
             else{                                                               			
                 Idinm = 1 ;
+                 logger.warn("Valor id  "+Idinm);
             }
             
             //seteo el id de inmueble
@@ -77,7 +87,7 @@ public class InmuebleL {
            
             if(!(conexion.isClosed())){                                
                 try{                                                                                                
-                
+                System.out.println(" x "+x + "y" + y );
                 String consultageo = "insert into inmueble(gid,nombre,descripcion,geom) values ("
                         + inm.getGidInm()+",'" 
                         + inm.getTitulo()+"','" 

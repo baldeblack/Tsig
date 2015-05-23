@@ -12,12 +12,18 @@ import com.entity.Inmueble;
 import com.entity.Propietario;
 import com.entity.Zonas;
 import com.logica.InmuebleL;
+import java.io.Console;
 import java.io.Serializable;
+import org.apache.log4j.Logger;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlTransient;
+
+
 
 /**
  *
@@ -27,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @SessionScoped
 public class InmuebleBean implements Serializable{  
     
-   
+    private static final Logger logger = Logger.getLogger(InmuebleBean.class.getName()); 
     
     private String proposito;
     private String estado;
@@ -51,6 +57,7 @@ public class InmuebleBean implements Serializable{
     private String x;
     private String y;
     
+
         
      @EJB
     private InmuebleL inmuebleL;
@@ -66,8 +73,25 @@ public class InmuebleBean implements Serializable{
 
     public boolean altaInmueble(){                                    
         
-        System.out.println("valores x "+ x + "valor y"+ y);
+        logger.warn("Valores x e y");
+       
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
+        String valor_x = ec.getRequestParameterMap().get("form:punto_select_x");
+	setX(x);
+        String valor_y = ec.getRequestParameterMap().get("form:punto_select_y");
+	setX(y);
+        
+        
+        if(x!=null)logger.warn("Valor x "+x);
+        
+        if (valor_x==null){
+        logger.warn("Valor x nulo");
+        }
+        else { 
+                logger.warn("Valor x");
+                logger.warn("Valor y "+  valor_y);
+             }
         zon.setGidzona(1);
         zon.setNombre("Palermo");    
         adm.setIdAdmin(1);
@@ -91,7 +115,7 @@ public class InmuebleBean implements Serializable{
         inmueble.setValormin(100.22);
         inmueble.setTitulo(titulo);
         
-        System.out.println("valores x "+ x + "valor y"+ y);
+       // System.out.println("valores x "+ x + "valor y"+ y);
         inmuebleL.crearInmueble(inmueble, x, y);
         return true;
     }

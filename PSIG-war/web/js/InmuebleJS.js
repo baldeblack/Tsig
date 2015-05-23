@@ -46,7 +46,7 @@ editar_punto.handler.callbacks.point = function(pt){
     console.log(pt)
 }
 map.addControl(editar_punto);
-//editar_punto.activate();   
+editar_punto.activate();   
 // Editar punto
 
 
@@ -59,74 +59,25 @@ map.addControl(  new OpenLayers.Control.OverviewMap());
 map.setCenter (centro_mapa, zoom);
 
 
-OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
-                defaultHandlerOptions: {
-                    'single': true,
-                    'double': false,
-                    'pixelTolerance': 0,
-                    'stopSingle': false,
-                    'stopDouble': false
-                },
-
-                initialize: function(options) {
-                    this.handlerOptions = OpenLayers.Util.extend(
-                        {}, this.defaultHandlerOptions
-                    );
-                    OpenLayers.Control.prototype.initialize.apply(
-                        this, arguments
-                    ); 
-                    this.handler = new OpenLayers.Handler.Click(
-                        this, {
-                            'click': this.trigger
-                        }, this.handlerOptions
-                    );
-                }, 
-
-                trigger: function(e) {
-				var proj = {
-			"google": new OpenLayers.Projection("EPSG:32721"),
-			"latlng": new OpenLayers.Projection("EPSG:4326")
-		}; 
-
-alert("Hiciste click en " + lonlat.lat + " N, " +
-								  + lonlat.lon + " E");
-                }
-
-            });
 //map.addControl(click);
 //click.activate();
  
- map.events.register('click', map, handleMapClick);
+// map.events.register('click', map, handleMapClick);
    
 
-    function handleMapClick(evt)
-    {
-       var lonlat = map.getLonLatFromViewPortPx(evt.xy);
-        document.getElementById("form:punto_select_x").value=lonlat.lat;
-        document.getElementById("form:punto_select_y").value=lonlat.lon;
-       // use lonlat
-       //punto_x.value=lonlat.lat;
-      // punto_y.value=lonlat.lon;
-       
-       alert(lonlat);
-    }  
  
  
 function GuardarPunto() {
 	// this should work
- var lonlat = map.getLonLatFromViewPortPx(e.xy);
- 
- var punto = document.getElementById("form:punto_select").value;
- var zonas = drawControls['polygon'].layer;
-	
-	zona.value = JSON.stringify(jsonResult);
- 
- 
- 
- 
- alert("Hiciste click en " + lonlat.lat + " N, " +
-                                          + lonlat.lon + " E");
-                                  
-                                  
-                                  
+var valor=capa_punto.features[0].geometry.getVertices()[0];
+
+document.getElementById('formulario:punto_select_x');y
+
+var x =document.getElementById('formulario:punto_select_x');
+var y=document.getElementById('formulario:punto_select_y');
+
+x.value=capa_punto.features[0].geometry.getVertices()[0].x;
+y.value=capa_punto.features[0].geometry.getVertices()[0].y;
+
+
 }

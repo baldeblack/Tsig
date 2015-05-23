@@ -6,6 +6,7 @@
 package com.DAO;
 
 
+import Extras.ConexionGeo;
 import com.entity.Inmueble;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -35,8 +36,6 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
     
     @Override
     public int crearInmueble(Inmueble inm, String x, String y){
-  
-                      
             //obtengo el gid mas alto en la base de datos
             String consulta = "SELECT MAX(i.gidInm) FROM Inmueble as i";            
             Query query = em.createQuery(consulta);
@@ -49,31 +48,20 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
             else{                                                               			
                 Idinm = 1 ;
             }
-            
-            //seteo el id de inmueble
+             //seteo el id de inmueble
             inm.setGidInm(Idinm);
-            
             //persisto el inmueble en la base relacional
             em.persist(inm);
-            
-             //conexion base geografica///
+            //conexion base geografica///
             Statement s=null;
             Connection conexion =  null;
             Boolean resultado= null;
         try{   
             try{
-                conexion =  Conexion_geografica.getConnection();
+                conexion =  ConexionGeo.getConexion();
                 s=conexion.createStatement();
-            }
-            catch (SQLException   e){
-                e.printStackTrace();
-            }
-           
-            if(!(conexion.isClosed())){                                
-                try{                                                                                                
-                
                 String consultageo = "insert into inmueblegeo(gid,nombre,descripcion,geom) values ("
-                        + inm.getGidInm()+",'" 
+                        + Idinm+",'" 
                         + inm.getTitulo()+"','" 
                         + inm.getDescripcion()+"', ST_GeomFromText('POINT("
                         + x 
@@ -81,11 +69,12 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
                         + y 
                         + ")',32721))"; 
                 resultado = s.execute(consultageo);
-                }catch(Exception e){                                
-                   e.printStackTrace();
-                }
-                conexion.close();
+                ConexionGeo.cerrarConexion(conexion);
             }
+            catch (SQLException   e){
+                e.printStackTrace();
+            }
+           
         }  
         catch (Exception e) { 
             System.out.println("Error en la conexion");
