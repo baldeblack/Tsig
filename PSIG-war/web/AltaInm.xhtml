@@ -33,7 +33,7 @@
                                 <h:inputHidden id="punto_select_x"  value="#{inmuebleBean.x}"/>
                                 <h:inputHidden id="punto_select_y" value="#{inmuebleBean.y}"/>
                         
-                        <h:commandButton onmousedown="GuardarPunto();" value="Guardar"  actionListener="#{inmuebleBean.altaInmueble()}"/>
+                        <h:commandButton onmousedown="GuardarPunto();" value="Guardar"  action="#{inmuebleBean.altaInmueble}"/>
                         
                     </h:form>
                

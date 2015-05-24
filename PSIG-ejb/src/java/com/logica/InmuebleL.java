@@ -5,6 +5,8 @@
  */
 package com.logica;
 
+import Extras.OrigenDatos;
+import Extras.PoolConexiones;
 import com.DAO.Conexion_geografica;
 import com.DAO.ImagenesFacadeLocal;
 import com.DAO.InmuebleFacadeLocal;
@@ -38,6 +40,9 @@ public class InmuebleL {
     
     
     static final Logger logger = Logger.getLogger(InmuebleL.class.getName()); 
+    private Connection conexion;
+    private Statement s;
+    private boolean resultado;
     
     
    /* public boolean crearInmueble(Inmueble inm, String x, String y){        
@@ -46,8 +51,6 @@ public class InmuebleL {
     }
     */
      public int crearInmueble(Inmueble inm, String x, String y){
-  
-                      
             //obtengo el gid mas alto en la base de datos
             String consulta = "SELECT MAX(i.gidInm) FROM Inmueble as i";            
             Query query = em.createQuery(consulta);
@@ -59,11 +62,11 @@ public class InmuebleL {
             if(pp != null){
                 Idinm = 1 + pp.hashCode();
                 
-                logger.warn("Valor id  "+Idinm);
+                logger.warn("Valor id a insertar "+Idinm);
             }
             else{                                                               			
                 Idinm = 1 ;
-                 logger.warn("Valor id  "+Idinm);
+                 logger.warn("Valor id a insertar "+Idinm);
             }
             
             //seteo el id de inmueble
@@ -73,19 +76,71 @@ public class InmuebleL {
             em.persist(inm);
             
              //conexion base geografica///
-            Statement s = null;
-            Connection conexion =  null;
-            Boolean resultado= null;
-        try{   
+             try{   
+            
+                try{ 
+                    
+                    logger.warn("CONEXION A establecer");
+                    conexion = OrigenDatos.getConnection();
+                     if (conexion.isClosed()){
+                        logger.warn("CONEXION cerrada");
+                        PoolConexiones pool= new PoolConexiones() ;
+                        conexion = pool.getConnectionFromPool();
+                        logger.warn("CONEXION = "+ conexion.getSchema());
+                     }
+                }
+                catch(ClassNotFoundException e){
+                    e.printStackTrace();
+                }
+                
+                try{
+                    
+                    s=conexion.createStatement();
+                    String consultageo = "insert into inmueble(gid,nombre,descripcion,geom) values ("
+                        + inm.getGidInm()+",'" 
+                        + inm.getTitulo()+"','" 
+                        + inm.getDescripcion()+"',  ST_SetSRID( ST_MakePoint("
+                        + x 
+                        + ","
+                        + y 
+                        + "),4326))";
+                    
+                    //ST_GeomFromText('POINT(-71.060316 48.432044)', 4326));
+                    
+                    logger.warn("CONSULTA  = "+ consultageo);
+                    /*String consultageo = "insert into inmueble(gid,nombre,descripcion,geom) values ("
+                        + inm.getGidInm()+",'" 
+                        + inm.getTitulo()+"','" 
+                        + inm.getDescripcion()+"', ST_GeomFromText('POINT("
+                        + x 
+                        + " "
+                        + y 
+                        + ")',4326))"; */
+                    resultado = s.execute(consultageo);
+                    conexion.close();
+                    OrigenDatos.returnConnection(conexion);
+                }
+                 catch(SQLException e){
+                    e.printStackTrace();
+                }
+        }  
+        catch (Exception e) { 
+            System.out.println("Error en la conexion");
+            e.printStackTrace();			 
+        }     
+            
+            
+            
+            
+        /*try{   
             try{
                 conexion =  Conexion_geografica.getConnection();
                 s = conexion.createStatement();
             }
             catch (SQLException   e){
                 e.printStackTrace();
-            }
-           
-            if(!(conexion.isClosed())){                                
+            }          
+           if(!(conexion.isClosed())){                                
                 try{                                                                                                
                 System.out.println(" x "+x + "y" + y );
                 String consultageo = "insert into inmueble(gid,nombre,descripcion,geom) values ("
@@ -106,7 +161,9 @@ public class InmuebleL {
         catch (Exception e) { 
             System.out.println("Error en la conexion");
             e.printStackTrace();			 
-        }              
+        }     */      
+            
+            
             return inm.getGidInm();                                                              
      }
     

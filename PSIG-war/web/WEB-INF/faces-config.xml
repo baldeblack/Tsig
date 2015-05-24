@@ -8,8 +8,7 @@
         <managed-bean-class>com.bean.AltaInmueble</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
-    <managed-bean>
+     <managed-bean>
         <managed-bean-name>inmuebleBean</managed-bean-name>
         <managed-bean-class>com.bean.InmuebleBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -27,6 +26,7 @@
         <managed-bean-class>com.bean.AltaPropietario</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    
     
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
@@ -78,6 +78,15 @@
         <navigation-case>
             <from-outcome>ListarAdministradores</from-outcome>
             <to-view-id>/ListarAdministradores.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+      <navigation-rule>
+        <from-view-id>/AltaInm.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{inmuebleBean.altaInmueble}</from-action>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

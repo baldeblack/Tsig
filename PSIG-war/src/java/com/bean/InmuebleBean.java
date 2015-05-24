@@ -71,25 +71,28 @@ public class InmuebleBean implements Serializable{
     }
 
 
-    public boolean altaInmueble(){                                    
+    public String altaInmueble(){                                    
         
         logger.warn("Valores x e y");
        
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
         String valor_x = ec.getRequestParameterMap().get("form:punto_select_x");
-	setX(x);
+	//setX(x);
         String valor_y = ec.getRequestParameterMap().get("form:punto_select_y");
-	setX(y);
+	//setX(y);
         
         
-        if(x!=null)logger.warn("Valor x "+x);
+        if(x!=null){
+            logger.warn("Valor x "+ x);
+            logger.warn("Valor y "+ y);
+        }
         
         if (valor_x==null){
         logger.warn("Valor x nulo");
         }
         else { 
-                logger.warn("Valor x");
+                logger.warn("Valor x " + valor_x);
                 logger.warn("Valor y "+  valor_y);
              }
         zon.setGidzona(1);
@@ -115,9 +118,9 @@ public class InmuebleBean implements Serializable{
         inmueble.setValormin(100.22);
         inmueble.setTitulo(titulo);
         
-       // System.out.println("valores x "+ x + "valor y"+ y);
+        logger.warn("valores x "+ x + "valor y "+ y);
         inmuebleL.crearInmueble(inmueble, x, y);
-        return true;
+        return "index";
     }
                                     
     

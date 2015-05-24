@@ -23,7 +23,7 @@ var manzanas = new OpenLayers.Layer.WMS(
 var inmueble = new OpenLayers.Layer.WMS(
     "-Inmuebles", "http://localhost:8081/geoserver/wms",
     {
-        srs: "EPSG:32721",
+        srs: "EPSG:4326",
         layers: 'TSIG:inmueble',
         transparent: true,
         format:'image/png'
@@ -42,8 +42,21 @@ var editar_punto = new OpenLayers.Control.DrawFeature(
     OpenLayers.Handler.Point
 );
 
+editar_punto.handler.callbacks.create = function(data) {
+    if(capa_punto.features.length > 1)
+    {
+        // capa_punto.features[0].remove;
+         capa_punto.removeFeatures(capa_punto.features[0]);
+    }
+}
+
 editar_punto.handler.callbacks.point = function(pt){
-    console.log(pt)
+    if(capa_punto.features.length > 1)
+    {
+         //capa_punto.features[0].remove;
+         capa_punto.removeFeatures(capa_punto.features[0]);
+  
+    }
 }
 map.addControl(editar_punto);
 editar_punto.activate();   
@@ -70,14 +83,21 @@ map.setCenter (centro_mapa, zoom);
 function GuardarPunto() {
 	// this should work
 var valor=capa_punto.features[0].geometry.getVertices()[0];
+//var valor1=valor
+valor2= valor.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
 
-document.getElementById('formulario:punto_select_x');y
+//document.getElementById('formulario:punto_select_x');y
+
+//var toProjection = new OpenLayers.Projection("EPSG:4326");
+//var lonLat = valor.transform(map.getProjectionObject(), toProjection);
+
+//alert ("valor x "+ valor.x + " valor y "+ valor.y);
 
 var x =document.getElementById('formulario:punto_select_x');
 var y=document.getElementById('formulario:punto_select_y');
 
-x.value=capa_punto.features[0].geometry.getVertices()[0].x;
-y.value=capa_punto.features[0].geometry.getVertices()[0].y;
+x.value=valor.x;
+y.value=valor.y;
 
 
 }

@@ -81,7 +81,7 @@ map.addLayer(paradas);
 var inmueble = new OpenLayers.Layer.WMS(
     "-Inmuebles", "http://localhost:8081/geoserver/wms",
     {
-        srs: "EPSG:32721",
+        srs: "EPSG:4326",
         layers: 'TSIG:inmueble',
 
         transparent: true,

@@ -5,8 +5,8 @@
  */
 package com.DAO;
 
-
-import Extras.ConexionGeo;
+import Extras.OrigenDatos;
+import Extras.PoolConexiones;
 import com.entity.Inmueble;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.sql.*;
+import org.apache.log4j.Logger;
 /**
  *
  * @author vane
@@ -22,6 +23,11 @@ import java.sql.*;
 public class InmuebleFacade extends AbstractFacade<Inmueble> implements InmuebleFacadeLocal {
     @PersistenceContext(unitName = "PSIG-ejbPU")
     private EntityManager em;   
+    private Connection conexion;
+    private Statement s;
+    private boolean resultado;
+    
+    private static final Logger logger = Logger.getLogger(InmuebleFacade.class.getName()); 
     
     
     
@@ -53,14 +59,28 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
             //persisto el inmueble en la base relacional
             em.persist(inm);
             //conexion base geografica///
-            Statement s=null;
-            Connection conexion =  null;
-            Boolean resultado= null;
+            
         try{   
-            try{
-                conexion =  ConexionGeo.getConexion();
-                s=conexion.createStatement();
-                String consultageo = "insert into inmueblegeo(gid,nombre,descripcion,geom) values ("
+            
+                try{ 
+                    
+                    logger.warn("CONEXION A establecer");
+                    conexion = OrigenDatos.getConnection();
+                     if (conexion.isClosed()){
+                        logger.warn("CONEXION cerrada");
+                        PoolConexiones pool= new PoolConexiones() ;
+                        conexion = pool.getConnectionFromPool();
+                        logger.warn("CONEXION = "+ conexion.getSchema());
+                     }
+                }
+                catch(ClassNotFoundException e){
+                    e.printStackTrace();
+                }
+                
+                try{
+                    
+                    s=conexion.createStatement();
+                    String consultageo = "insert into inmueblegeo(gid,nombre,descripcion,geom) values ("
                         + Idinm+",'" 
                         + inm.getTitulo()+"','" 
                         + inm.getDescripcion()+"', ST_GeomFromText('POINT("
@@ -68,13 +88,14 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
                         + " "
                         + y 
                         + ")',32721))"; 
-                resultado = s.execute(consultageo);
-                ConexionGeo.cerrarConexion(conexion);
-            }
-            catch (SQLException   e){
-                e.printStackTrace();
-            }
-           
+                
+                    resultado = s.execute(consultageo);
+                    conexion.close();
+                    OrigenDatos.returnConnection(conexion);
+                }
+                 catch(SQLException e){
+                    e.printStackTrace();
+                }
         }  
         catch (Exception e) { 
             System.out.println("Error en la conexion");
