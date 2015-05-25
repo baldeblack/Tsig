@@ -66,7 +66,7 @@ public class Pruebas implements Serializable{
 
     public List<String> pruebo(){
       //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);
-        List<String> coordenadas = inmuebleL.Filtro(0,habitaciones,1,false,false,"alquilar");
+        List<String> coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);
         return null;        
     }
    
