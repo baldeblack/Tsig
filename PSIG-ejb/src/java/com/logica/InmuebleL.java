@@ -13,9 +13,12 @@ import com.DAO.InmuebleFacadeLocal;
 import com.entity.Imagenes;
 import com.entity.Inmueble;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -226,4 +229,220 @@ public class InmuebleL {
         return resultado;
     }
     
+    public List<Inmueble> findhabitaciones(int cantidad,List<Inmueble> lista){       
+         List<Inmueble> Allinm = AllInmueble();
+         List<Inmueble> resultado = new ArrayList();
+         if(cantidad != 0){
+            if(!lista.isEmpty()){                 
+                 for(Inmueble inm : lista){              
+                     if(inm.getHabitaciones() == cantidad){
+                          resultado.add(inm);
+                     }                                    
+                 }              
+             }
+            else{
+                if(!Allinm.isEmpty()){             
+                   for(Inmueble inm : Allinm){
+                       if(inm.getHabitaciones()== cantidad){
+                           resultado.add(inm);
+                       }                                
+                   }                          
+               }   
+            }                        
+            return resultado;
+         }
+         else{
+             return lista;
+         }
+     }
+     
+     public List<Inmueble> findbanio(int cantidad,List<Inmueble> lista){
+          List<Inmueble> resultado = new ArrayList();
+          List<Inmueble> Allinm = AllInmueble();
+          if(cantidad != 0){
+                if(!lista.isEmpty()){              
+                    for(Inmueble inm : lista){              
+                        if(inm.getBanios() == cantidad){
+                             resultado.add(inm);
+                        }                                    
+                    }              
+                }
+                else{
+                    if(!Allinm.isEmpty()){             
+                      for(Inmueble inm : Allinm){                 
+                          if(inm.getBanios() == cantidad){
+                             resultado.add(inm);
+                          }                                
+                      }                          
+                    }   
+                }                           
+               return resultado;
+          }
+          else{
+              return lista;
+          }
+     }
+     
+     public List<Inmueble> findpisos(int cantidad,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(cantidad != 0){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getPisos() == cantidad){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getPisos() == cantidad){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }
+     
+      public List<Inmueble> findgarage(boolean garage,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(garage == true){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getGarage() == true){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getGarage() == true){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }
+     
+      public List<Inmueble> findjardin(boolean jardin,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(jardin == true){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getJardin() == true){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getJardin() == true){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }
+     
+     public List<Inmueble> findproposito(String proposito,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        
+        if(!lista.isEmpty()){              
+              for(Inmueble inm : lista){              
+                  if(inm.getProposito().equals(proposito)){
+                       resultado.add(inm);
+                  }                                    
+              }              
+        }
+        else{
+              if(!Allinm.isEmpty()){             
+                for(Inmueble inm : Allinm){                 
+                    if(inm.getProposito().equals(proposito)){
+                       resultado.add(inm);
+                    }                                
+                }                          
+              }   
+        }                  
+        return resultado;
+     }                            
+     
+    public String CadenaString (String cadena){
+        //le quito el segundo parentesis
+        String delimitadores= "\\)";
+        String[] palabrasSeparadas = cadena.split(delimitadores);
+        String primero = palabrasSeparadas[0];
+        
+        //le quito la palabra point y el primer parentesis
+        String delimitadores2= "\\(";
+        String[] palabrasSeparadas2 = primero.split(delimitadores2);
+        String segundo = palabrasSeparadas2[1];               
+        
+        return segundo;    
+    } 
+     
+    
+     
+    public List<String> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito){
+        List<Inmueble> Allinm = AllInmueble();
+        List<Inmueble> lista = new ArrayList();
+        List<Inmueble> inicio = new ArrayList();
+        List<String> resultado = new ArrayList<String>();
+        
+        Statement s = null;
+        Connection conexion =  null;
+        String resulttabla="";         
+        try{
+            conexion =  Conexion_geografica.getConnection();
+            s = conexion.createStatement();
+        }
+        catch (SQLException   e){
+            e.printStackTrace();
+        }
+        
+        if(!Allinm.isEmpty()){
+            
+            lista = findproposito(proposito,inicio);
+            lista = findhabitaciones(habitaciones,lista);
+            lista = findbanio(banios,lista);
+            lista = findpisos(pisos,lista);
+            lista = findgarage(garage,lista);
+            lista = findjardin(jardin,lista);
+            for(Inmueble inm : lista){                                  
+                String consultageo = "SELECT ST_AsText(geom) FROM inmueble WHERE  gid ="+inm.getGidInm();
+                try {
+                    ResultSet result = s.executeQuery(consultageo);
+                    while (result.next()) {               // Situar el cursor                    3 
+                        resulttabla = result.getString(1);                            
+                        //trato a la cedena entera para obtener solo las coordenadas
+                        String cadena = CadenaString(resulttabla);                            
+                        resultado.add(cadena);                            
+                    }
+                } catch (SQLException ex) {                    
+                }                                                                                            
+             }             
+        }         
+        return resultado;
+    }  
+     
 }
