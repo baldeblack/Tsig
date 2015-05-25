@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class ConsultaL {
 
+     private static final Logger logger = Logger.getLogger(ConsultaL.class.getName()); 
+   
     @EJB
     private ConsultaFacadeLocal confacadelocal;
     
@@ -44,6 +47,8 @@ public class ConsultaL {
     }
     
     public List<Consulta> listarConsultas(){
+        
+        
         return confacadelocal.findAll();
     }
     

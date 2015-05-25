@@ -10,7 +10,7 @@
     <h:body>
               
                     <h:form>
-                        <h1><h:outputText value="Crear Inmueble"/></h1>
+                        <h1><h:outputText value="Buscar Inmueble"/></h1>
                         <h:panelGrid columns="2">
                            <h:outputLabel value="habitaciones(0 deshabilita):" for="habitaciones" />
                            <h:inputText id="habitaciones" value="#{pruebas.habitaciones}" title="habitaciones" />
@@ -27,7 +27,7 @@
                         </h:panelGrid>
                                 
                         
-                        <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo()}"></h:commandButton>        
+                        <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo}"></h:commandButton>        
                         
                     </h:form>
                

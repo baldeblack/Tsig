@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Resultado Busqueda</title>
+    </h:head>
+    <h:body>
+             <h:form id="formulario">
+            <h:inputHidden value="#{pruebas.coordenadas}" id="coordenadas" />
+             </h:form>
+            <div style="width:100%; height:500px" id="map">
+            </div>
+            <script src="OpenLayers.js" target="body" />
+            <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
+            <script src="js/Busqueda.js" target="body" />
+            
+    </h:body>
+</html>

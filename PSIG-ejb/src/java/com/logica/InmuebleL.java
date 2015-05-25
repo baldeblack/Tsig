@@ -441,7 +441,8 @@ public class InmuebleL {
                 } catch (SQLException ex) {                    
                 }                                                                                            
              }             
-        }         
+        }    
+        logger.warn("Resultado =  "+resultado.toString());
         return resultado;
     }  
      

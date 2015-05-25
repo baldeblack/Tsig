@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.xml.bind.annotation.XmlTransient;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,6 +30,17 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Pruebas implements Serializable{  
     
    
+    private static final Logger logger = Logger.getLogger(Pruebas.class.getName()); 
+   
+    private List<String> coordenadas;
+
+    public List<String> getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(List<String> coordenadas) {
+        this.coordenadas = coordenadas;
+    }
     
     private String proposito;
     private String estado;
@@ -61,18 +73,23 @@ public class Pruebas implements Serializable{
     private Propietario prop = new Propietario();
     
     
+    
     public Pruebas(){
     }
 
-    public List<String> pruebo(){
+    public String pruebo(){
       //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);
-        List<String> coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);
-        return null;        
+       coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);
+       logger.warn("Consulta  " + coordenadas.toString());
+       return "exito";        
     }
    
                                     
     
     //Geter y Seter
+
+    
+    
     
     public Inmueble getInmueble(){
         return this.inmueble;
