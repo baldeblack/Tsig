@@ -13,6 +13,7 @@ import com.entity.Propietario;
 import com.entity.Zonas;
 import com.logica.InmuebleL;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
@@ -81,10 +82,11 @@ public class Pruebas implements Serializable{
 
     public String pruebo(){
       //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
-       
-       List<String> rambla = inmuebleL.InmRambla(metros); //Le pasas los metros y te busca los inmuebles que esten a menos de esa distancia de la rambla
+       //List<Inmueble> lista = new ArrayList();
+       //List<String> rambla = inmuebleL.InmRambla(metros); //Le pasas los metros y te busca los inmuebles que esten a menos de esa distancia de la rambla
        List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
-       coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);       
+       //List<Inmueble>inmpp = inmuebleL.findInmRambla(metros,lista);
+       coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
        logger.warn("Consulta  " + coordenadas.toString());
        return "exito";        
     }
