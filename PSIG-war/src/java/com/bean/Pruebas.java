@@ -63,6 +63,8 @@ public class Pruebas implements Serializable{
     private Object idAdmin;
     private String x;
     private String y;
+    private int metros;
+
     
         
      @EJB
@@ -79,18 +81,16 @@ public class Pruebas implements Serializable{
 
     public String pruebo(){
       //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
-       List<String> resultado = inmuebleL.getInmueble(x,y);
+       
+       List<String> rambla = inmuebleL.InmRambla(metros); //Le pasas los metros y te busca los inmuebles que esten a menos de esa distancia de la rambla
+       List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
        coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);       
        logger.warn("Consulta  " + coordenadas.toString());
        return "exito";        
     }
    
-                                    
-    
-    //Geter y Seter
-
-    
-    
+                                        
+    //Geter y Seter       
     
     public Inmueble getInmueble(){
         return this.inmueble;
@@ -268,5 +268,12 @@ public class Pruebas implements Serializable{
 
     public void setIdAdmin(Administrador idAdmin) {
         this.idAdmin = idAdmin;
+    }
+    public int getMetros() {
+        return metros;
+    }
+
+    public void setMetros(int metros) {
+        this.metros = metros;
     }
 }
