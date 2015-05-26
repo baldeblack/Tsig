@@ -367,15 +367,15 @@ public class InmuebleL {
      public List<Inmueble> findproposito(String proposito,List<Inmueble> lista){
         List<Inmueble> resultado = new ArrayList();
         List<Inmueble> Allinm = AllInmueble();
-        
-        if(!lista.isEmpty()){              
+        if(proposito.equals("vender") || proposito.equals("alquilar")){
+          if(!lista.isEmpty()){              
               for(Inmueble inm : lista){              
                   if(inm.getProposito().equals(proposito)){
                        resultado.add(inm);
                   }                                    
               }              
-        }
-        else{
+          }
+          else{
               if(!Allinm.isEmpty()){             
                 for(Inmueble inm : Allinm){                 
                     if(inm.getProposito().equals(proposito)){
@@ -383,10 +383,70 @@ public class InmuebleL {
                     }                                
                 }                          
               }   
-        }                  
-        return resultado;
-     }                            
+          }                  
+          return resultado;
+        }
+        else{
+            return lista; 
+        }
+     }                     
      
+    public List<Inmueble> findInmRambla(int metros,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(metros !=0){
+            int pp=0;
+            Statement s = null;
+            Connection conexion =  null;
+            String resulttabla="";         
+            try{
+                conexion =  Conexion_geografica.getConnection();
+                s = conexion.createStatement();
+            }
+            catch (SQLException   e){
+                e.printStackTrace();
+            }   
+             if(!lista.isEmpty()){   
+                for(Inmueble inm : lista){              
+                    String consultageo ="SELECT distinct i.gid\n" +
+                                "FROM inmueble i join borde_rambla r\n" +
+                                "ON ST_Intersects(i.geom,ST_TRANSFORM(ST_BUFFER(r.geom,"+metros+",'endcap=round join=round'),4326)) and i.gid ="+inm.getGidInm();
+                    try {
+                        ResultSet result = s.executeQuery(consultageo);
+                        while (result.next()) {               // Situar el cursor          
+                            resulttabla = result.getString(1);                                                                  
+                            int gid = Integer.parseInt(resulttabla);
+                            resultado.add(inmfacade.findInmueble(gid));
+                    }
+                    } catch (SQLException ex) { }                
+
+                } 
+             }
+             else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        String consultageo ="SELECT distinct i.gid\n" +
+                                "FROM inmueble i join borde_rambla r\n" +
+                                "ON ST_Intersects(i.geom,ST_TRANSFORM(ST_BUFFER(r.geom,"+metros+",'endcap=round join=round'),4326)) and i.gid ="+inm.getGidInm();
+                        try {
+                        ResultSet result = s.executeQuery(consultageo);
+                        while (result.next()) {               // Situar el cursor          
+                            resulttabla = result.getString(1);                                                                  
+                            int gid = Integer.parseInt(resulttabla);
+                            resultado.add(inmfacade.findInmueble(gid));
+                        }
+                        } catch (SQLException ex) { }                                     
+                    }                          
+                  }   
+             }  
+             return resultado;
+        }
+        else{
+            return lista;
+        }
+    } 
+    
+    
     public String CadenaString (String cadena){
         //le quito el segundo parentesis
         String delimitadores= "\\)";
@@ -403,7 +463,7 @@ public class InmuebleL {
      
     
      
-    public List<String> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito){
+    public List<String> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metros){
         List<Inmueble> Allinm = AllInmueble();
         List<Inmueble> lista = new ArrayList();
         List<Inmueble> inicio = new ArrayList();
@@ -428,6 +488,7 @@ public class InmuebleL {
             lista = findpisos(pisos,lista);
             lista = findgarage(garage,lista);
             lista = findjardin(jardin,lista);
+            lista = findInmRambla(metros,lista);
             for(Inmueble inm : lista){                                  
                 String consultageo = "SELECT ST_AsText(geom) FROM inmueble WHERE  gid ="+inm.getGidInm();
                 try {
@@ -535,7 +596,5 @@ public class InmuebleL {
               }
     
         return coordenadas;
-    }
-    
-    
+    }            
 }
