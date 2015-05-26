@@ -122,8 +122,7 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
     public Inmueble findInmueble(int gidinmueble){
         List<Inmueble> todosinm = findAll();                     
         
-        for(int i=0;i< todosinm.size()-1;i++){
-            Inmueble inm = (Inmueble) todosinm.get(i);
+        for(Inmueble inm : todosinm){            
             if(gidinmueble == inm.getGidInm()){
                 //busco si tiene el mismo login y si es asi lo retorno
                 return inm;

@@ -78,8 +78,9 @@ public class Pruebas implements Serializable{
     }
 
     public String pruebo(){
-      //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);
-       coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);
+      //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
+       List<String> resultado = inmuebleL.getInmueble(x,y);
+       coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito);       
        logger.warn("Consulta  " + coordenadas.toString());
        return "exito";        
     }
