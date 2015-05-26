@@ -466,7 +466,7 @@ public class InmuebleL {
         String consultageo = "SELECT gid FROM inmueble WHERE  geom = ST_GeographyFromText('"+coordenadas+"')";
             try {
                 ResultSet result = s.executeQuery(consultageo);
-                while (result.next()) {               // Situar el cursor                    3 
+                while (result.next()) {               // Situar el cursor          
                     resulttabla = result.getString(1);                                                  
                     gid = Integer.parseInt(resulttabla);                                                                          
                 }
@@ -477,34 +477,65 @@ public class InmuebleL {
     
     
     public List<String> getInmueble(String x, String y){
-        //obtengo el gid del inmueble desde la coordenadas
-        int gid = findInmueblegid(x,y);        
-        //obtengo el inmueble desde el gid
-        Inmueble inm = inmfacade.findInmueble(gid);
         List<String> retorno = new ArrayList();
-        
-        retorno.add(Integer.toString(gid));
-        retorno.add(inm.getProposito());
-        retorno.add(inm.getEstado());
-        retorno.add(Integer.toString(inm.getTipo()));
-        retorno.add(String.valueOf(inm.getValormax()));
-        retorno.add(String.valueOf(inm.getValormin()));
-        retorno.add(inm.getDireccion());
-        retorno.add(Integer.toString(inm.getPadron()));
-        retorno.add(inm.getIdPropietario().getNombre());
-        retorno.add(Integer.toString(inm.getBanios()));
-        retorno.add(Integer.toString(inm.getHabitaciones()));
-        retorno.add(Boolean.toString(inm.getGarage()));
-        retorno.add(Boolean.toString(inm.getJardin()));
-        retorno.add(inm.getDescripcion());
-        retorno.add(inm.getTitulo());
-        retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
-        retorno.add(inm.getIdAdmin().getNombre());
-        retorno.add(x+" "+y);
-        
+        if(!x.equals("") && !y.equals("")){
+            //obtengo el gid del inmueble desde la coordenadas
+            int gid = findInmueblegid(x,y);        
+            //obtengo el inmueble desde el gid
+            
+            Inmueble inm = inmfacade.findInmueble(gid);
+
+            if(inm == null){
+                retorno.add(Integer.toString(gid));
+                retorno.add(inm.getProposito());
+                retorno.add(inm.getEstado());
+                retorno.add(Integer.toString(inm.getTipo()));
+                retorno.add(String.valueOf(inm.getValormax()));
+                retorno.add(String.valueOf(inm.getValormin()));
+                retorno.add(inm.getDireccion());
+                retorno.add(Integer.toString(inm.getPadron()));
+                retorno.add(inm.getIdPropietario().getNombre());
+                retorno.add(Integer.toString(inm.getBanios()));
+                retorno.add(Integer.toString(inm.getHabitaciones()));
+                retorno.add(Boolean.toString(inm.getGarage()));
+                retorno.add(Boolean.toString(inm.getJardin()));
+                retorno.add(inm.getDescripcion());
+                retorno.add(inm.getTitulo());
+                retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
+                retorno.add(inm.getIdAdmin().getNombre());
+                retorno.add(x+" "+y);
+            }
+        }
         return retorno;
     }
     
+    public List<String> InmRambla(int metros){
+        List<String> coordenadas = new ArrayList();
+        Statement s = null;
+        Connection conexion =  null;
+        String resulttabla="";         
+        try{
+            conexion =  Conexion_geografica.getConnection();
+            s = conexion.createStatement();
+        }
+        catch (SQLException   e){
+            e.printStackTrace();
+        }   
+        String consultageo ="SELECT distinct ST_AsText(i.geom)\n" +
+                            "FROM inmueble i join borde_rambla r\n" +
+                            "ON ST_Intersects(i.geom,ST_TRANSFORM(ST_BUFFER(r.geom,"+metros+",'endcap=round join=round'),4326))";
+        try {
+            ResultSet result = s.executeQuery(consultageo);
+            while (result.next()) {               // Situar el cursor          
+                resulttabla = result.getString(1);                                                  
+                String solocoordenadas = CadenaString(resulttabla);  
+                coordenadas.add(solocoordenadas);
+                }
+            } catch (SQLException ex) {                    
+              }
+    
+        return coordenadas;
+    }
     
     
 }
