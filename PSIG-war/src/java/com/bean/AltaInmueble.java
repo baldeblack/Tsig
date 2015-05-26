@@ -256,7 +256,7 @@ public class AltaInmueble {
 
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
-    }
+    }        
     
 
     

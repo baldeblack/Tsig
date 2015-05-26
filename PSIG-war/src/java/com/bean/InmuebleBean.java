@@ -16,6 +16,7 @@ import java.io.Console;
 import java.io.Serializable;
 import org.apache.log4j.Logger;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -122,7 +123,12 @@ public class InmuebleBean implements Serializable{
         inmuebleL.crearInmueble(inmueble, x, y);
         return "index";
     }
-                                    
+    
+    public List<String> findInmueble(){
+        
+        
+        return null;
+    }
     
     //Geter y Seter
     
