@@ -1,43 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-              
-                    <h:form>
-                        <h1><h:outputText value="Buscar Inmueble"/></h1>
-                        <h:panelGrid columns="2">
-                           <h:outputLabel value="habitaciones(0 deshabilita):" for="habitaciones" />
-                           <h:inputText id="habitaciones" value="#{pruebas.habitaciones}" title="habitaciones" />
-                           <h:outputLabel value="banios(0 deshabilita):" for="banios" />
-                           <h:inputText id="banios" value="#{pruebas.banios}" title="banios" />
-                           <h:outputLabel value="pisos(0 deshabilita):" for="pisos" />
-                           <h:inputText id="pisos" value="#{pruebas.pisos}" title="pisos" />
-                           <h:outputLabel value="garage(false deshabilita):" for="pisos" />
-                           <h:inputText id="garage" value="#{pruebas.garage}" title="garage" />
-                           <h:outputLabel value="jardin(false deshabilita):" for="jardin" />
-                           <h:inputText id="jardin" value="#{pruebas.jardin}" title="jardin" />
-                           <h:outputLabel value="proposito(alquilar o vender)" for="proposito" />
-                           <h:inputText id="proposito" value="#{pruebas.proposito}" title="proposito" />
-                           <h:outputLabel value="x:" for="x" />
-                           <h:inputText id="x" value="#{pruebas.x}" title="x" />
-                           <h:outputLabel value="y:" for="y" />
-                           <h:inputText id="y" value="#{pruebas.y}" title="y" />
-                           <h:outputLabel value="metros Rambla:" for="metros" />
-                           <h:inputText id="metros" value="#{pruebas.metros}" title="metros" />
-                        </h:panelGrid>
-                                
-                        
-                        <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo}"></h:commandButton>        
-                        
-                    </h:form>
-               
-    </h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+        <ui:composition template="./templates/layoutSitio.xhtml">
+            <ui:define name="content">        
+                <div class="panel with-nav-tabs panel-primary">
+                    <div class="panel-heading">
+                        <h3>Pruebas</h3>
+                    </div>
+                    <div class="panel-body">     
+                        <h:form class="form-horizontal" id="formulario">
+                            <h1><h:outputText value="Buscar Inmueble"/></h1>
+                            <h:panelGrid columns="2">
+                               <h:outputLabel value="habitaciones(0 deshabilita):" for="habitaciones" />
+                               <h:inputText id="habitaciones" value="#{pruebas.habitaciones}" title="habitaciones" />
+                               <h:outputLabel value="banios(0 deshabilita):" for="banios" />
+                               <h:inputText id="banios" value="#{pruebas.banios}" title="banios" />
+                               <h:outputLabel value="pisos(0 deshabilita):" for="pisos" />
+                               <h:inputText id="pisos" value="#{pruebas.pisos}" title="pisos" />
+                               <h:outputLabel value="garage(false deshabilita):" for="pisos" />
+                               <h:inputText id="garage" value="#{pruebas.garage}" title="garage" />
+                               <h:outputLabel value="jardin(false deshabilita):" for="jardin" />
+                               <h:inputText id="jardin" value="#{pruebas.jardin}" title="jardin" />
+                               <h:outputLabel value="proposito(alquilar o vender)" for="proposito" />
+                               <h:inputText id="proposito" value="#{pruebas.proposito}" title="proposito" />
+                               <h:outputLabel value="x:" for="x" />
+                               <h:inputText id="x" value="#{pruebas.x}" title="x" />
+                               <h:outputLabel value="y:" for="y" />
+                               <h:inputText id="y" value="#{pruebas.y}" title="y" />
+                               <h:outputLabel value="metros Rambla:" for="metros" />
+                               <h:inputText id="metros" value="#{pruebas.metros}" title="metros" />
+                            </h:panelGrid>
+                            <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo}"></h:commandButton>        
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
 </html>
 
 

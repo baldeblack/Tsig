@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <h:outputStylesheet name="css/bootstrap.css" />
+        <h:outputScript name="js/jquery.js" />
+        <h:outputScript name="js/bootstrap.js" />
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <div class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Proyecto Tsig Grupo 15</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li><h:link outcome="/admin" value="Admin"/></li>-->
+                        <li><h:link outcome="/Pruebas" value="Busqueda"/></li>
+                        <li><h:link outcome="/AltaInmueble" value="Inmueble"/></li>
+                        <li><h:link outcome="/AltaZona" value="Zonas"/></li>
+                        <li><h:link outcome="/login" value="LogIn"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content"></ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom"></ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

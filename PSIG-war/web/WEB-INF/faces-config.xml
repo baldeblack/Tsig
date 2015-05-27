@@ -3,6 +3,8 @@
               xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+    <!--*********************************************************************-->
+    <!--BEANS-->
     <managed-bean>
         <managed-bean-name>altaInmueble</managed-bean-name>
         <managed-bean-class>com.bean.AltaInmueble</managed-bean-class>
@@ -13,21 +15,18 @@
         <managed-bean-class>com.bean.InmuebleBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
-    
     <managed-bean>
         <managed-bean-name>altaAdministrador</managed-bean-name>
         <managed-bean-class>com.bean.AltaAdministrador</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
     <managed-bean>
         <managed-bean-name>altaPropietario</managed-bean-name>
         <managed-bean-class>com.bean.AltaPropietario</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
-   
+    <!--*********************************************************************-->
+    <!--REGLAS DE NAVEGACION-->
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
@@ -80,17 +79,15 @@
             <to-view-id>/ListarAdministradores.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-      <navigation-rule>
-        <from-view-id>/AltaInm.xhtml</from-view-id>
+    <navigation-rule>
+        <from-view-id>/AltaInmueble.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{inmuebleBean.altaInmueble}</from-action>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-     <navigation-rule>
+    <navigation-rule>
         <from-view-id>/Pruebas.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{pruebas.pruebo}</from-action>
@@ -98,6 +95,13 @@
             <to-view-id>/ResultadoBusqueda.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-    
+    <navigation-rule>
+        <from-view-id>/ResultadoBusqueda.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{pruebas.pruebo2}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/DetalleInmueble.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!--REGLAS DE NAVEGACION-->
 </faces-config>

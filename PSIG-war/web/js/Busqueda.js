@@ -57,33 +57,32 @@ window.onload = function () {
            //alert (' Largo  ' + largo);
            for (index = 0; index < string.length; ++index) {
                 
-               var valor_actual =string[index];
-                 valor_actual= valor_actual.trim();//alert (' Valor antes  ' + valor_actual);
-                 //valor_actual=valor_actual.toString().replace(' ','');
-                 valor_actual=valor_actual.toString().replace('[','');
-                 valor_actual=valor_actual.toString().replace(']','');
-                 valor_actual=valor_actual.toString().replace(/,/g,'');
-                 valor_actual=valor_actual.toString().replace(' ',',');
-                
+                var valor_actual =string[index];
+                valor_actual= valor_actual.trim();//alert (' Valor antes  ' + valor_actual);
+                //valor_actual=valor_actual.toString().replace(' ','');
+                valor_actual=valor_actual.toString().replace('[','');
+                valor_actual=valor_actual.toString().replace(']','');
+                valor_actual=valor_actual.toString().replace(/,/g,'');
+                valor_actual=valor_actual.toString().replace(' ',',');
+
                 // alert (' Valor actual  ' + valor_actual);
-                
-                 var lonlat = valor_actual.split(",");
-                 //alert (' Valor lon  ' + lonlat[0]+ 'lat='+ lonlat[1]);
+
+                var lonlat = valor_actual.split(",");
+                //alert (' Valor lon  ' + lonlat[0]+ 'lat='+ lonlat[1]);
                 //********************
                 //var lonlat = new GetWebMercatorLonLatFromWGS84GeographicCoordinates(valor);
-		//var punto = new OpenLayers.Geometry.Point(lonlat.lon,lonlat.lat);
+                //var punto = new OpenLayers.Geometry.Point(lonlat.lon,lonlat.lat);
                 //************************
                 //alert ('Location lon=' + lonlat[0] + '-lat=' + lonlat[1]);
                 var location = new OpenLayers.LonLat(lonlat[0],lonlat[1])
-                        .transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()) ; 			
+                       .transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject()) ; 			
                 //alert ('Location lon ' + location.lon + 'lat' + location.lat);
                 var size = new OpenLayers.Size(60,60);
                 var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
                 var icon = new OpenLayers.Icon('https://cdn3.iconfinder.com/data/icons/map-markers-1/512/residence-512.png',size,offset);
                 //var icon = new OpenLayers.Icon('https://www.openlayers.org/dev/img/marker.png',size,offset);
                 capa_punto.addMarker(new OpenLayers.Marker(location,icon));
-                    
-               // alert ("Valor final " + valor.toString());
+                // alert ("Valor final " + valor.toString());
            }
     }
     //alert ("Coordenadas" + coordenadas.value);

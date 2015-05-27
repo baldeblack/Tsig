@@ -71,9 +71,9 @@ public class Pruebas implements Serializable{
      @EJB
     private InmuebleL inmuebleL;
     private Inmueble inmueble = new Inmueble();
-    private Zonas zon = new Zonas();
-    private Administrador adm = new Administrador();
-    private Propietario prop = new Propietario();
+    private final Zonas zon = new Zonas();
+    private final Administrador adm = new Administrador();
+    private final Propietario prop = new Propietario();
     
     
     
@@ -81,17 +81,38 @@ public class Pruebas implements Serializable{
     }
 
     public String pruebo(){
-      //  List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
+       String retorno=null;
+        try{
+            coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
+            logger.warn("Consulta  " + coordenadas.toString());
+            return "exito";        
+        }
+        catch(Exception e){
+        }
+        return retorno;   
+    }
+
+     /*List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
        //List<Inmueble> lista = new ArrayList();
        //List<String> rambla = inmuebleL.InmRambla(metros); //Le pasas los metros y te busca los inmuebles que esten a menos de esa distancia de la rambla
-       List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
+       //List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
        //List<Inmueble>inmpp = inmuebleL.findInmRambla(metros,lista);
-       coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
-       logger.warn("Consulta  " + coordenadas.toString());
-       return "exito";        
-    }
+     }*/
    
-                                        
+    //********************************************  
+    public String pruebo2(){
+        String retorno=null;
+        try{
+            List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
+            //logger.warn("Consulta  " + resultado.toString());
+            retorno="exito";
+        }
+        catch(Exception e){
+        }
+        return retorno;   
+    }
+     //******************************************** 
+    
     //Geter y Seter       
     
     public Inmueble getInmueble(){
