@@ -29,6 +29,6 @@ public interface ImagenesFacadeLocal {
     List<Imagenes> findRange(int[] range);
 
     int count();
-    
+    public Imagenes findImgPrincipal(int gidinm);
     
 }

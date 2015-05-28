@@ -83,7 +83,8 @@ public class Pruebas implements Serializable{
     public String pruebo(){
        String retorno=null;
         try{
-            coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
+            List<String> img = inmuebleL.getInmueblebasico(x, y);
+            //coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
             logger.warn("Consulta  " + coordenadas.toString());
             return "exito";        
         }

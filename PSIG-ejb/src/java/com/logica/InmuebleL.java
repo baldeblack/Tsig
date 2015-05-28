@@ -8,6 +8,7 @@ package com.logica;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
 import com.DAO.Conexion_geografica;
+import com.DAO.ImagenesFacade;
 import com.DAO.ImagenesFacadeLocal;
 import com.DAO.InmuebleFacadeLocal;
 import com.entity.Imagenes;
@@ -39,8 +40,8 @@ public class InmuebleL {
     
     @EJB
     private InmuebleFacadeLocal inmfacade;
-    private ImagenesFacadeLocal imagenfacade;
-    
+    @EJB
+    private ImagenesFacadeLocal imagenfacade; 
     
     static final Logger logger = Logger.getLogger(InmuebleL.class.getName()); 
     private Connection conexion;
@@ -546,7 +547,7 @@ public class InmuebleL {
             
             Inmueble inm = inmfacade.findInmueble(gid);
 
-            if(inm == null){
+            if(inm.getGidInm()!=0){
                 retorno.add(Integer.toString(gid));
                 retorno.add(inm.getProposito());
                 retorno.add(inm.getEstado());
@@ -565,6 +566,46 @@ public class InmuebleL {
                 retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
                 retorno.add(inm.getIdAdmin().getNombre());
                 retorno.add(x+" "+y);
+            }
+        }
+        return retorno;
+    }
+    
+    //paso algunos datos para mostrar en la pantalla al hacer clicl
+    public List<String> getInmueblebasico(String x, String y){
+        List<String> retorno = new ArrayList();
+        if(!x.equals("") && !y.equals("")){
+            //obtengo el gid del inmueble desde la coordenadas
+            int gid = findInmueblegid(x,y);        
+            //obtengo el inmueble desde el gid
+            
+            Inmueble inm = inmfacade.findInmueble(gid);
+
+            if(inm.getGidInm()!=0){
+             
+                //retorno.add(Integer.toString(gid));
+                //retorno.add(inm.getProposito());
+                retorno.add(inm.getEstado());
+                retorno.add(Integer.toString(inm.getTipo())); //casa o apartamento
+                retorno.add(String.valueOf(inm.getValormax()));
+               //retorno.add(String.valueOf(inm.getValormin()));
+                retorno.add(inm.getDireccion());
+                //retorno.add(Integer.toString(inm.getPadron()));
+                //retorno.add(inm.getIdPropietario().getNombre());
+                //retorno.add(Integer.toString(inm.getBanios()));
+                //retorno.add(Integer.toString(inm.getHabitaciones()));
+                //retorno.add(Boolean.toString(inm.getGarage()));
+                //retorno.add(Boolean.toString(inm.getJardin()));
+                //retorno.add(inm.getDescripcion());
+                retorno.add(inm.getTitulo());
+                
+                //retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
+                //retorno.add(inm.getIdAdmin().getNombre());
+                //retorno.add(x+" "+y);
+                
+                //imagen destacada del inmueble (para mostrar en la portada)
+                Imagenes img = imagenfacade.findImgPrincipal(gid);
+               retorno.add(img.getRuta());
             }
         }
         return retorno;
@@ -596,5 +637,6 @@ public class InmuebleL {
               }
     
         return coordenadas;
-    }            
+    }                       
+    
 }
