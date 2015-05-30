@@ -9,35 +9,41 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <h:outputStylesheet name="css/bootstrap.css" />
+        <h:outputStylesheet name="css/font-awesome.css" />
+        <h:outputStylesheet name="css/main.css" />
         <h:outputScript name="js/jquery.js" />
         <h:outputScript name="js/bootstrap.js" />
+        
     </h:head>
 
     <h:body>
 
         <div id="top">
-            <div class="navbar navbar-inverse" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Proyecto Tsig Grupo 15</a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <!--<li><h:link outcome="/admin" value="Admin"/></li>-->
-                        <li><h:link outcome="/Pruebas" value="Busqueda"/></li>
-                        <li><h:link outcome="/AltaInmueble" value="Inmueble"/></li>
-                        <li><h:link outcome="/AltaZona" value="Zonas"/></li>
-                        <li><h:link outcome="/login" value="LogIn"/></li>
-                    </ul>
+            <div class="navbar navbar-inverse navbar-fixed-top header-main" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand link-logo"  href="#">
+                            <h:graphicImage library="img" class="logo" name="logo.png" />
+                            <span>Geo</span><span>Inmuebles</span>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right menu-index">
+                            <!--<li><h:link outcome="/admin" value="Admin"/></li>-->
+                            <li><h:link outcome="/Pruebas" value="Busqueda"/></li>
+                            <li><h:link outcome="/AltaInmueble" value="Inmueble"/></li>
+                            <li><h:link outcome="/AltaZona" value="Zonas"/></li>
+                            <li><h:link outcome="/login" value="LogIn"/></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
 
         <div id="content" class="center_content">
@@ -45,7 +51,13 @@
         </div>
 
         <div id="bottom">
-            <ui:insert name="bottom"></ui:insert>
+            <ui:insert name="bottom">
+                <div class="navbar navbar-inverse navbar-fixed-bottom header-footer" role="navigation">
+                    <div class="container text-center">
+                        <h4>TSIG 2015 - Grupo 15</h4>
+                    </div>
+                </div>
+            </ui:insert>
         </div>
 
     </h:body>

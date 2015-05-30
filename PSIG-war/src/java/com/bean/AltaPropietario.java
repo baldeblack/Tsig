@@ -142,7 +142,5 @@ public class AltaPropietario {
         this.idPropietario = idPropietario;
     }
 
-
-    
     
 }

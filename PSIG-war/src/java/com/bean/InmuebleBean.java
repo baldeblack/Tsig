@@ -11,9 +11,11 @@ import com.entity.Imagenes;
 import com.entity.Inmueble;
 import com.entity.Propietario;
 import com.entity.Zonas;
+import com.logica.AdministradorL;
 import com.logica.InmuebleL;
-import java.io.Console;
+import com.logica.PropietarioL;
 import java.io.Serializable;
+import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import java.util.Collection;
 import java.util.List;
@@ -22,6 +24,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -33,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @ManagedBean
 @SessionScoped
 public class InmuebleBean implements Serializable{  
+    @EJB
+    private PropietarioL propietarioL;
     
     private static final Logger logger = Logger.getLogger(InmuebleBean.class.getName()); 
     
@@ -53,15 +59,18 @@ public class InmuebleBean implements Serializable{
     private Collection<Imagenes> imagenesCollection;
     private Collection<Consulta> consultaCollection;
     private Object gidzona;
-    private Object idPropietario;
+    private Propietario propietario;
+    //private Propietario propietario;
     private Object idAdmin;
     private String x;
     private String y;
-    
+    private List<SelectItem> selectOneItemPropietario;
+    private int idProp;
 
         
      @EJB
     private InmuebleL inmuebleL;
+    private AdministradorL admL;
     private Inmueble inmueble = new Inmueble();
     private Zonas zon = new Zonas();
     private Administrador adm = new Administrador();
@@ -75,8 +84,17 @@ public class InmuebleBean implements Serializable{
     public String altaInmueble(){                                    
         
         logger.warn("Valores x e y");
+        
+        /* ---- OBTENER ADMIN DE LA SESION TODAVIA ME FALTA ALGO OBTENGO EL NICK PERO ME DA ERROR AL BUSCAR ---*/
+        //HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        //String nick_admin = session.getAttribute("nick").toString();
+        //Administrador ad = admL.findadm(nick_admin);
        
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        
+        
+       
+        
         
         String valor_x = ec.getRequestParameterMap().get("form:punto_select_x");
 	//setX(x);
@@ -84,6 +102,8 @@ public class InmuebleBean implements Serializable{
 	//setX(y);
         
         
+        
+                
         if(x!=null){
             logger.warn("Valor x "+ x);
             logger.warn("Valor y "+ y);
@@ -97,9 +117,11 @@ public class InmuebleBean implements Serializable{
                 logger.warn("Valor y "+  valor_y);
              }
         zon.setGidzona(1);
-        zon.setNombre("Palermo");    
+        zon.setNombre("Palermo");
         adm.setIdAdmin(1);
-        prop.setIdPropietario(1);
+
+        
+        prop.setIdPropietario(idProp);
        
         inmueble.setBanios(banios);
         inmueble.setDescripcion("Prueba");
@@ -109,11 +131,11 @@ public class InmuebleBean implements Serializable{
         inmueble.setGidzona(zon);
         inmueble.setHabitaciones(3);       
         inmueble.setIdAdmin(adm);
-        inmueble.setIdPropietario( prop);
+        inmueble.setIdPropietario(prop);
         inmueble.setJardin(true);
         inmueble.setPadron(2345);
         inmueble.setPisos(2);
-        inmueble.setProposito("vender");
+        inmueble.setProposito(proposito);
         inmueble.setTipo(tipo);
         inmueble.setValormax(123.88);
         inmueble.setValormin(100.22);
@@ -122,6 +144,15 @@ public class InmuebleBean implements Serializable{
         logger.warn("valores x "+ x + "valor y "+ y);
         inmuebleL.crearInmueble(inmueble, x, y);
         return "index";
+    }
+    
+    public List<Inmueble> listarInmuebles(){
+        return inmuebleL.AllInmueble();
+    }
+    
+    public String detalleInmueble(Inmueble inm){
+        this.inmueble = inm;
+        return "DetalleInmueble";
     }
     
     public List<String> findInmueble(){
@@ -294,12 +325,13 @@ public class InmuebleBean implements Serializable{
         this.gidzona = gidzona;
     }
 
-    public Propietario getIdPropietario() {
-        return (Propietario) idPropietario;
+    
+    public Propietario getPropietario() {
+        return (Propietario) propietario;
     }
 
-    public void setIdPropietario(Propietario idPropietario) {
-        this.idPropietario = idPropietario;
+    public void setPropietario(Propietario prop) {
+        this.propietario = prop;
     }
 
     public Administrador getIdAdmin() {
@@ -309,4 +341,28 @@ public class InmuebleBean implements Serializable{
     public void setIdAdmin(Administrador idAdmin) {
         this.idAdmin = idAdmin;
     }
+
+    public List<SelectItem> getSelectOneItemPropietario() {
+        this.selectOneItemPropietario = new ArrayList<SelectItem>();
+        List<Propietario> listaProp = propietarioL.listarPropietarios();
+        for (Propietario propI : listaProp) {
+            SelectItem selectItem = new SelectItem(propI.getIdPropietario(),propI.getNombre()+' '+propI.getApellido());
+            this.selectOneItemPropietario.add(selectItem);
+        }
+        return selectOneItemPropietario;
+    }
+
+    public void setSelectOneItemPropietario(List<SelectItem> selectOneItemPropietario) {
+        this.selectOneItemPropietario = selectOneItemPropietario;
+    }
+
+    public int getIdProp() {
+        return idProp;
+    }
+
+    public void setIdProp(int idProp) {
+        this.idProp = idProp;
+    }
+
+
 }

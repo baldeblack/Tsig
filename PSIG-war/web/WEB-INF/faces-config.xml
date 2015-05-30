@@ -88,6 +88,22 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/AltaInmueble.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{inmuebleBean.altaInmueble}</from-action>
+            <from-outcome>ListaInmuebles</from-outcome>
+            <to-view-id>/ListaInmuebles.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/ListaInmuebles.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{inmuebleBean.detalleInmueble(i)}</from-action>
+            <from-outcome>DetalleInmueble</from-outcome>
+            <to-view-id>/DetalleInmueble.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/Pruebas.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{pruebas.pruebo}</from-action>
@@ -104,4 +120,5 @@
         </navigation-case>
     </navigation-rule>
     <!--REGLAS DE NAVEGACION-->
+
 </faces-config>

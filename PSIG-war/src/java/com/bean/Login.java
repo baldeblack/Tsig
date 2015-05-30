@@ -81,6 +81,7 @@ public class Login{
                 FacesContext.getCurrentInstance().addMessage(null,facesMessage);
                 return "login";
             }
+
             /*{
                 System.err.println("Entre if login");
                 httpServletRequest.getSession().setAttribute("nick", nick);
