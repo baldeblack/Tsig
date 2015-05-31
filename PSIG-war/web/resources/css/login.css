@@ -1,4 +1,20 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300|Oswald:300,400:latin,latin-ext);
 
+body{
+    font-family:'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    margin-top: 100px;
+    background:
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+}
 .div_login{
   border: 1px solid #2D2B37;
   border-radius: 15px;
@@ -13,4 +29,32 @@
 .msjSuccess{
     color:limegreen;
     list-style: none;
+}
+
+h1,h2,h3,.highlight,.navbar a,#contenido-principal h4 {
+  font-family:'Open Sans', sans-serif;
+}
+
+
+.div_login{
+  border: 1px solid white;
+  border-radius: 15px;
+  box-shadow:0 1px 0 #cfcfcf;
+  color:white;
+}
+
+.div_login label{
+	color:white;
+}
+
+.div_login h1{
+	color:white;
+}
+
+.div_login legend{
+	color:white;
+}
+
+.borde{
+	border: 1px solid blue;
 }

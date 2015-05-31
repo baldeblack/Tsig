@@ -8,7 +8,7 @@ package com.logica;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
 import com.DAO.Conexion_geografica;
-
+import com.DAO.ImagenesFacade;
 import com.DAO.ImagenesFacadeLocal;
 import com.DAO.InmuebleFacadeLocal;
 import com.DAO.ZonasFacade;
@@ -607,15 +607,13 @@ public class InmuebleL {
 
             if(inm.getGidInm()!=0){
              
-                
-                retorno.add(inm.getTitulo());
+                //retorno.add(Integer.toString(gid));
+                //retorno.add(inm.getProposito());
                 retorno.add(inm.getEstado());
                 retorno.add(Integer.toString(inm.getTipo())); //casa o apartamento
                 retorno.add(String.valueOf(inm.getValormax()));
+               //retorno.add(String.valueOf(inm.getValormin()));
                 retorno.add(inm.getDireccion());
-                //retorno.add(Integer.toString(gid));
-                //retorno.add(inm.getProposito());
-                //retorno.add(String.valueOf(inm.getValormin()));
                 //retorno.add(Integer.toString(inm.getPadron()));
                 //retorno.add(inm.getIdPropietario().getNombre());
                 //retorno.add(Integer.toString(inm.getBanios()));
@@ -623,9 +621,12 @@ public class InmuebleL {
                 //retorno.add(Boolean.toString(inm.getGarage()));
                 //retorno.add(Boolean.toString(inm.getJardin()));
                 //retorno.add(inm.getDescripcion());
+                retorno.add(inm.getTitulo());
+                
                 //retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
                 //retorno.add(inm.getIdAdmin().getNombre());
                 //retorno.add(x+" "+y);
+                
                 //imagen destacada del inmueble (para mostrar en la portada)
                 Imagenes img = imagenfacade.findImgPrincipal(gid);
                retorno.add(img.getRuta());

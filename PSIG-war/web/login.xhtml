@@ -1,41 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html   xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html">
-    <body>
-        <ui:composition template="./templates/layoutSitio.xhtml">
-            <ui:define name="content">
-                <div class="container contenedor_login">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3  div_login">
-                            <h1 class=".hidden-xs .hidden-sm text-center">Panel Admin</h1><br/>
-                            <fieldset>
-                                <legend class="text-center">Iniciar Sesion</legend>
-                                <h:form  class="form-horizontal">
-                                        <div><h:messages errorClass="msjError" infoClass="msjSuccess"/></div>
-                                        <div class="control-group">
-                                            <label class="control-label">Usuario</label>
-                                            <div class="controls">
-                                                <h:inputText value="#{loginBean.nick}" id="nick" class="form-control" />
-                                            </div>
-                                        </div><br/>
-                                        <div class="control-group">
-                                            <label class="control-label">Contraseña</label>
-                                            <div class="controls">
-                                                <h:inputSecret value="#{loginBean.password}" id="password"  class="form-control" />
-                                            </div>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <h:outputStylesheet name="./css/bootstrap.css" />
+        <h:outputStylesheet name="./css/bootstrap-theme.min.css" />
+        <h:outputScript name="./js/jquery.js" />
+        <h:outputScript name="./js/bootstrap.js" />
+        <h:outputStylesheet name="./css/login.css" />
+        <title>Login</title>
+    </h:head>
+    <h:body>
+            <div class="container contenedor_login">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3  div_login">
+                        <h1 class=".hidden-xs .hidden-sm text-center">Panel Admin</h1><br/>
+                        <fieldset>
+                            <legend class="text-center">Iniciar Sesion</legend>
+                            <h:form  class="form-horizontal">
+                                    <div><h:messages errorClass="msjError" infoClass="msjSuccess"/></div>
+                                    <div class="control-group">
+                                        <label class="control-label">Usuario</label>
+                                        <div class="controls">
+                                            <h:inputText value="#{loginBean.nick}" id="nick" class="form-control" />
                                         </div>
-                                        <br/>
-                                        <div class="control-group form-actions text-center">
-                                            <h:commandButton type="submit" value="Login" action="#{loginBean.checkLogin}" class="btn btn-success"/>
-                                        </div><br/>
-                                </h:form>
-                            </fieldset>
-                        </div>
+                                    </div><br/>
+                                    <div class="control-group">
+                                        <label class="control-label">Contraseña</label>
+                                        <div class="controls">
+                                            <h:inputSecret value="#{loginBean.password}" id="password"  class="form-control" />
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="control-group form-actions text-center">
+                                        <h:commandButton type="submit" value="Login" action="#{loginBean.checkLogin}" class="btn btn-success"/>
+                                    </div><br/>
+                                    
+                            </h:form>
+                        </fieldset>
                     </div>
-                </div>        
-            </ui:define>
-        </ui:composition>
-    </body>
+                </div>
+
+            </div>        
+
+    </h:body>
 </html>
