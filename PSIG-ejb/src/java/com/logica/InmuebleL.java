@@ -8,10 +8,14 @@ package com.logica;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
 import com.DAO.Conexion_geografica;
+
 import com.DAO.ImagenesFacadeLocal;
 import com.DAO.InmuebleFacadeLocal;
+import com.DAO.ZonasFacade;
+import com.DAO.ZonasFacadeLocal;
 import com.entity.Imagenes;
 import com.entity.Inmueble;
+import com.entity.Zonas;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,18 +38,21 @@ import javax.persistence.Query;
 @Stateless
 //@LocalBean
 public class InmuebleL {
+    @EJB
+    private ZonasFacadeLocal zonasFacade;
     @PersistenceContext(unitName = "PSIG-ejbPU")
     private EntityManager em; 
     
     @EJB
     private InmuebleFacadeLocal inmfacade;
-    private ImagenesFacadeLocal imagenfacade;
-    
+    @EJB
+    private ImagenesFacadeLocal imagenfacade; 
     
     static final Logger logger = Logger.getLogger(InmuebleL.class.getName()); 
     private Connection conexion;
     private Statement s;
     private boolean resultado;
+    private Object zonaF;
     
     
    /* public boolean crearInmueble(Inmueble inm, String x, String y){        
@@ -74,7 +81,23 @@ public class InmuebleL {
             
             //seteo el id de inmueble
             inm.setGidInm(Idinm);
-            
+            try{
+                int gidZona=inmfacade.zonaInmueble(x, y);
+                logger.warn("GID ZONA A QUE PERTENECE =  "+Idinm);
+                if (gidZona!=0){
+                    Zonas zona=zonasFacade.buscarZona(gidZona);
+                    if (zona!=null){
+                        logger.warn("ZONA A QUE PERTENECE  con gid=  "+zona.getGidzona());
+                        inm.setGidzona(zona);
+                    }
+                    else{
+                        logger.warn("ZONA NULL");
+                    }
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
             //persisto el inmueble en la base relacional
             em.persist(inm);
             
@@ -531,6 +554,8 @@ public class InmuebleL {
                     resulttabla = result.getString(1);                                                  
                     gid = Integer.parseInt(resulttabla);                                                                          
                 }
+            
+                conexion.close();
             } catch (SQLException ex) {                    
               }                                                                                                                                                  
         return gid;
@@ -546,7 +571,7 @@ public class InmuebleL {
             
             Inmueble inm = inmfacade.findInmueble(gid);
 
-            if(inm == null){
+            if(inm.getGidInm()!=0){
                 retorno.add(Integer.toString(gid));
                 retorno.add(inm.getProposito());
                 retorno.add(inm.getEstado());
@@ -565,6 +590,45 @@ public class InmuebleL {
                 retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
                 retorno.add(inm.getIdAdmin().getNombre());
                 retorno.add(x+" "+y);
+            }
+        }
+        return retorno;
+    }
+    
+    //paso algunos datos para mostrar en la pantalla al hacer clicl
+    public List<String> getInmueblebasico(String x, String y){
+        List<String> retorno = new ArrayList();
+        if(!x.equals("") && !y.equals("")){
+            //obtengo el gid del inmueble desde la coordenadas
+            int gid = findInmueblegid(x,y);        
+            //obtengo el inmueble desde el gid
+            
+            Inmueble inm = inmfacade.findInmueble(gid);
+
+            if(inm.getGidInm()!=0){
+             
+                
+                retorno.add(inm.getTitulo());
+                retorno.add(inm.getEstado());
+                retorno.add(Integer.toString(inm.getTipo())); //casa o apartamento
+                retorno.add(String.valueOf(inm.getValormax()));
+                retorno.add(inm.getDireccion());
+                //retorno.add(Integer.toString(gid));
+                //retorno.add(inm.getProposito());
+                //retorno.add(String.valueOf(inm.getValormin()));
+                //retorno.add(Integer.toString(inm.getPadron()));
+                //retorno.add(inm.getIdPropietario().getNombre());
+                //retorno.add(Integer.toString(inm.getBanios()));
+                //retorno.add(Integer.toString(inm.getHabitaciones()));
+                //retorno.add(Boolean.toString(inm.getGarage()));
+                //retorno.add(Boolean.toString(inm.getJardin()));
+                //retorno.add(inm.getDescripcion());
+                //retorno.add(Integer.toString(inm.getGidzona().getGidzona()));
+                //retorno.add(inm.getIdAdmin().getNombre());
+                //retorno.add(x+" "+y);
+                //imagen destacada del inmueble (para mostrar en la portada)
+                Imagenes img = imagenfacade.findImgPrincipal(gid);
+               retorno.add(img.getRuta());
             }
         }
         return retorno;
@@ -591,10 +655,12 @@ public class InmuebleL {
                 resulttabla = result.getString(1);                                                  
                 String solocoordenadas = CadenaString(resulttabla);  
                 coordenadas.add(solocoordenadas);
-                }
-            } catch (SQLException ex) {                    
-              }
-    
+            }
+            conexion.close();
+        } 
+        catch (SQLException ex) {                    
+        }
         return coordenadas;
-    }            
+    }                       
+    
 }

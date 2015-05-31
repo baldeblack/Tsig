@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<faces-config version="2.1"
+<faces-config version="2.2"
               xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
@@ -25,6 +25,18 @@
         <managed-bean-class>com.bean.AltaPropietario</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>zonaBean</managed-bean-name>
+        <managed-bean-class>com.bean.ZonaBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+   <!-- <managed-bean>
+        <managed-bean-name>pruebas</managed-bean-name>
+        <managed-bean-class>com.bean.Pruebas</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>-->
     <!--*********************************************************************-->
     <!--REGLAS DE NAVEGACION-->
     <navigation-rule>
@@ -83,25 +95,9 @@
         <from-view-id>/AltaInmueble.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{inmuebleBean.altaInmueble}</from-action>
-            <from-outcome>index</from-outcome>
+            <from-outcome>exito</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/Pruebas.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{pruebas.pruebo}</from-action>
-            <from-outcome>exito</from-outcome>
-            <to-view-id>/ResultadoBusqueda.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/ResultadoBusqueda.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{pruebas.pruebo2}</from-action>
-            <from-outcome>exito</from-outcome>
-            <to-view-id>/DetalleInmueble.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <!--REGLAS DE NAVEGACION-->
+     <!--REGLAS DE NAVEGACION-->
 </faces-config>

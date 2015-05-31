@@ -8,6 +8,7 @@ package com.DAO;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
 import com.entity.Inmueble;
+import com.entity.Zonas;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -129,6 +130,62 @@ public class InmuebleFacade extends AbstractFacade<Inmueble> implements Inmueble
             } 
         }   
         return null;
+    }
+
+    @Override
+    public int zonaInmueble(String x, String y) {
+    int gid=0;
+        try{   
+            try { 
+               logger.warn("CONEXION A establecer");
+               conexion = OrigenDatos.getConnection();
+                if (conexion.isClosed()){
+                   logger.warn("CONEXION cerrada");
+                   PoolConexiones pool= new PoolConexiones() ;
+                   conexion = pool.getConnectionFromPool();
+                   logger.warn("CONEXION = "+ conexion.getSchema());
+                }
+            }
+            catch(ClassNotFoundException e){
+                e.printStackTrace();
+            }
+            try{
+                s = conexion.createStatement();
+                String consulta = "select * from zonas z where ST_Intersects("
+                        + "Geography(ST_Transform(z.geom,4326)),"
+                        + "ST_GeographyFromText('SRID=4326;POINT("
+                        + x 
+                        + " "
+                        + y 
+                        + ")'))";
+               
+                logger.warn("Consulta ="+consulta);
+                
+                try {
+                    ResultSet result = s.executeQuery(consulta);
+                    while (result.next()) {               // Situar el cursor
+                        String resulttabla = result.getString(1);                                                                  
+                        gid = Integer.parseInt(resulttabla);
+                        
+                    }
+                } 
+                catch (SQLException ex) { 
+                    ex.printStackTrace();
+                }                
+                conexion.close();
+                OrigenDatos.returnConnection(conexion);
+                //resultado =true; 
+               }
+            catch(SQLException e){
+                 e.printStackTrace();
+            }
+        } 
+        catch (SQLException e) {
+            logger.error("Error al consultar si hay interseccion");
+            e.printStackTrace();
+            resultado= false;
+        }
+        return gid;
     }
         
 }

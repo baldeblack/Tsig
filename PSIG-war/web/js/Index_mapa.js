@@ -24,12 +24,12 @@ map.addLayer(rambla);
 var zonas = new OpenLayers.Layer.WMS(
     "-Zonas de demanda", "http://localhost:8081/geoserver/wms",
     {
-        srs: "EPSG:32721",
+        srs: "EPSG:4326",
         layers: 'TSIG:zonas',
         transparent: true,
         format:'image/png'
-    }
-
+    },
+     {   opacity: 0.7}        
 );
 zonas.visibility=false;
 map.addLayer(zonas);
@@ -83,10 +83,10 @@ var inmueble = new OpenLayers.Layer.WMS(
     {
         srs: "EPSG:4326",
         layers: 'TSIG:inmueble',
-
         transparent: true,
         format:'image/png'
     }
+    
 
 );
 inmueble.visibility=false;

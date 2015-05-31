@@ -6,6 +6,24 @@ map.getProjectionObject() // a la Proyeccion Spherical Mercator
 );
 var zoom=13;
 
+
+var zonas = new OpenLayers.Layer.WMS(
+    "-Zonas de demanda", "http://localhost:8081/geoserver/wms",
+    {
+        srs: "EPSG:4326",
+        layers: 'TSIG:zonas',
+        transparent: true,
+        format:'image/png'
+    },
+     {   opacity: 0.7}        
+);
+zonas.visibility=true;
+map.addLayer(zonas);
+
+
+
+
+
 // Capa manzanas
 var manzanas = new OpenLayers.Layer.WMS(
     "-Manzanas", "http://localhost:8081/geoserver/wms",

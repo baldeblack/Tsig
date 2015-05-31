@@ -6,36 +6,70 @@
     <body>
         <ui:composition template="./templates/layoutSitio.xhtml">
             <ui:define name="content">        
-                <div class="panel with-nav-tabs panel-primary">
-                    <div class="panel-heading">
-                        <h3>Alta Inmueble</h3>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <h3>Alta Inmueble</h3>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <h:form class="form-horizontal" id="formulario">
+                    <h:form class="form-horizontal" id="formulario">
+                        <div class="col-md-4">
                             <h:panelGrid columns="2">
-                                <h:outputLabel value="Titulo:" for="Titulo" />
-                                <h:inputText id="titulo" value="#{inmuebleBean.titulo}" title="Titulo" />
-                                <h:outputLabel value="Tipo:" for="tipo" />
-                                <h:inputText id="tipo" value="#{inmuebleBean.tipo}" title="tipo" /> 
-                                <h:outputLabel value="Baño:" for="banio" />
-                                <h:inputText id="banio" value="#{inmuebleBean.banios}" title="banio" />
-                                <h:outputLabel value="Descripcion: " for="descripcion" />
-                                <h:inputText id="descripcion" value="#{inmuebleBean.descripcion}" title="descripcion" />
-                                <h:outputLabel value="direccion" for="direccion" />
-                                <h:inputText id="direccion" value="#{inmuebleBean.direccion}" title="direccion" />
-                                <h:outputLabel value="estado:" for="estado" />
-                                <h:inputText id="estado" value="#{inmuebleBean.estado}" title="estado" />                                                                                
+                                <div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Titulo:" for="Titulo" />
+                                    <div class="col-sm-10">
+                                        <h:inputText id="titulo" value="#{inmuebleBean.titulo}" title="Titulo" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Tipo:" for="tipo" />
+                                    <div class="col-sm-10">
+                                    <h:inputText id="tipo" value="#{inmuebleBean.tipo}" title="tipo" /> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Baño:" for="banio" />
+                                    <div class="col-sm-10">
+                                    <h:inputText id="banio" value="#{inmuebleBean.banios}" title="banio" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Descripcion: " for="descripcion" />
+                                    <div class="col-sm-10">
+                                    <h:inputText id="descripcion" value="#{inmuebleBean.descripcion}" title="descripcion" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Direccion: " for="direccion" />
+                                    <div class="col-sm-10">
+                                    <h:inputText id="direccion" value="#{inmuebleBean.direccion}" title="direccion" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Estado:" for="estado" />
+                                    <div class="col-sm-10">
+                                    <h:inputText id="estado" value="#{inmuebleBean.estado}" title="estado" />
+                                    </div>
+                                </div>
                             </h:panelGrid>
-                            <spacer height="10" />
-                            <div id="map" style="width: 800px; height: 500px;"></div>
+                        <spacer height="10" />
+                        </div>
+                        <h:panelGrid columns="1">
+                            <div class="col-md-4" id="map" style="width: 650px; height: 400px;"></div>
                             <script src="OpenLayers.js" target="body" />
                             <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
                             <script src="js/InmuebleJS.js" target="body" />	
                             <h:inputHidden id="punto_select_x"  value="#{inmuebleBean.x}"/>
                             <h:inputHidden id="punto_select_y" value="#{inmuebleBean.y}"/>
-                            <h:commandButton onmousedown="GuardarPunto();" value="Guardar"  action="#{inmuebleBean.altaInmueble}"/>
-                        </h:form>
-                    </div>
+                        </h:panelGrid>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4">
+                                <h:commandButton onmousedown="GuardarPunto();" value="Guardar"  action="#{inmuebleBean.altaInmueble}"/>
+                            </div>
+                        </div>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>

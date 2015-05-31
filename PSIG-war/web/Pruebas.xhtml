@@ -6,36 +6,79 @@
     <body>
         <ui:composition template="./templates/layoutSitio.xhtml">
             <ui:define name="content">        
-                <div class="panel with-nav-tabs panel-primary">
-                    <div class="panel-heading">
-                        <h3>Pruebas</h3>
-                    </div>
-                    <div class="panel-body">     
-                        <h:form class="form-horizontal" id="formulario">
-                            <h1><h:outputText value="Buscar Inmueble"/></h1>
-                            <h:panelGrid columns="2">
-                               <h:outputLabel value="habitaciones(0 deshabilita):" for="habitaciones" />
-                               <h:inputText id="habitaciones" value="#{pruebas.habitaciones}" title="habitaciones" />
-                               <h:outputLabel value="banios(0 deshabilita):" for="banios" />
-                               <h:inputText id="banios" value="#{pruebas.banios}" title="banios" />
-                               <h:outputLabel value="pisos(0 deshabilita):" for="pisos" />
-                               <h:inputText id="pisos" value="#{pruebas.pisos}" title="pisos" />
-                               <h:outputLabel value="garage(false deshabilita):" for="pisos" />
-                               <h:inputText id="garage" value="#{pruebas.garage}" title="garage" />
-                               <h:outputLabel value="jardin(false deshabilita):" for="jardin" />
-                               <h:inputText id="jardin" value="#{pruebas.jardin}" title="jardin" />
-                               <h:outputLabel value="proposito(alquilar o vender)" for="proposito" />
-                               <h:inputText id="proposito" value="#{pruebas.proposito}" title="proposito" />
-                               <h:outputLabel value="x:" for="x" />
-                               <h:inputText id="x" value="#{pruebas.x}" title="x" />
-                               <h:outputLabel value="y:" for="y" />
-                               <h:inputText id="y" value="#{pruebas.y}" title="y" />
-                               <h:outputLabel value="metros Rambla:" for="metros" />
-                               <h:inputText id="metros" value="#{pruebas.metros}" title="metros" />
-                            </h:panelGrid>
-                            <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo}"></h:commandButton>        
-                        </h:form>
-                    </div>
+                <div class="container">
+                    <h3>Busqueda</h3>
+                    <h:form class="form-horizontal" role="form" id="formulario">
+                            <div class="form-group form-group-sm">
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" for="habitaciones">Habitaciones(0):</label>
+                                <div class="col-sm-10">
+                                <h:inputText id="habitaciones" value="#{pruebas.habitaciones}" title="habitaciones" />
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" for="banios">Baños(0):</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="banios" value="#{pruebas.banios}" title="banios" />
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" for="pisos">Pisos(0):</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="pisos" value="#{pruebas.pisos}" title="pisos" />
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" for="garage">Garage(False):</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="garage" value="#{pruebas.garage}" title="garage" />
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" for="jardin">Jardin(False):</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="jardin" value="#{pruebas.jardin}" title="jardin" />
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" for="proposito">Proposito(alquilar o vender)</label>
+                                <div class="col-sm-10">
+                                <h:inputText id="proposito" value="#{pruebas.proposito}" title="proposito" />
+                                </div>
+                            </div>
+                           <!-- <div class="form-group">
+                                <h:outputLabel value="Coordenadas x:" for="x" />
+                                <div class="col-sm-10">
+                                <h:inputText id="x" value="{pruebas.x}" title="x" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value=" Coordenadas y:" for="y" />
+                                <div class="col-sm-10">
+                                    <h:inputText id="y" value="{pruebas.y}" title="y" />
+                                </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="metros">Distancia Rambla:</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="metros" value="#{pruebas.metros}" title="metros" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4">
+                                <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo}"></h:commandButton>
+                            </div>
+                        </div>
+                           
+                        <div class="form-group form-group-sm">    
+                            <div class="col-xs-6 col-sm-4">
+                               <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                            </div>
+                        </div>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>

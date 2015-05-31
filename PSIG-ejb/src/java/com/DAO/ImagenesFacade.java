@@ -36,6 +36,20 @@ public class ImagenesFacade extends AbstractFacade<Imagenes> implements Imagenes
         return getEntityManager().createQuery(cq).getResultList();                
     }
     
-   
+    //busco la imagen destacada de un imbuele para mostrar en la vista
+    @Override
+    public Imagenes findImgPrincipal(int gidinm){
+        List<Imagenes> allimg = findAllImg();
+        Imagenes imgreturn = new Imagenes();
+        if(!allimg.isEmpty()){
+            for(Imagenes img : allimg){
+                int buscoid = img.getGidInm().getGidInm();
+                if(buscoid == gidinm && img.getDestacada() == true){
+                    imgreturn = img;
+                }
+            }
+        }
+        return imgreturn;
+    }
     
 }

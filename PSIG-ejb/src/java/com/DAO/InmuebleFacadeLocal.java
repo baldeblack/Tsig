@@ -35,4 +35,6 @@ public interface InmuebleFacadeLocal {
     public Inmueble findInmueble(int gidinmueble);
     public boolean editarInmueble(Inmueble inm);
     
+    public int zonaInmueble (String x, String y);
+    
 }

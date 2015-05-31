@@ -5,28 +5,34 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <body>
         <ui:composition template="./templates/layoutSitio.xhtml">
-            <ui:define name="content">    
+            <ui:define name="content">        
                 <div class="container">
-                    <h:form id="form">
-                        <div>
-                            <h:outputLabel value="Nombre de la zona" />
-                            <h:inputText value="#{AltaZona.nombre_zona}" />
+                    <h3>Alta de Zona</h3>
+                    <h:form class="form-group form-group-sm" role="form" id="formulario">
+                        <div class="form-group form-group-sm">
+                            
+                            <label class="col-sm-2 control-label"  for="nombre_zona" >Nombre de la Zona</label>
+                            <div class="col-sm-8">
+                                <h:inputText id="nombre_zona" value="#{zonaBean.nombre_zona}" title="nombre_zona" />
+                            </div>
                         </div>
-                        <div>
-                            <h:outputLabel value="Descripcion de la zona" />
-                            <h:inputText value="#{AltaZona.descripcion_zona}" />
+                        <div class="form-group form-group-sm">
+                                <div class="col-md-10" id="map" style="width: 100%; height: 400px;"></div>
+                                    <script src="OpenLayers.js" target="body" />
+                                    <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
+                                    <script src="js/Zona.js" target="body" />	
+                                <h:inputHidden id="zona_puntos"  value="#{zonaBean.zona_puntos}"/>
+                        </div> 
+                        <div class="form-group form-group-sm">
+                            <div class="col-xs-6 col-sm-4">
+                                <h:commandButton onmousedown="GuardarZona();" value="Guardar"  action="#{zonaBean.altaZona}"/>
+                            </div>
+                        </div>    
+                        <div class="form-group form-group-sm">    
+                           <div class="col-xs-6 col-sm-4">
+                              <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                           </div>
                         </div>
-                        <div>
-                            <h:outputLabel value="Demanda" />
-                            <h:inputText value="#{AltaZona.demanda}" />
-                        </div>
-                         <div class="control-group form-actions text-center">
-                            <h:commandButton type="submit" value="Login" action="#{AltaZona.crearZona()}" class="btn btn-success"/>
-                        </div>
-                        <div id="map_container" style="width: 500px; height: 500px;"></div>
-                        <script src="resources/openLayers/OpenLayers.js" />
-                        <script src="resources/js/zona.js" />
-                        <h:inputHidden id="zonaSelec" value="#{AltaZona.zona_puntos}" />
                     </h:form>
                 </div>
             </ui:define>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bean;
 
 import com.entity.Administrador;
@@ -16,9 +11,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.xml.bind.annotation.XmlTransient;
 import org.apache.log4j.Logger;
 
@@ -28,21 +30,12 @@ import org.apache.log4j.Logger;
  */
 @ManagedBean
 @SessionScoped
-public class Pruebas implements Serializable{  
+public class Pruebas implements Serializable{ 
     
-   
+    // Logging
     private static final Logger logger = Logger.getLogger(Pruebas.class.getName()); 
-   
-    private List<String> coordenadas;
-
-    public List<String> getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(List<String> coordenadas) {
-        this.coordenadas = coordenadas;
-    }
     
+    // Atributos inmueble
     private String proposito;
     private String estado;
     private Integer tipo;
@@ -62,58 +55,176 @@ public class Pruebas implements Serializable{
     private Object gidzona;
     private Object idPropietario;
     private Object idAdmin;
+   
+    private int metros;
+    
+    private List<String> coordenadas;
+    
+    // Datos basicos inmueble
     private String x;
     private String y;
-    private int metros;
-
     
-        
-     @EJB
+    private String x_nuevo;
+    private String y_nuevo;
+    private FacesMessage mensaje;
+    private FacesContext contexto;
+    private FacesMessage facesMessage;
+    
+    
+ 
+    
+    private List<String> inmueble_basico;
+    private List<String> inmueble_completo;
+    
+    private String nombre;
+    
+    @EJB
     private InmuebleL inmuebleL;
     private Inmueble inmueble = new Inmueble();
     private final Zonas zon = new Zonas();
     private final Administrador adm = new Administrador();
     private final Propietario prop = new Propietario();
-    
+    private String coordenadas_String;
     
     
     public Pruebas(){
+       
     }
-
+    
+    //Metodos
     public String pruebo(){
-       String retorno=null;
+       String retorno="ResultadoBusqueda";
         try{
             coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
-            logger.warn("Consulta  " + coordenadas.toString());
-            return "exito";        
+            
+           
+            if (coordenadas!=null){
+                
+                 coordenadas_String= coordenadas.toString();
+                logger.warn("Consulta Pruebo 1   " + coordenadas_String);
+                 retorno= "ResultadoBusqueda";        
+            }
+            else{
+                facesMessage= new FacesMessage(FacesMessage.SEVERITY_ERROR,"No hay resultados para la busqueda",null);
+                contexto.addMessage(null, facesMessage);
+                retorno= "Pruebas";
+            
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return retorno;   
+    }
+
+    public String getCoordenadas_String() {
+        return coordenadas_String;
+    }
+
+    public void setCoordenadas_String(String coordenadas_String) {
+        this.coordenadas_String = coordenadas_String;
+    }
+    //********************************************  
+    public String consulta2(){
+        String retorno="ResultadoBusqueda";
+        try{
+            x_nuevo= "-56.1729062389646";
+            y_nuevo="-34.8927886510942";
+            logger.warn("Consulta 2" + x_nuevo + " "+ y_nuevo);
+            //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            //x_nuevo= ec.getRequestParameterMap().get("formulario:x_nuevo");
+            //y_nuevo = ec.getRequestParameterMap().get("formulario:y_nuevo");
+            inmueble_completo = inmuebleL.getInmueble(x_nuevo,y_nuevo);
+            //le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
+            if (inmueble_completo!=null){
+                logger.warn("Consulta Pruebo 2  " + inmueble_completo.toString());
+                retorno="DetalleInmueble";
+            }
+            else{
+                facesMessage= new FacesMessage(FacesMessage.SEVERITY_ERROR,"No hay detalle del inmueble",null);
+                contexto.addMessage(null, facesMessage);
+                retorno= "ResultadoBusqueda";
+            }
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return retorno;   
+    }
+    
+   
+    //******************************************** 
+    public String pruebo3(){
+        String retorno=null;
+        try{
+            inmueble_basico = inmuebleL.getInmueblebasico(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
+            //logger.warn("Consulta  " + resultado.toString());
+            retorno="DetalleInmueble";
         }
         catch(Exception e){
         }
         return retorno;   
     }
-
-     /*List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
+    /*List<String> coordenadas = inmuebleL.findhabitaciones(habitaciones);               
        //List<Inmueble> lista = new ArrayList();
        //List<String> rambla = inmuebleL.InmRambla(metros); //Le pasas los metros y te busca los inmuebles que esten a menos de esa distancia de la rambla
        //List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
        //List<Inmueble>inmpp = inmuebleL.findInmRambla(metros,lista);
      }*/
-   
-    //********************************************  
-    public String pruebo2(){
+    /*
+     public String pruebo(){
         String retorno=null;
-        try{
-            List<String> resultado = inmuebleL.getInmueble(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
-            //logger.warn("Consulta  " + resultado.toString());
-            retorno="exito";
-        }
-        catch(Exception e){
-        }
-        return retorno;   
-    }
-     //******************************************** 
+         try{
+-            coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
++            List<String> img = inmuebleL.getInmueblebasico(x, y);
++            //coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
+             logger.warn("Consulta  " + coordenadas.toString());
+             return "exito";        
+         }
+    */
     
-    //Geter y Seter       
+//Geter y Seter  
+    
+     public String getX_nuevo() {
+        return x_nuevo;
+    }
+
+    public void setX_nuevo(String x_nuevo) {
+        this.x_nuevo = x_nuevo;
+    }
+
+    public String getY_nuevo() {
+        return y_nuevo;
+    }
+
+    public void setY_nuevo(String y_nuevo) {
+        this.y_nuevo = y_nuevo;
+    }
+    
+    public List<String> getInmueble_basico() {
+        return inmueble_basico;
+    }
+
+    public void setInmueble_basico(List<String> inmueble_basico) {
+        this.inmueble_basico = inmueble_basico;
+    }
+    
+    public List<String> getCoordenadas() {
+        return coordenadas;
+    }
+    
+   public void setCoordenadas(List<String> coordenadas) {
+        this.coordenadas = coordenadas;
+    }
+    
+    public List<String> getInmueble_completo() {
+        return inmueble_completo;
+    }
+
+    public void setInmueble_completo(List<String> inmueble_completo) {
+        this.inmueble_completo = inmueble_completo;
+    }
     
     public Inmueble getInmueble(){
         return this.inmueble;
@@ -299,4 +410,54 @@ public class Pruebas implements Serializable{
     public void setMetros(int metros) {
         this.metros = metros;
     }
+    
+     public void addMessage(String summary, FacesMessage.Severity tipo_msj) {
+        FacesMessage message = new FacesMessage(tipo_msj, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    public void setIdAdmin(Object idAdmin) {
+        this.idAdmin = idAdmin;
+    }
+
+    public FacesMessage getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(FacesMessage mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public FacesContext getContexto() {
+        return contexto;
+    }
+
+    public void setContexto(FacesContext contexto) {
+        this.contexto = contexto;
+    }
+
+    public FacesMessage getFacesMessage() {
+        return facesMessage;
+    }
+
+    public void setFacesMessage(FacesMessage facesMessage) {
+        this.facesMessage = facesMessage;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public InmuebleL getInmuebleL() {
+        return inmuebleL;
+    }
+
+    public void setInmuebleL(InmuebleL inmuebleL) {
+        this.inmuebleL = inmuebleL;
+    }
+     
+     
 }
