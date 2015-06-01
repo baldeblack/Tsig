@@ -4,6 +4,7 @@ import com.entity.Administrador;
 import com.entity.Consulta;
 import com.entity.Imagenes;
 import com.entity.Inmueble;
+import com.entity.Objeto;
 import com.entity.Propietario;
 import com.entity.Zonas;
 import com.logica.InmuebleL;
@@ -34,6 +35,9 @@ public class Pruebas implements Serializable{
     
     // Logging
     private static final Logger logger = Logger.getLogger(Pruebas.class.getName()); 
+   
+    private List<String> coordenadas;
+    private List<Objeto> objetos = new ArrayList(); 
     
     // Atributos inmueble
     private String proposito;
@@ -54,11 +58,8 @@ public class Pruebas implements Serializable{
     private Collection<Consulta> consultaCollection;
     private Object gidzona;
     private Object idPropietario;
-    private Object idAdmin;
-   
-    private int metros;
-    
-    private List<String> coordenadas;
+    private Object idAdmin;   
+    private int metros;       
     
     // Datos basicos inmueble
     private String x;
@@ -68,14 +69,10 @@ public class Pruebas implements Serializable{
     private String y_nuevo;
     private FacesMessage mensaje;
     private FacesContext contexto;
-    private FacesMessage facesMessage;
-    
-    
- 
-    
+    private FacesMessage facesMessage;             
     private List<String> inmueble_basico;
-    private List<String> inmueble_completo;
-    
+    private List<String> inmueble_completo;    
+    private int metrossuper;      
     private String nombre;
     
     @EJB
@@ -95,12 +92,12 @@ public class Pruebas implements Serializable{
     public String pruebo(){
        String retorno="ResultadoBusqueda";
         try{
-            coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros);       
+           // coordenadas = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros,metrossuper);       
             
            
             if (coordenadas!=null){
                 
-                 coordenadas_String= coordenadas.toString();
+                coordenadas_String= coordenadas.toString();
                 logger.warn("Consulta Pruebo 1   " + coordenadas_String);
                  retorno= "ResultadoBusqueda";        
             }
@@ -409,55 +406,5 @@ public class Pruebas implements Serializable{
 
     public void setMetros(int metros) {
         this.metros = metros;
-    }
-    
-     public void addMessage(String summary, FacesMessage.Severity tipo_msj) {
-        FacesMessage message = new FacesMessage(tipo_msj, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-    public void setIdAdmin(Object idAdmin) {
-        this.idAdmin = idAdmin;
-    }
-
-    public FacesMessage getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(FacesMessage mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public FacesContext getContexto() {
-        return contexto;
-    }
-
-    public void setContexto(FacesContext contexto) {
-        this.contexto = contexto;
-    }
-
-    public FacesMessage getFacesMessage() {
-        return facesMessage;
-    }
-
-    public void setFacesMessage(FacesMessage facesMessage) {
-        this.facesMessage = facesMessage;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public InmuebleL getInmuebleL() {
-        return inmuebleL;
-    }
-
-    public void setInmuebleL(InmuebleL inmuebleL) {
-        this.inmuebleL = inmuebleL;
-    }
-     
-     
+    }    
 }
