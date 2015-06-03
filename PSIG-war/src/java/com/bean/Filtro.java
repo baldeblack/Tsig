@@ -44,6 +44,8 @@ public class Filtro implements Serializable{
     private Object idPropietario;
     private Object idAdmin;   
     private int metros;  
+    private int metrosparada;
+
     
     private int metrossuper;  
     private String resultado = "";
@@ -61,7 +63,9 @@ public class Filtro implements Serializable{
     public String GetFiltrado(){
         resultado = "";
         String retorno="ResultadoBusqueda";
-        List<Objeto> objetos = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros,metrossuper);
+        
+         //String retorno="index";
+        List<Objeto> objetos = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros,metrossuper,metrosparada);
         String result = "";                
         for(Objeto obj : objetos){
             String cadena = obj.getCoordenadas();
@@ -114,7 +118,15 @@ public class Filtro implements Serializable{
     public void setValormin(Double valormin) {
         this.valormin = valormin;
     }
+    
+    public int getMetrosparada() {
+        return metrosparada;
+    }
 
+    public void setMetrosparada(int metrosparada) {
+        this.metrosparada = metrosparada;
+    }
+    
     public Double getValormax() {
         return valormax;
     }

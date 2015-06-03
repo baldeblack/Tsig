@@ -35,6 +35,20 @@ var comercio = new OpenLayers.Layer.WMS(
 comercio.visibility=false;
 //******************************************************************************
 
+//******Capa paradas************************************************** 
+var paradas = new OpenLayers.Layer.WMS(
+    "-Paradas", "http://localhost:8081/geoserver/wms",
+    {
+        srs: "EPSG:4326",
+        layers: 'TSIG:paradas',
+        transparent: true,
+        format:'image/png'
+    }
+);
+
+paradas.visibility=false;
+//******************************************************************************
+
 //***** Controles***************************************************************
 map.addControl( new OpenLayers.Control.LayerSwitcher() );
 map.addControl( new OpenLayers.Control.Navigation());
@@ -52,6 +66,7 @@ map.setCenter (centro_mapa, zoom);
 //***********CAPA QUE VA A CONTENER LOS PUNTOS**********************************
 var capa_punto = new OpenLayers.Layer.Vector("Inmueble");
 var capa_super = new OpenLayers.Layer.Vector("Comercios");
+var capa_parada = new OpenLayers.Layer.Vector("Paradas");
 //***********FUNCION AL INICIO**************************************************
 /*window.onload = function () {
     var coordenadas =document.getElementById('formulario:coordenadas').value;
@@ -160,9 +175,10 @@ window.onload = function () {
             //**************************************************************           
             var marker; 
             var markercomercios;
+            var markerparada;
             
             if(lonlat[0] === "casa" || lonlat[0] === "apartamento"){
-                alert ('Tipo: ' + lonlat[0] + 'x:' + lonlat[1]);
+                //alert ('Tipo: ' + lonlat[0] + 'x:' + lonlat[1]);
                 marker  = new OpenLayers.Feature.Vector(
                 new OpenLayers.Geometry.Point(location.lon,location.lat),
                 {description:'Inmueble'} ,
@@ -173,7 +189,7 @@ window.onload = function () {
                 map.addLayer(capa_punto);
             }            
             if(lonlat[0] === "Supermercado"){
-                alert ('Tipo: ' + lonlat[0] + 'x:' + lonlat[1]);
+               // alert ('Tipo: ' + lonlat[0] + 'x:' + lonlat[1]);
                 markercomercios  = new OpenLayers.Feature.Vector(
                 new OpenLayers.Geometry.Point(location.lon,location.lat),
                 {description:'Comercios'} ,
@@ -182,6 +198,17 @@ window.onload = function () {
                 );  
                 capa_super.addFeatures(markercomercios);    
                 map.addLayer(capa_super);
+            }
+            if(lonlat[0] === "parada"){
+                //alert ('Tipo: ' + lonlat[0] + 'x:' + lonlat[1]);
+                markerparada  = new OpenLayers.Feature.Vector(
+                new OpenLayers.Geometry.Point(location.lon,location.lat),
+                {description:'Paradas'} ,
+                {externalGraphic: 'https://cdn0.iconfinder.com/data/icons/IdealSpace/128/Bus_Stop.png', 
+                 graphicHeight: 35, graphicWidth: 35, graphicXOffset:-12, graphicYOffset:-25  }
+                );  
+                capa_parada.addFeatures(markerparada);    
+                map.addLayer(capa_parada);
             }
                
            // capa_punto.addFeatures(marker);
