@@ -503,7 +503,7 @@ public class InmuebleL {
                             Objeto objsupermercado = new Objeto();                                                                                  
                             verifico = 1; // lo utilizo para saber si ingreso al while. Significa que se obtivieron datos en la consutla sql                                                        
                             coordeandasinm = result.getString(1);
-                            objsupermercado.setGid("super:"+result.getString(2));
+                            objsupermercado.setGid("super="+result.getString(2));
                             objsupermercado.setTipo(result.getString(3));
                             objsupermercado.setNombre(result.getString(4));                           
                             objsupermercado.setCoordenadas(CadenaString(result.getString(5)));
@@ -536,7 +536,7 @@ public class InmuebleL {
                             Objeto objsupermercado = new Objeto();                              
                             verifico = 1; // lo utilizo para saber si ingreso al while. Significa que se obtivieron datos en la consutla sql                            
                             coordeandasinm = result.getString(1);
-                            objsupermercado.setGid(result.getString(2));
+                            objsupermercado.setGid("super="+result.getString(2));
                             objsupermercado.setTipo(result.getString(3));
                             objsupermercado.setNombre(result.getString(4));
                             objsupermercado.setCoordenadas(CadenaString(result.getString(5)));                            
@@ -565,9 +565,118 @@ public class InmuebleL {
         }                
     }
     
-    public List<Objeto> findParadas(int metros,List<Inmueble> lista){
-    
-        return null;
+    public List<Objeto> findParadas(int metros,List<Objeto> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        List<Objeto> objetos = new ArrayList();  
+        List<Objeto> supermercado = new ArrayList(); 
+        
+        if(metros !=0){            
+            Statement s4 = null;
+            Connection conexion4 =  null;
+            String resulttabla="";         
+            try{
+                conexion4 =  Conexion_geografica.getConnection();
+                s4 = conexion4.createStatement();
+            }
+            catch (SQLException   e){
+                e.printStackTrace();
+            }   
+             if(!lista.isEmpty()){   
+                for(Objeto obj : lista){
+                    if(obj.getTipo() == "casa" || obj.getTipo()== "apartamento"){                    
+                        String consultageo = "SELECT distinct(ST_AsText(i.geom), p.gid, p.cod_ubic_p,ST_AsText( ST_TRANSFORM(p.geom,4326))) FROM inmueble i join paradas p ON ST_Intersects(i.geom,ST_TRANSFORM(ST_BUFFER(p.geom,"+metros+",'endcap=round join=round'),4326)) and i.gid ="+obj.getGid();
+                        try {
+                            ResultSet result = s4.executeQuery(consultageo);
+                            String tupla = "";
+                            String coordeandasinm = "";
+
+                            int verifico = 0;
+                            while (result.next()) {// Situar el cursor     
+                                Objeto omnibus = new Objeto();                                                                                  
+                                verifico = 1; // lo utilizo para saber si ingreso al while. Significa que se obtivieron datos en la consutla sql                                                        
+                                tupla = result.getString(1);
+                                String[] palabrasSeparadas = tupla.split(",");                            
+                                coordeandasinm = CadenaString(palabrasSeparadas[0]);
+
+                                omnibus.setGid("bus="+palabrasSeparadas[2]);
+                                omnibus.setTipo("parada");
+                                omnibus.setNombre("");                           
+                                omnibus.setCoordenadas(CadenaString(palabrasSeparadas[3]));
+                                objetos.add(omnibus);                            
+                            }
+                            if(verifico == 1){                            
+                                objetos.add(obj);
+                            }
+                        } catch (SQLException ex) { }                
+                    }
+                    if(obj.getTipo().equalsIgnoreCase("Supermercado")){
+                        objetos.add(obj);
+                    }
+                }                 
+             }
+             else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                           String consultageo ="SELECT distinct(ST_AsText(i.geom), p.gid, p.cod_ubic_p,ST_AsText( ST_TRANSFORM(p.geom,4326)))\n" +
+                                "FROM inmueble i join paradas p\n" +
+                                "ON ST_Intersects(i.geom,ST_TRANSFORM(ST_BUFFER(p.geom,"+metros+",'endcap=round join=round'),4326)) and i.gid ="+inm.getGidInm();
+                        try {
+                        ResultSet result = s.executeQuery(consultageo);
+                        String tupla = "";
+                        String coordeandasinm = "";
+                        int verifico = 0;
+                        while (result.next()) {               // Situar el cursor    
+                           Objeto omnibus = new Objeto();                                                                                  
+                            verifico = 1; // lo utilizo para saber si ingreso al while. Significa que se obtivieron datos en la consutla sql                                                        
+                            tupla = result.getString(1);
+                            String[] palabrasSeparadas = tupla.split(",");                            
+                            coordeandasinm = CadenaString(palabrasSeparadas[0]);
+                            
+                            omnibus.setGid("bus="+palabrasSeparadas[1]);
+                            omnibus.setTipo("parada");
+                            omnibus.setNombre("");                           
+                            omnibus.setCoordenadas(CadenaString(palabrasSeparadas[2]));
+                            objetos.add(omnibus);                            
+                        }
+                        if(verifico == 1){
+                            Objeto objinmueble = new Objeto();   
+                            if(inm.getTipo() == 1){objinmueble.setTipo("casa");}
+                            if(inm.getTipo() == 2){objinmueble.setTipo("apartamento");}
+                            objinmueble.setCoordenadas(CadenaString(coordeandasinm));
+                            objinmueble.setNombre(inm.getTitulo());
+                            objinmueble.setGid(Integer.toString(inm.getGidInm()));
+                            objetos.add(objinmueble);
+                        }
+                        } catch (SQLException ex) { }                                     
+                    }                          
+                  }   
+             }
+             //Quito los duplicados del arraylist
+             List<Objeto> objunico = QuitarRepetidos(objetos);
+             
+             if(!objetos.isEmpty()){
+                
+                    for(Objeto obj2 : objunico){
+                        if(obj2.getTipo() == "parada"){
+                            String[] pp = obj2.getGid().split("=");
+                            String gid = pp[1];                            
+                            String consultalinea = "SELECT distinct(desc_linea) FROM paradas WHERE cod_ubic_p = "+ gid;
+                            try {
+                                ResultSet result = s4.executeQuery(consultalinea);
+                                obj2.setNombre("");
+                                while (result.next()) {  
+                                    obj2.setNombre(obj2.getNombre()+ ","+result.getString(1));                                    
+                                }
+                            } catch (SQLException ex) { }
+                        }
+                    }
+             }
+             return objunico;           
+        }
+        else{           
+            return lista;
+        } 
     }
     
     
@@ -589,13 +698,13 @@ public class InmuebleL {
      
     
      
-    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper){
+    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada){
         List<Inmueble> Allinm = AllInmueble();
         List<Inmueble> lista = new ArrayList();
         List<Inmueble> inicio = new ArrayList();
         //List<String> resultado = new ArrayList<String>();
         List<Objeto> objetos = new ArrayList();       
-         
+        List<Objeto> objetos2 = new ArrayList(); 
         String tipo="";
         
         Statement s = null;
@@ -618,11 +727,17 @@ public class InmuebleL {
             lista = findgarage(garage,lista);
             lista = findjardin(jardin,lista);
             lista = findInmRambla(metroscosta,lista);
-            objetos = findInmSupermercado(metrossuper,lista);
-            
-            if(!objetos.isEmpty()){
-                return objetos;
+            objetos2 = findInmSupermercado(metrossuper,lista);
+            if(!objetos2.isEmpty()){
+                objetos = findParadas(metrosparada,objetos2);
             }
+            else{                
+                objetos = findParadas(metrosparada,convertirAobjeto(lista));
+            }
+            
+            if(!objetos.isEmpty() ){
+                return objetos;
+            }                      
             else{
                 for(Inmueble inm : lista){
                     Objeto obj = new Objeto(); 
@@ -797,5 +912,44 @@ public class InmuebleL {
             listaLimpia.add(o.getValue());        
         }
         return listaLimpia;
+    }
+    
+    public List<Objeto> convertirAobjeto(List<Inmueble> lista){
+        List<Objeto> objetos = new ArrayList();
+        if(!lista.isEmpty()){
+            for(Inmueble inm : lista){
+                Objeto obj = new Objeto();
+                obj.setGid(Integer.toString(inm.getGidInm()));
+                if(inm.getTipo() == 1){obj.setTipo("casa");}
+                if(inm.getTipo() == 2){obj.setTipo("apartamento");}
+                obj.setNombre(inm.getTitulo());
+                ////
+                Statement s3 = null;
+                Connection conexion3 =  null;
+                String resulttabla="";  
+                try{
+                    conexion3 =  Conexion_geografica.getConnection();
+                    s3 = conexion3.createStatement();
+                }
+                catch (SQLException   e){
+                    e.printStackTrace();
+                }
+                String consultageo = "select ST_AsText(geom)from inmueble where gid="+inm.getGidInm();
+                try {
+                    ResultSet result = s3.executeQuery(consultageo);
+                    while (result.next()) {               // Situar el cursor          
+                        resulttabla = result.getString(1);                                                  
+                        String solocoordenadas = CadenaString(resulttabla);
+                        obj.setCoordenadas(solocoordenadas);
+                     }
+                    
+                    //conexion.close();
+                } 
+                catch (SQLException ex) {}  
+                objetos.add(obj);
+            }            
+        }
+        
+        return objetos;
     }
 }
