@@ -10,10 +10,10 @@
         Hello from Facelets
         
         <h:form  enctype="multipart/form-data">
-            <h:inputFile value="#{demoBean.file1}" /><br/>
+            <h:inputFile value="#{cargar.file}" /><br/>
             
-            <h:inputFile value="#{demoBean.file2}" /><br/>
-            <h:commandButton value="Upload" action="#{demoBean.upload()}"/>
+           
+            <h:commandButton value="Upload" action="#{cargar.subir()}"/>
         </h:form>
     </h:body>
 </html>

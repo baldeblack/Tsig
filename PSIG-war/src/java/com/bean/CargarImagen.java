@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import javax.ejb.LocalBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import javax.servlet.http.Part;
  * @author nacho
  */
 @ManagedBean(name = "cargar")
+@LocalBean
 public class CargarImagen {
 
    private Part file;

@@ -4,36 +4,44 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
     <body>
-        <ui:composition template="./templates/layoutSitio.xhtml">
-            <ui:define name="content">        
+        <ui:composition template="./LayoutAdmin.xhtml">
+            <ui:define name="titulo">
+                Alta Zona
+            </ui:define>
+            <ui:define name="content"> 
+                <br />
+                <div class="panel with-nav-tabs panel-primary">
+                      <div class="panel-heading">
+                          <h3>Alta Zona</h3>
+                      </div>
+                      <div class="panel-body">
+                         <h:form class="form-horizontal" role="form" id="formulario">
+
+                            <h:messages errorClass="alert alert-danger" infoClass="alert alert-success" />
+                            
+                            <div class="col-md-12" style="padding-bottom: 10px;">
+                                <h:outputLabel value="Nombre de la Zona:" for="nombre_zona" />
+                                <h:inputText id="nombre_zona" value="#{zonaBean.nombre_zona}" class="form-control" title="nombre_zona" />
+                            </div>
+                            
+                            <div class="form-group form-group-sm">
+                                    <div class="col-md-12" id="map" style="width: 100%; height: 400px;"></div>
+                                        <script src="OpenLayers.js" target="body" />
+                                        <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
+                                        <script src="js/Zona.js" target="body" />	
+                                    <h:inputHidden id="zona_puntos"  value="#{zonaBean.zona_puntos}"/>
+                            </div> 
+                            <div>
+                                <h:commandButton onmousedown="GuardarZona();" value="Guardar" class="btn btn-success"  action="#{zonaBean.altaZona}"/>
+                            </div>
+                            
+                        </h:form>   
+                      
+                      </div>
+                </div>
                 <div class="container">
                     <h3>Alta de Zona</h3>
-                    <h:form class="form-group form-group-sm" role="form" id="formulario">
-                        <div class="form-group form-group-sm">
-                            
-                            <label class="col-sm-2 control-label"  for="nombre_zona" >Nombre de la Zona</label>
-                            <div class="col-sm-8">
-                                <h:inputText id="nombre_zona" value="#{zonaBean.nombre_zona}" title="nombre_zona" />
-                            </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                                <div class="col-md-10" id="map" style="width: 100%; height: 400px;"></div>
-                                    <script src="OpenLayers.js" target="body" />
-                                    <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
-                                    <script src="js/Zona.js" target="body" />	
-                                <h:inputHidden id="zona_puntos"  value="#{zonaBean.zona_puntos}"/>
-                        </div> 
-                        <div class="form-group form-group-sm">
-                            <div class="col-xs-6 col-sm-4">
-                                <h:commandButton onmousedown="GuardarZona();" value="Guardar"  action="#{zonaBean.altaZona}"/>
-                            </div>
-                        </div>    
-                        <div class="form-group form-group-sm">    
-                           <div class="col-xs-6 col-sm-4">
-                              <h:messages errorClass="msjError" infoClass="msjSuccess" />
-                           </div>
-                        </div>
-                    </h:form>
+                    
                 </div>
             </ui:define>
         </ui:composition>

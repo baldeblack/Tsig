@@ -364,5 +364,5 @@ public class InmuebleBean implements Serializable{
         this.idProp = idProp;
     }
 
-
+    
 }

@@ -2,28 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
         <ui:composition template="./templates/layoutSitio.xhtml">
             <ui:define name="content">
                 <div class="contenedor-mapa-index">
-                    <!--<div class="jumbotron">
-                        <h1>Bienvenido a Imobiliaria!!!</h1>
-                    </div>-->
-                    <div style="width:100%; height:600px" id="map">
-                    </div>
-                    <script src="OpenLayers.js" target="body" />
-                    <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
-                    <script src="js/Index_mapa.js" target="body" />
-                
+                   <h:form id="formulario">
+                        <div style="width:100%; height:600px" id="map">
+                        </div>
+                        <script src="OpenLayers.js" target="body" />
+                        <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
+                        <script src="js/Index_mapa.js" target="body" />
+                        <!--<script src="js/Busqueda.js" target="body" />-->
+                        <h:inputHidden value="#{filtro.resultado}" id="coordenadas" />
+                        <!--<h:inputHidden value="{pruebas.inmueble_basico}" id="nombre" />-->
+                        <h:inputHidden id="coord_x" value="#{pruebas.x_nuevo}" />
+                        <h:inputHidden id="coord_y" value="#{pruebas.y_nuevo}" />
+                        
+                        <h:commandButton type="submit"  id="click" value="click" onchange="submit();"  action="#{pruebas.consulta2}" />
+                        <h:commandLink value="Next page" action="/DetalleInmueble.xhtml?faces-redirect=true" />
+                    </h:form>
                     <div class="col-md-3 busquedas_inmueble">
                         <div class="contenedor-busquedas">
-                            <h:form class="form-horizontal" id="formulario">
+                            <h:form class="form-horizontal" id="formulario2">
                               <div class="col-md-6">
                                 <h:outputLabel value="Baños" for="banio" />
                                 <div class="input-group spinner">
-                                  <h:inputText id="banio" class="form-control" value="0" title="banio" />
+                                  <h:inputText id="banio" class="form-control" value="#{filtro.banios}" title="banio" />
                                   <div class="input-group-btn-vertical">
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
@@ -33,7 +40,7 @@
                               <div class="col-md-6">  
                                 <h:outputLabel value="Habitaciones" for="habitaciones" />
                                 <div class="input-group spinner2">
-                                  <h:inputText id="habitaciones" class="form-control" value="0" title="habitaciones" />
+                                  <h:inputText id="habitaciones" class="form-control" value="#{filtro.habitaciones}" title="habitaciones" />
                                   <div class="input-group-btn-vertical">
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
@@ -43,7 +50,7 @@
                               <div class="col-md-6">  
                                 <h:outputLabel value="Pisos" for="pisos" />
                                 <div class="input-group spinner3">
-                                  <h:inputText id="pisos" class="form-control" value="0" title="pisos" />
+                                  <h:inputText id="pisos" class="form-control" value="#{filtro.pisos}" title="pisos" />
                                   <div class="input-group-btn-vertical">
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
@@ -53,17 +60,26 @@
                               <div class="col-md-6">
                                     <div class="group-chebox-buscador">
                                         <div class="col-md-8"><h:outputLabel value="Garage" for="garage" /></div>
-                                        <div class="col-md-4"><h:selectBooleanCheckbox id="garage" class="check-buscador" value="" title="garage" /></div>
+                                        <div class="col-md-4"><h:selectBooleanCheckbox id="garage" class="check-buscador" value="#{filtro.garage}" title="garage" /></div>
                                         <div class="col-md-8"><h:outputLabel value="Jardin" for="jardin" /></div>
-                                        <div class="col-md-4"><h:selectBooleanCheckbox id="jardin" class="check-buscador" value="" title="jardin" /></div>
+                                        <div class="col-md-4"><h:selectBooleanCheckbox id="jardin" class="check-buscador" value="#{filtro.jardin}" title="jardin" /></div>
                                     </div>
                               </div>
                               <div class="col-md-12">
                                
                                 <h:outputLabel value="Proposito" for="proposito" />
-                                <h:inputText id="proposito" class="form-control" value="" title="propositos" />
-                                <h:outputLabel value="Metros" for="metros" />
-                                <h:inputText id="metros" class="form-control" value="" title="metros" />
+                                <h:selectOneMenu value="#{filtro.proposito}" title="proposito" id="proposito" class="form-control">
+                                        <f:selectItem itemValue="Vender" itemLabel="Venta" />
+                                        <f:selectItem itemValue="Alquilar" itemLabel="Alquiler" />
+                                </h:selectOneMenu>
+
+                                <!--<h:inputText id="proposito" class="form-control" value="{filtro.proposito}" title="propositos" />-->
+                                <h:outputLabel value="Distancia Rambla" for="metros" />
+                                <h:inputText id="metros" class="form-control" value="#{filtro.metros}" title="metros" />
+                                <h:outputLabel value="Distancia Supermercado" for="metrosuper" />
+                                <h:inputText id="metrosuper" class="form-control" value="#{filtro.metrossuper}" title="metrosuper" />
+                                <h:outputLabel value="Distancia Parada" for="metrosparada" />
+                                <h:inputText id="metrosparada" class="form-control" value="#{filtro.metrosparada}" title="metrosparada" />
                                 <!--<div class="input-group spinner">
                                   <input type="text" class="form-control" value="42" />
                                   <div class="input-group-btn-vertical">
@@ -75,7 +91,7 @@
                                 <!--<h:commandButton class="btn btn-default" onmousedown="" value="Buscar" />-->
                               </div>
                               <div class="col-md-12 boton-index">
-                                    <h:commandButton class="btn btn-default" onmousedown="" value="Buscar" />
+                                  <h:commandButton class="btn btn-default" action="#{filtro.GetFiltrado}" value="Buscar" />
                               </div>
                             </h:form>
                             

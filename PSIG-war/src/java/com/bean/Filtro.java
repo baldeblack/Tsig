@@ -26,14 +26,14 @@ import javax.faces.bean.SessionScoped;
 public class Filtro implements Serializable{
     private String proposito;
     private String estado;
-    private Integer tipo;
+    private int tipo;
     private Double valormin;
     private Double valormax;
     private String direccion;
-    private Integer padron;
-    private Integer banios;
-    private Integer habitaciones;
-    private Integer pisos;
+    private int padron;
+    private int banios;
+    private int habitaciones;
+    private int pisos;
     private Boolean garage;
     private Boolean jardin;
     private String descripcion;
@@ -62,7 +62,8 @@ public class Filtro implements Serializable{
     
     public String GetFiltrado(){
         resultado = "";
-        String retorno="ResultadoBusqueda";
+        //String retorno="ResultadoBusqueda";
+        String retorno="index";
         
          //String retorno="index";
         List<Objeto> objetos = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros,metrossuper,metrosparada);

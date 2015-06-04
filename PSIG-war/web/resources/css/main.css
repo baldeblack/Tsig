@@ -7,6 +7,7 @@ font-family: 'Satisfy', cursive;
 */
 
 
+
 .header-main{
     border-radius: 0px !important;
     height:70px !important;
@@ -69,6 +70,10 @@ font-family: 'Satisfy', cursive;
     padding-bottom: 20px !important;
 }
 
+.msjes{
+    list-style-type: none !important;
+    list-style: none !important;
+}
 
 /*--------------  spinner  ----------------------*/
 
