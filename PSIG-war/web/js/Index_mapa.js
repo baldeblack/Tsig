@@ -20,6 +20,22 @@ var rambla = new OpenLayers.Layer.WMS(
 rambla.visibility=false;
 map.addLayer(rambla);
 
+
+// capa comercios
+var comercio = new OpenLayers.Layer.WMS(
+    "-Comercio", "http://localhost:8081/geoserver/wms",
+    {
+        srs: "EPSG:32721",
+        layers: 'TSIG:comercios',
+        transparent: true,
+        format:'image/png'
+    }
+
+);
+comercio.visibility=false;
+map.addLayer(comercio);
+
+
 // Capa zonas
 var zonas = new OpenLayers.Layer.WMS(
     "-Zonas de demanda", "http://localhost:8081/geoserver/wms",

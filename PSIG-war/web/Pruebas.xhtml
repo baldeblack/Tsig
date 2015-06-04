@@ -14,37 +14,37 @@
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-2 control-label" for="habitaciones">Habitaciones(0):</label>
                                 <div class="col-sm-10">
-                                <h:inputText id="habitaciones" value="#{pruebas.habitaciones}" title="habitaciones" />
+                                <h:inputText id="habitaciones" value="#{filtro.habitaciones}" title="habitaciones" />
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-2 control-label" for="banios">Baños(0):</label>
                                 <div class="col-sm-10">
-                                    <h:inputText id="banios" value="#{pruebas.banios}" title="banios" />
+                                    <h:inputText id="banios" value="#{filtro.banios}" title="banios" />
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-2 control-label" for="pisos">Pisos(0):</label>
                                 <div class="col-sm-10">
-                                    <h:inputText id="pisos" value="#{pruebas.pisos}" title="pisos" />
+                                    <h:inputText id="pisos" value="#{filtro.pisos}" title="pisos" />
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-2 control-label" for="garage">Garage(False):</label>
                                 <div class="col-sm-10">
-                                    <h:inputText id="garage" value="#{pruebas.garage}" title="garage" />
+                                    <h:inputText id="garage" value="#{filtro.garage}" title="garage" />
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-2 control-label" for="jardin">Jardin(False):</label>
                                 <div class="col-sm-10">
-                                    <h:inputText id="jardin" value="#{pruebas.jardin}" title="jardin" />
+                                    <h:inputText id="jardin" value="#{filtro.jardin}" title="jardin" />
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-2 control-label" for="proposito">Proposito(alquilar o vender)</label>
                                 <div class="col-sm-10">
-                                <h:inputText id="proposito" value="#{pruebas.proposito}" title="proposito" />
+                                <h:inputText id="proposito" value="#{filtro.proposito}" title="proposito" />
                                 </div>
                             </div>
                            <!-- <div class="form-group">
@@ -62,14 +62,26 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="metros">Distancia Rambla:</label>
                                 <div class="col-sm-10">
-                                    <h:inputText id="metros" value="#{pruebas.metros}" title="metros" />
+                                    <h:inputText id="metros" value="#{filtro.metros}" title="metros" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="metrosuper">Distancia Supermercado:</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="metrosuper" value="#{filtro.metrossuper}" title="metrosuper" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="metrosparada">Distancia Parada:</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="metrosparada" value="#{filtro.metrosparada}" title="metrosparada" />
                                 </div>
                             </div>
                             <div class="form-group">
                             </div>
                         <div class="row">
                             <div class="col-xs-6 col-sm-4">
-                                <h:commandButton class="btn btn-success" value="Buscar" action="#{pruebas.pruebo}"></h:commandButton>
+                                <h:commandButton class="btn btn-success" value="Buscar" action="#{filtro.GetFiltrado}"></h:commandButton>
                             </div>
                         </div>
                            
