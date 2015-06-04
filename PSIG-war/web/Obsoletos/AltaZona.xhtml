@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+        <ui:composition template="./templates/layoutSitio.xhtml">
+            <ui:define name="content">        
+                <div class="container">
+                    <h3>Alta de Zona</h3>
+                    <h:form class="form-group form-group-sm" role="form" id="formulario">
+                        <div class="form-group form-group-sm">
+                            
+                            <label class="col-sm-2 control-label"  for="nombre_zona" >Nombre de la Zona</label>
+                            <div class="col-sm-8">
+                                <h:inputText id="nombre_zona" value="#{zonaBean.nombre_zona}" title="nombre_zona" />
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                                <div class="col-md-10" id="map" style="width: 100%; height: 400px;"></div>
+                                    <script src="OpenLayers.js" target="body" />
+                                    <script src="http://maps.google.com/maps/api/js?v=3.7&amp;sensor=false" target="body"></script>
+                                    <script src="js/Zona.js" target="body" />	
+                                <h:inputHidden id="zona_puntos"  value="#{zonaBean.zona_puntos}"/>
+                        </div> 
+                        <div class="form-group form-group-sm">
+                            <div class="col-xs-6 col-sm-4">
+                                <h:commandButton onmousedown="GuardarZona();" value="Guardar"  action="#{zonaBean.altaZona}"/>
+                            </div>
+                        </div>    
+                        <div class="form-group form-group-sm">    
+                           <div class="col-xs-6 col-sm-4">
+                              <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                           </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
