@@ -8,11 +8,13 @@ package com.logica;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
 import com.DAO.Conexion_geografica;
+import com.DAO.DemandaFacadeLocal;
 import com.DAO.ImagenesFacade;
 import com.DAO.ImagenesFacadeLocal;
 import com.DAO.InmuebleFacadeLocal;
 import com.DAO.ZonasFacade;
 import com.DAO.ZonasFacadeLocal;
+import com.entity.Demanda;
 import com.entity.Imagenes;
 import com.entity.Inmueble;
 import com.entity.Zonas;
@@ -22,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +54,11 @@ public class InmuebleL {
     @EJB
     private InmuebleFacadeLocal inmfacade;
     @EJB
-    private ImagenesFacadeLocal imagenfacade; 
+    private ImagenesFacadeLocal imagenfacade;
+     @EJB
+    private ZonasFacadeLocal zonasfacade;
+      @EJB
+    private DemandaFacadeLocal demandafacade;
     
     static final Logger logger = Logger.getLogger(InmuebleL.class.getName()); 
     private Connection conexion;
@@ -952,4 +959,20 @@ public class InmuebleL {
         
         return objetos;
     }
+    
+    public int buscozona(String x, String y){
+        int zona = inmfacade.zonaInmueble(x,y);
+        
+        return zona;
+    }
+    
+     public void creardemandazona(int gidzona){
+         Demanda demanda = new Demanda();
+         Zonas zona  = zonasfacade.buscarZona(gidzona);
+         demanda.setGidzona(zona);
+         java.util.Date fecha = new Date();
+         demanda.setFecha(fecha);
+         
+         demandafacade.createdemanda(demanda);
+     }
 }

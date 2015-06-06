@@ -50,11 +50,11 @@ public class ZonasFacade extends AbstractFacade<Zonas> implements ZonasFacadeLoc
     public Zonas buscarZona(int gidzona){
         List<Zonas> list_zona = findAll();                     
         
-        for(int i=0;i< list_zona.size()-1;i++){
-            Zonas zon = (Zonas) list_zona.get(i);
-            if(gidzona == zon.getGidzona()){
+        for(Zonas z : list_zona){
+            //Zonas zon = (Zonas) list_zona.get(i);
+            if(gidzona == z.getGidzona()){
                 //busco si tiene el mismo login y si es asi lo retorno
-                return zon;
+                return z;
             } 
         }   
         return null;
