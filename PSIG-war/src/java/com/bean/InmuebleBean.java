@@ -14,6 +14,7 @@ import com.entity.Zonas;
 import com.logica.AdministradorL;
 import com.logica.InmuebleL;
 import com.logica.PropietarioL;
+import com.logica.ZonaL;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -75,7 +76,7 @@ public class InmuebleBean implements Serializable{
     private Zonas zon = new Zonas();
     private Administrador adm = new Administrador();
     private Propietario prop = new Propietario();
-    
+    private ZonaL zonaL;
     
     public InmuebleBean(){
     }
@@ -364,5 +365,10 @@ public class InmuebleBean implements Serializable{
         this.idProp = idProp;
     }
 
+    public void createdemanda(){
+        int gidzona = inmuebleL.buscozona(x,y);        
+        inmuebleL.creardemandazona(gidzona);
+    }
+    
     
 }

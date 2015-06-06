@@ -3,6 +3,8 @@ package com.bean;
 import com.entity.Zonas;
 import com.logica.ZonaL;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -27,6 +29,8 @@ public class ZonaBean implements Serializable{
     private String descripcion_zona;
     // geom
     private String zona_puntos;
+    private String fechainicio;
+    private String fechafin;
     
      @EJB
     private ZonaL zonaL;
@@ -55,6 +59,22 @@ public class ZonaBean implements Serializable{
         this.nombre_zona = nombre_zona;
     }
 
+    public String getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(String fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    public String getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(String fechafin) {
+        this.fechafin = fechafin;
+    }
+    
     public String getDescripcion_zona() {
         return descripcion_zona;
     }
@@ -117,4 +137,13 @@ public class ZonaBean implements Serializable{
         }
         return retorno;
     }
+    
+    public List<String> demandazonas(){
+        List<String> zonas = zonaL.demandaporzona(fechainicio,fechafin);
+        
+        //la lista retorna un string separado por comas en el siguiente orden:
+        //idzona,nombre zona,porcentaje,demanda(alta,media,baja)
+        return zonas;
+    }
+       
 }
