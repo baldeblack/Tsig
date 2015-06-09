@@ -772,6 +772,19 @@ public class InmuebleL {
        // logger.warn("Resultado =  "+resultado.toString());
         return objetos;
     }  
+    
+    public List<Objeto> GetEstadoInm(){
+        List<Inmueble> Allinm = AllInmueble();
+        List<Inmueble> resultado = new ArrayList();
+        //reviso si los inmuebles tiene el estado cerrao o cancelado, en ese caso no los agrego a la lista.
+        for(Inmueble inm : Allinm){
+            if(!inm.getEstado().equalsIgnoreCase("cerrada") || !inm.getEstado().equalsIgnoreCase("cancelada") ){
+                resultado.add(inm);
+            }
+        }        
+        List<Objeto> objetos = convertirAobjetoEstado(resultado);    
+        return objetos;    
+    }
      
     
     public int findInmueblegid(String x, String y){              
@@ -944,6 +957,45 @@ public class InmuebleL {
                 String consultageo = "select ST_AsText(geom)from inmueble where gid="+inm.getGidInm();
                 try {
                     ResultSet result = s3.executeQuery(consultageo);
+                    while (result.next()) {               // Situar el cursor          
+                        resulttabla = result.getString(1);                                                  
+                        String solocoordenadas = CadenaString(resulttabla);
+                        obj.setCoordenadas(solocoordenadas);
+                     }
+                    
+                    //conexion.close();
+                } 
+                catch (SQLException ex) {}  
+                objetos.add(obj);
+            }            
+        }
+        
+        return objetos;
+    }
+    
+    public List<Objeto> convertirAobjetoEstado(List<Inmueble> lista){
+        List<Objeto> objetos = new ArrayList();
+        if(!lista.isEmpty()){
+            for(Inmueble inm : lista){
+                Objeto obj = new Objeto();
+                obj.setGid(Integer.toString(inm.getGidInm()));
+                if(inm.getTipo() == 1){obj.setTipo("casa");}
+                if(inm.getTipo() == 2){obj.setTipo("apartamento");}
+                obj.setNombre(inm.getEstado());
+                ////
+                Statement s4 = null;
+                Connection conexion4 =  null;
+                String resulttabla="";  
+                try{
+                    conexion4 =  Conexion_geografica.getConnection();
+                    s4 = conexion4.createStatement();
+                }
+                catch (SQLException   e){
+                    e.printStackTrace();
+                }
+                String consultageo = "select ST_AsText(geom)from inmueble where gid="+inm.getGidInm();
+                try {
+                    ResultSet result = s4.executeQuery(consultageo);
                     while (result.next()) {               // Situar el cursor          
                         resulttabla = result.getString(1);                                                  
                         String solocoordenadas = CadenaString(resulttabla);
