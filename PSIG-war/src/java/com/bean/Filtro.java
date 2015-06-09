@@ -49,6 +49,7 @@ public class Filtro implements Serializable{
     
     private int metrossuper;  
     private String resultado = "";
+    private String estados = "";
 
     
     
@@ -80,6 +81,25 @@ public class Filtro implements Serializable{
         return retorno;
     }
 
+    public String GetEstadosinm(){
+        estados = "";
+        String retorno="EstadoInmuebles";
+        
+        List<Objeto> objetos = inmuebleL.GetEstadoInm();
+        String result = "";
+        for(Objeto obj : objetos){
+            String cadena = obj.getCoordenadas();
+            String delimitadores = " ";
+            String[] xyseparados = cadena.split(delimitadores);
+            String x= xyseparados[0];
+            String y= xyseparados[1];
+            result = result +obj.getTipo()+ "," +x+ "," +y+ "," +obj.getNombre()+ "," +obj.getGid()+ ":";
+        }   
+        estados = result;
+        return retorno;
+    }
+    
+    
     public String getProposito() {
         return proposito;
     }
@@ -112,6 +132,14 @@ public class Filtro implements Serializable{
         this.tipo = tipo;
     }
 
+    public String getEstados() {
+        return estados;
+    }
+
+    public void setEstados(String estados) {
+        this.estados = estados;
+    }
+    
     public Double getValormin() {
         return valormin;
     }
