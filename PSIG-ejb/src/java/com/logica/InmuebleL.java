@@ -459,7 +459,7 @@ public class InmuebleL {
         if(preciomin != 0){
             if(!lista.isEmpty()){              
                   for(Inmueble inm : lista){              
-                      if(inm.getValormax() <= preciomin){
+                      if(inm.getValormax() >= preciomin){
                            resultado.add(inm);
                       }                                    
                   }              
@@ -467,7 +467,7 @@ public class InmuebleL {
             else{
                   if(!Allinm.isEmpty()){             
                     for(Inmueble inm : Allinm){                 
-                        if(inm.getValormax() <= preciomin){
+                        if(inm.getValormax() >= preciomin){
                            resultado.add(inm);
                         }                                
                     }                          
@@ -809,22 +809,54 @@ public class InmuebleL {
         if(!Allinm.isEmpty()){
             
             lista = findproposito(proposito,inicio);  //vender o alquilar
+                if(lista.isEmpty()){
+                    return objetos;
+                }
             if(preciomax != 0 && preciomin != 0 ){
                 lista = findprecio(preciomax,preciomin,lista);  
             }
+                if(preciomax != 0 && preciomin != 0 && lista.isEmpty()){
+                    return objetos;
+                }
             if(preciomax == 0 && preciomin != 0 ){
                 lista =findpreciomin(preciomin,lista);
             }
+                if(preciomax == 0 && preciomin != 0 && lista.isEmpty() ){
+                    return objetos;
+                }
             if(preciomax != 0 && preciomin == 0 ){
                 lista =findpreciomax(preciomax,lista);
             }
-            lista = findhabitaciones(habitaciones,lista);                      
+                if(preciomax != 0 && preciomin == 0 && lista.isEmpty()){
+                    return objetos;
+                }
+                
+            lista = findhabitaciones(habitaciones,lista);  
+                if(habitaciones != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findbanio(banios,lista);
+                if(banios != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findpisos(pisos,lista);
+                if(pisos != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findgarage(garage,lista);
+                if(garage == true && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findjardin(jardin,lista);
+                if(jardin == true && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findInmRambla(metroscosta,lista);
+                if(metroscosta != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             objetos2 = findInmSupermercado(metrossuper,lista);
+            
             if(!objetos2.isEmpty()){
                 objetos = findParadas(metrosparada,objetos2);
             }
