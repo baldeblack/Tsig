@@ -27,6 +27,38 @@
                     <div class="col-md-3 busquedas_inmueble">
                         <div class="contenedor-busquedas">
                             <h:form class="form-horizontal" id="formulario2">
+                              
+                              
+                              <div class="col-md-6">  
+                                <h:outputLabel value="Precio Maximo" for="preciomax" />
+                                <div class="input-group spinner3">
+                                    <h:inputText id="preciomax" class="form-control" value="#{filtro.preciomax}" title="preciomax" />
+                                  <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                  </div>
+                                </div>
+                              </div>  
+                              <div class="col-md-6">  
+                                <h:outputLabel value="Precio Minimo" for="preciomin" />
+                                <div class="input-group spinner3">
+                                    <h:inputText id="preciomin" class="form-control" value="#{filtro.preciomin}" title="preciomin" />
+                                  <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                  </div>
+                                </div>
+                              </div>  
+                               <div class="col-md-6">  
+                                <h:outputLabel value="Pisos" for="pisos" />
+                                <div class="input-group spinner3">
+                                  <h:inputText id="pisos" class="form-control" value="#{filtro.pisos}" title="pisos" />
+                                  <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                  </div>
+                                </div>
+                              </div> 
                               <div class="col-md-6">
                                 <h:outputLabel value="Baños" for="banios" />
                                 <div class="input-group spinner">
@@ -37,6 +69,7 @@
                                   </div>
                                 </div>
                               </div>
+                                
                               <div class="col-md-6">  
                                 <h:outputLabel value="Habitaciones" for="habitaciones" />
                                 <div class="input-group spinner2">
@@ -46,17 +79,7 @@
                                     <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="col-md-6">  
-                                <h:outputLabel value="Pisos" for="pisos" />
-                                <div class="input-group spinner3">
-                                  <h:inputText id="pisos" class="form-control" value="#{filtro.pisos}" title="pisos" />
-                                  <div class="input-group-btn-vertical">
-                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                  </div>
-                                </div>
-                              </div>
+                              </div>  
                               <div class="col-md-6">
                                     <div class="group-chebox-buscador">
                                         <div class="col-md-8"><h:outputLabel value="Garage" for="garage" /></div>

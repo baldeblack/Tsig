@@ -125,7 +125,7 @@ public class InmuebleBean implements Serializable{
         prop.setIdPropietario(idProp);
        
         inmueble.setBanios(banios);
-        inmueble.setDescripcion("Prueba");
+        inmueble.setDescripcion(descripcion);
         inmueble.setDireccion(descripcion);
         inmueble.setEstado(estado);
         inmueble.setGarage(true);
@@ -138,8 +138,8 @@ public class InmuebleBean implements Serializable{
         inmueble.setPisos(2);
         inmueble.setProposito(proposito);
         inmueble.setTipo(tipo);
-        inmueble.setValormax(123.88);
-        inmueble.setValormin(100.22);
+        inmueble.setValormax(100.0);
+        inmueble.setValormin(100.0);
         inmueble.setTitulo(titulo);
         
         logger.warn("valores x "+ x + "valor y "+ y);
@@ -369,6 +369,9 @@ public class InmuebleBean implements Serializable{
         int gidzona = inmuebleL.buscozona(x,y);        
         inmuebleL.creardemandazona(gidzona);
     }
+    
+    
+    
     
     
 }
