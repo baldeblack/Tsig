@@ -391,4 +391,8 @@ public class InmuebleBean implements Serializable{
     
     
     
+    
+    
+    
+    
 }
