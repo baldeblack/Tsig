@@ -22,12 +22,16 @@ public interface DemandaFacadeLocal {
 
     void remove(Demanda demanda);
 
-    Demanda find(Object id);
+    Demanda find(int id);
 
     List<Demanda> findAll();
 
     List<Demanda> findRange(int[] range);
 
     int count();
+   
+    public boolean createdemanda(Demanda demanda);
+    
+    public List<Demanda> findAlldemanda();
     
 }

@@ -3,11 +3,22 @@ package com.logica;
 import Extras.JsonConverter;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
+import com.DAO.Conexion_BaseRelacional;
+import com.DAO.Conexion_geografica;
+import com.DAO.DemandaFacadeLocal;
 import com.DAO.ZonasFacadeLocal;
+import com.entity.Demanda;
 import com.entity.Zonas;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -25,6 +36,8 @@ public class ZonaL {
     
     @EJB
     private ZonasFacadeLocal zonasfacade;
+     @EJB
+    private DemandaFacadeLocal demandafacade;
     
     
     static final Logger logger = Logger.getLogger(ZonaL.class.getName()); 
@@ -132,4 +145,118 @@ public class ZonaL {
            return puntos;
        }
     
+     public void creardemandazona(int gidzona){
+         Demanda demanda = new Demanda();
+         Zonas zona  = zonasfacade.buscarZona(gidzona);
+         demanda.setGidzona(zona);
+         java.util.Date fecha = new Date();
+         demanda.setFecha(fecha);
+         
+         demandafacade.createdemanda(demanda);
+     }
+     
+     public List<String> demandaporzona(String fechainicio, String fechafin){        
+        List<Zonas> allzonas = new ArrayList();
+        List<String> reporte = new ArrayList();
+        List<Demanda> demandasbusqueda = new ArrayList();
+                
+        Statement s2 = null;        
+        Connection conexion2 =  null;     
+        Statement s3 = null;        
+        Connection conexion3 =  null; 
+        int giddemanda;
+        int gidzona;
+        try{
+            conexion2 =  Conexion_BaseRelacional.getConnection();
+            s2 = conexion2.createStatement();
+            
+            String consultageo ="select * from demanda where fecha >= '"+fechainicio +"' and fecha <='"+fechafin+"'";
+            ResultSet result = s2.executeQuery(consultageo);
+            while(result.next()) 
+                {               // Situar el cursor                          
+                giddemanda = Integer.parseInt(result.getString(1));        
+                Demanda d = demandafacade.find(giddemanda);                
+                //obtengo una lista de todas las demandas que hay entre las fechas solicitadas
+                demandasbusqueda.add(d);
+                }
+            conexion3 =  Conexion_BaseRelacional.getConnection();
+            s3 = conexion3.createStatement();
+            String consulta ="select distinct gidzona from demanda where fecha >= '"+fechainicio +"' and fecha <='"+fechafin+"'";
+            ResultSet result2 = s2.executeQuery(consulta);
+            while(result2.next()){
+                gidzona = Integer.parseInt(result2.getString(1)); 
+                Zonas zon = zonasfacade.buscarZona(gidzona);
+                allzonas.add(zon);
+            }
+            
+            reporte = crecimientozonas(allzonas, demandasbusqueda);
+        }
+        catch (SQLException   e){
+            e.printStackTrace();
+        }                       
+        
+        
+        return reporte;
+    }
+     
+     
+    public List<String> crecimientozonas(List<Zonas> zonas, List<Demanda> demandas){
+        List<String> resultadofinal = new ArrayList();
+        //List<Zonas> zonas = zonasfacade.allZona();
+        //List<Demanda> demandas = demandafacade.findAlldemanda();
+        if(!zonas.isEmpty()&& !demandas.isEmpty()){
+        
+            int cantididaz = zonas.size();
+            int promedio = 100/cantididaz;
+            int cotasuperior = promedio + 5;
+            int cotainferior = promedio - 5;
+
+            int totalvisitas = demandas.size();
+
+            List<String> vistasporzonas = new ArrayList();
+            List<String> porcentajezonas = new ArrayList();
+
+
+            for(Zonas z : zonas){
+                int cantidadvisitas = 0;
+                for(Demanda d : demandas){
+                    if(d.getGidzona().getGidzona() == z.getGidzona()){
+                        cantidadvisitas++;
+                    }                
+                }
+                String resultado = Integer.toString(z.getGidzona()) + "," + cantidadvisitas+","+z.getNombre();
+                vistasporzonas.add(resultado);
+            }
+
+            for(String s : vistasporzonas){
+                String[] palabrasSeparadas = s.split(",");
+                int visitas =  Integer.parseInt(palabrasSeparadas[1]);
+                int porcentaje = (visitas * 100)/totalvisitas;
+                String resultado2 = palabrasSeparadas[0] + "," + Integer.toString(porcentaje)+","+ palabrasSeparadas[2];
+
+                porcentajezonas.add(resultado2);
+
+            }
+
+            for(String r : porcentajezonas){
+                String[] palabrasSeparadas = r.split(",");
+                int porcejate = Integer.parseInt(palabrasSeparadas[1]);
+
+                if(porcejate > cotasuperior){
+                    String alta = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",ALTA";
+                    resultadofinal.add(alta);
+                }
+                if(porcejate <= cotasuperior && porcejate >= cotainferior){
+                    String media = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",MEDIA";
+                    resultadofinal.add(media);
+                }
+                if(porcejate < cotainferior){
+                    String baja = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",BAJA";
+                    resultadofinal.add(baja);
+                }            
+            }
+            return resultadofinal;
+        }
+        return resultadofinal;
+    }
 }

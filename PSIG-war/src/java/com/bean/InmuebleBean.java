@@ -14,7 +14,7 @@ import com.entity.Zonas;
 import com.logica.AdministradorL;
 import com.logica.InmuebleL;
 import com.logica.PropietarioL;
-
+import com.logica.ZonaL;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -82,8 +82,7 @@ public class InmuebleBean implements Serializable{
     private Zonas zon = new Zonas();
     private Administrador adm = new Administrador();
     private Propietario prop = new Propietario();
-    private ExternalContext ec;
-    
+    private ZonaL zonaL;
     
     public InmuebleBean(){
     }
@@ -98,7 +97,7 @@ public class InmuebleBean implements Serializable{
         //String nick_admin = session.getAttribute("nick").toString();
         //Administrador ad = admL.findadm(nick_admin);
        
-        ec = FacesContext.getCurrentInstance().getExternalContext();
+       ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
         
        
@@ -132,7 +131,7 @@ public class InmuebleBean implements Serializable{
         prop.setIdPropietario(idProp);
        
         inmueble.setBanios(banios);
-        inmueble.setDescripcion("Prueba");
+        inmueble.setDescripcion(descripcion);
         inmueble.setDireccion(descripcion);
         inmueble.setEstado(estado);
         inmueble.setGarage(true);
@@ -145,8 +144,8 @@ public class InmuebleBean implements Serializable{
         inmueble.setPisos(2);
         inmueble.setProposito(proposito);
         inmueble.setTipo(tipo);
-        inmueble.setValormax(123.88);
-        inmueble.setValormin(100.22);
+        inmueble.setValormax(100.0);
+        inmueble.setValormin(100.0);
         inmueble.setTitulo(titulo);
         
         logger.warn("valores x "+ x + "valor y "+ y);
@@ -383,5 +382,13 @@ public class InmuebleBean implements Serializable{
         this.idProp = idProp;
     }
 
+    public void createdemanda(){
+        int gidzona = inmuebleL.buscozona(x,y);        
+        inmuebleL.creardemandazona(gidzona);
+    }
+    
+    
+    
+    
     
 }

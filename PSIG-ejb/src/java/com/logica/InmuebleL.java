@@ -8,11 +8,13 @@ package com.logica;
 import Extras.OrigenDatos;
 import Extras.PoolConexiones;
 import com.DAO.Conexion_geografica;
+import com.DAO.DemandaFacadeLocal;
 import com.DAO.ImagenesFacade;
 import com.DAO.ImagenesFacadeLocal;
 import com.DAO.InmuebleFacadeLocal;
 import com.DAO.ZonasFacade;
 import com.DAO.ZonasFacadeLocal;
+import com.entity.Demanda;
 import com.entity.Imagenes;
 import com.entity.Inmueble;
 import com.entity.Zonas;
@@ -22,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +54,11 @@ public class InmuebleL {
     @EJB
     private InmuebleFacadeLocal inmfacade;
     @EJB
-    private ImagenesFacadeLocal imagenfacade; 
+    private ImagenesFacadeLocal imagenfacade;
+     @EJB
+    private ZonasFacadeLocal zonasfacade;
+      @EJB
+    private DemandaFacadeLocal demandafacade;
     
     static final Logger logger = Logger.getLogger(InmuebleL.class.getName()); 
     private Connection conexion;
@@ -392,13 +399,94 @@ public class InmuebleL {
         }
      }
      
+     public List<Inmueble> findpreciomax(Double preciomax,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(preciomax != 0){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getValormax() <= preciomax){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getValormax() <= preciomax){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     } 
+      
+     public List<Inmueble> findprecio(Double preciomax,Double preciomin,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(preciomax != 0){
+            if(!lista.isEmpty()&& preciomax > preciomin){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getValormax() <= preciomax && inm.getValormin() >= preciomin){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()&& preciomax > preciomin){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getValormax() <= preciomax && inm.getValormin() >= preciomin){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }  
+      
+    public List<Inmueble> findpreciomin(Double preciomin,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(preciomin != 0){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getValormax() >= preciomin){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getValormax() >= preciomin){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }
+     
      public List<Inmueble> findproposito(String proposito,List<Inmueble> lista){
         List<Inmueble> resultado = new ArrayList();
         List<Inmueble> Allinm = AllInmueble();
-        if(proposito.equals("vender") || proposito.equals("alquilar")){
+        if(proposito.equalsIgnoreCase("Vender") || proposito.equalsIgnoreCase("Alquilar")){
           if(!lista.isEmpty()){              
               for(Inmueble inm : lista){              
-                  if(inm.getProposito().equals(proposito)){
+                  if(inm.getProposito().equalsIgnoreCase(proposito)){
                        resultado.add(inm);
                   }                                    
               }              
@@ -406,7 +494,7 @@ public class InmuebleL {
           else{
               if(!Allinm.isEmpty()){             
                 for(Inmueble inm : Allinm){                 
-                    if(inm.getProposito().equals(proposito)){
+                    if(inm.getProposito().equalsIgnoreCase(proposito)){
                        resultado.add(inm);
                     }                                
                 }                          
@@ -698,7 +786,7 @@ public class InmuebleL {
      
     
      
-    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada){
+    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada,Double preciomin,Double preciomax){
         List<Inmueble> Allinm = AllInmueble();
         List<Inmueble> lista = new ArrayList();
         List<Inmueble> inicio = new ArrayList();
@@ -721,13 +809,54 @@ public class InmuebleL {
         if(!Allinm.isEmpty()){
             
             lista = findproposito(proposito,inicio);  //vender o alquilar
-            lista = findhabitaciones(habitaciones,lista);
+                if(lista.isEmpty()){
+                    return objetos;
+                }
+            if(preciomax != 0 && preciomin != 0 ){
+                lista = findprecio(preciomax,preciomin,lista);  
+            }
+                if(preciomax != 0 && preciomin != 0 && lista.isEmpty()){
+                    return objetos;
+                }
+            if(preciomax == 0 && preciomin != 0 ){
+                lista =findpreciomin(preciomin,lista);
+            }
+                if(preciomax == 0 && preciomin != 0 && lista.isEmpty() ){
+                    return objetos;
+                }
+            if(preciomax != 0 && preciomin == 0 ){
+                lista =findpreciomax(preciomax,lista);
+            }
+                if(preciomax != 0 && preciomin == 0 && lista.isEmpty()){
+                    return objetos;
+                }
+                
+            lista = findhabitaciones(habitaciones,lista);  
+                if(habitaciones != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findbanio(banios,lista);
+                if(banios != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findpisos(pisos,lista);
+                if(pisos != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findgarage(garage,lista);
+                if(garage == true && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findjardin(jardin,lista);
+                if(jardin == true && lista.isEmpty()){
+                     return objetos;
+                }
             lista = findInmRambla(metroscosta,lista);
+                if(metroscosta != 0 && lista.isEmpty()){
+                     return objetos;
+                }
             objetos2 = findInmSupermercado(metrossuper,lista);
+            
             if(!objetos2.isEmpty()){
                 objetos = findParadas(metrosparada,objetos2);
             }
@@ -765,6 +894,19 @@ public class InmuebleL {
        // logger.warn("Resultado =  "+resultado.toString());
         return objetos;
     }  
+    
+    public List<Objeto> GetEstadoInm(){
+        List<Inmueble> Allinm = AllInmueble();
+        List<Inmueble> resultado = new ArrayList();
+        //reviso si los inmuebles tiene el estado cerrao o cancelado, en ese caso no los agrego a la lista.
+        for(Inmueble inm : Allinm){
+            if(!inm.getEstado().equalsIgnoreCase("cerrada") || !inm.getEstado().equalsIgnoreCase("cancelada") ){
+                resultado.add(inm);
+            }
+        }        
+        List<Objeto> objetos = convertirAobjetoEstado(resultado);    
+        return objetos;    
+    }
      
     
     public int findInmueblegid(String x, String y){              
@@ -952,6 +1094,61 @@ public class InmuebleL {
         
         return objetos;
     }
+    
+    public List<Objeto> convertirAobjetoEstado(List<Inmueble> lista){
+        List<Objeto> objetos = new ArrayList();
+        if(!lista.isEmpty()){
+            for(Inmueble inm : lista){
+                Objeto obj = new Objeto();
+                obj.setGid(Integer.toString(inm.getGidInm()));
+                if(inm.getTipo() == 1){obj.setTipo("casa");}
+                if(inm.getTipo() == 2){obj.setTipo("apartamento");}
+                obj.setNombre(inm.getEstado());
+                ////
+                Statement s4 = null;
+                Connection conexion4 =  null;
+                String resulttabla="";  
+                try{
+                    conexion4 =  Conexion_geografica.getConnection();
+                    s4 = conexion4.createStatement();
+                }
+                catch (SQLException   e){
+                    e.printStackTrace();
+                }
+                String consultageo = "select ST_AsText(geom)from inmueble where gid="+inm.getGidInm();
+                try {
+                    ResultSet result = s4.executeQuery(consultageo);
+                    while (result.next()) {               // Situar el cursor          
+                        resulttabla = result.getString(1);                                                  
+                        String solocoordenadas = CadenaString(resulttabla);
+                        obj.setCoordenadas(solocoordenadas);
+                     }
+                    
+                    //conexion.close();
+                } 
+                catch (SQLException ex) {}  
+                objetos.add(obj);
+            }            
+        }
+        
+        return objetos;
+    }
+    
+    public int buscozona(String x, String y){
+        int zona = inmfacade.zonaInmueble(x,y);
+        
+        return zona;
+    }
+    
+     public void creardemandazona(int gidzona){
+         Demanda demanda = new Demanda();
+         Zonas zona  = zonasfacade.buscarZona(gidzona);
+         demanda.setGidzona(zona);
+         java.util.Date fecha = new Date();
+         demanda.setFecha(fecha);
+         
+         demandafacade.createdemanda(demanda);
+     }
 
     public String getDireccion(String x, String y) {
         
