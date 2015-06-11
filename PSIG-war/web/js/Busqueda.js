@@ -220,12 +220,16 @@ window.onload = function () {
             };
             //*****Desplegar Pop Up*****************************************
             function crearPopup(marker) {
+                
+                document.getElementById('formulario:datos_basico').click();
+                
+               var datos_inm= document.getElementById('formulario:inmueble_basico').value;
+               
                 marker.popup = new OpenLayers.Popup.FramedCloud("pop",
                     marker.geometry.getBounds().getCenterLonLat(),
                     null,
                     "<div class='markerContent'>\n\
-                        <h4>Inmueble</h4>\n\
-                    <button type='button' onclick='verinmueble()'>Consultar</button>\n\
+                        <h4>Inmueble</h4>\n\++<button type='button' onclick='verinmueble()'>Consultar</button>\n\
                     </div>",
                     null,
                     true,

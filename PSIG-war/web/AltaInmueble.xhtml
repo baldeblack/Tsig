@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      >
     <body>
         <ui:composition template="./LayoutAdmin.xhtml">
             <ui:define name="titulo">
@@ -18,22 +20,47 @@
                     </div>
                     <div class="panel-body">
                         <h:form class="form-horizontal" id="formulario">
-                            <div class="col-md-5">
+                            
                                 <h:outputLabel value="Titulo:" for="Titulo" />
                                 <h:inputText id="titulo" class="form-control" value="#{inmuebleBean.titulo}" title="Titulo" />
                                 <h:outputLabel value="Tipo:" for="tipo" />
                                 <!--<h:inputText id="tipo" class="form-control" value="{inmuebleBean.tipo}" title="tipo" /> -->
+                                
                                 <h:selectOneMenu value="#{inmuebleBean.tipo}" title="tipo" id="tipo" class="form-control">
                                         <f:selectItem itemValue="1" itemLabel="Casa" />
                                         <f:selectItem itemValue="2" itemLabel="Apartamento" />
+                                        <f:selectItem itemValue="3" itemLabel="Terreno" />
                                 </h:selectOneMenu>
                                 <h:outputLabel value="Proposito:" for="proposito" />
                                 <h:selectOneMenu value="#{inmuebleBean.proposito}" title="proposito" id="proposito" class="form-control">
                                         <f:selectItem itemValue="Vender" itemLabel="Venta" />
                                         <f:selectItem itemValue="Alquilar" itemLabel="Alquiler" />
                                 </h:selectOneMenu>
+                         
+                                <h:outputLabel value="Valor minimo" for="valormin" />
+                                <h:inputText value="#{inmuebleBean.valormin}"   class="form-control" pt:type="number" pt:min="0" pt:max="9999999999" pt:required="true" required="true" title="valormin"/>
+                                
+                                <h:outputLabel value="Valor maximo" for="valormax" />
+                                <h:inputText value="#{inmuebleBean.valormax}"  class="form-control" pt:type="number" pt:min="0" pt:max="9999999999" pt:required="true" required="true" title="valormax"/>
+                                
+                                <h:outputLabel value="Pisos" for="pisos" />
+                                <h:inputText value="#{inmuebleBean.pisos}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="banio" />
+                                
+                                <h:outputLabel value="Habitaciones:" for="habitaciones" />
+                                <h:inputText value="#{inmuebleBean.habitaciones}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="habitaciones" />
+                                
                                 <h:outputLabel value="Baños:" for="banio" />
-                                <h:inputText id="banio" class="form-control" value="#{inmuebleBean.banios}" title="banio" />
+                                <h:inputText value="#{inmuebleBean.banios}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="banio" />
+                                
+                                <h:outputLabel value="Garage" for="garage" />
+                                <h:selectBooleanCheckbox  class="form-control"  value="#{inmuebleBean.garage}" id="garage" />
+                                
+                                <h:outputLabel value="Jardin" for="jardin" />
+                                <h:selectBooleanCheckbox class="form-control" value="#{inmuebleBean.jardin}" id="jardin" />
+                                
+                                
+                                   
+                                
                                 <h:outputLabel value="Descripcion: " for="descripcion" />
                                 <h:inputTextarea cols="30" rows="10" id="descripcion" class="form-control" value="#{inmuebleBean.descripcion}" title="descripcion" />
                                 <h:outputLabel value="Direccion:" for="direccion" />
@@ -52,7 +79,7 @@
                                         <f:selectItem itemValue="cerrada" itemLabel="Cerrada" />
                                         <f:selectItem itemValue="cancelada" itemLabel="Cancelada" />
                                 </h:selectOneMenu>
-                            </div>
+                            
                             <div class="col-md-7">
                                 <spacer height="10" />
                                 <div id="map" style="width: 100%; height: 600px;"></div>
@@ -61,6 +88,10 @@
                                 <script src="js/InmuebleJS.js" target="body" />	
                                 <h:inputHidden id="punto_select_x"  value="#{inmuebleBean.x}"/>
                                 <h:inputHidden id="punto_select_y" value="#{inmuebleBean.y}"/>
+                                
+                                <h:commandButton type="submit"  id="get_direccion" value="get_direccion"  style="display: none" action="#{inmuebleBean.cargar_direccion}" >
+                                    <!--<f:ajax execute="get_direccion" render="input" />-->
+                                </h:commandButton>
                             </div>
                             
                             <div class="col-md-12" style="padding-top: 10px;padding-bottom: 10px;" >
@@ -68,6 +99,7 @@
                             </div>
                             
                         </h:form>
+                        <script src="js/principal.js" target="body" />
                     </div>
                 </div>
             </ui:define>

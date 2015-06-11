@@ -4,7 +4,7 @@ map.addLayer(new OpenLayers.Layer.Google( "Google",{type: google.maps.MapTypeId.
 var centro_mapa = new OpenLayers.LonLat( -56.1979688 ,-34.9077286 ).transform(new OpenLayers.Projection("EPSG:4326"), // transforma de WGS 1984
 map.getProjectionObject() // a la Proyeccion Spherical Mercator
 );
-var zoom=13;
+var zoom=5;
 
 
 var zonas = new OpenLayers.Layer.WMS(
@@ -19,6 +19,20 @@ var zonas = new OpenLayers.Layer.WMS(
 );
 zonas.visibility=true;
 map.addLayer(zonas);
+
+
+var puertas = new OpenLayers.Layer.WMS(
+    "-Zonas de demanda", "http://localhost:8081/geoserver/wms",
+    {
+        srs: "EPSG:32721",
+        layers: 'TSIG:puertas',
+        transparent: true,
+        format:'image/png'
+    },
+     {   opacity: 0.7}        
+);
+zonas.visibility=true;
+map.addLayer(puertas);
 
 
 
@@ -59,22 +73,45 @@ var editar_punto = new OpenLayers.Control.DrawFeature(
     capa_punto,
     OpenLayers.Handler.Point
 );
+//*************************************
 
-editar_punto.handler.callbacks.create = function(data) {
+    editar_punto.handler.callbacks.create = function(data) {
     if(capa_punto.features.length > 1)
     {
         // capa_punto.features[0].remove;
          capa_punto.removeFeatures(capa_punto.features[0]);
+        
     }
+    
+    buscodireccion();
+    
+    
+    
 }
+
+function buscodireccion(){
+    
+    var valor=capa_punto.features[0].geometry.getVertices()[0];
+    valor2= valor.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+    var x =document.getElementById('formulario:punto_select_x');
+    var y=document.getElementById('formulario:punto_select_y');
+   
+    x.value=valor.x;
+    y.value=valor.y;
+    
+   document.getElementById('formulario:get_direccion').click();
+    
+}
+
 
 editar_punto.handler.callbacks.point = function(pt){
     if(capa_punto.features.length > 1)
     {
          //capa_punto.features[0].remove;
          capa_punto.removeFeatures(capa_punto.features[0]);
-  
+         
     }
+    
 }
 map.addControl(editar_punto);
 editar_punto.activate();   

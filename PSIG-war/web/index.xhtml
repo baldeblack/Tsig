@@ -21,8 +21,12 @@
                         <h:inputHidden id="coord_x" value="#{pruebas.x_nuevo}" />
                         <h:inputHidden id="coord_y" value="#{pruebas.y_nuevo}" />
                         
-                        <h:commandButton type="submit"  id="click" value="click" onchange="submit();"  action="#{pruebas.consulta2}" />
-                        <h:commandLink value="Next page" action="/DetalleInmueble.xhtml?faces-redirect=true" />
+                         <!--<h:inputHidden id="coord_y" value="{pruebas.datos_inm}" />-->
+                        
+                        <h:commandButton type="submit" style="display: none"  id="datos_basico" value="click" onchange="submit();"  action="#{pruebas.datos_basico}" />
+                        
+                        <h:commandButton type="submit"  style="display: none" id="click" value="click" onchange="submit();"  action="#{pruebas.consulta2}" />
+                        <h:commandLink value="Next page" style="display: none" action="/DetalleInmueble.xhtml?faces-redirect=true" />
                     </h:form>
                     <div class="col-md-3 busquedas_inmueble">
                         <div class="contenedor-busquedas">

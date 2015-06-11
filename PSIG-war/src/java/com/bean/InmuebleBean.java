@@ -14,6 +14,7 @@ import com.entity.Zonas;
 import com.logica.AdministradorL;
 import com.logica.InmuebleL;
 import com.logica.PropietarioL;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -25,7 +26,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpSession;
+
+import javax.validation.constraints.Digits;
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -45,12 +47,17 @@ public class InmuebleBean implements Serializable{
     private String proposito;
     private String estado;
     private Integer tipo;
+    @Digits(integer=9, fraction=0)
     private Double valormin;
+    @Digits(integer=9, fraction=0)
     private Double valormax;
     private String direccion;
     private Integer padron;
+     @Digits(integer=2, fraction=0)
     private Integer banios;
+     @Digits(integer=2, fraction=0)
     private Integer habitaciones;
+     @Digits(integer=2, fraction=0)
     private Integer pisos;
     private Boolean garage;
     private Boolean jardin;
@@ -75,6 +82,7 @@ public class InmuebleBean implements Serializable{
     private Zonas zon = new Zonas();
     private Administrador adm = new Administrador();
     private Propietario prop = new Propietario();
+    private ExternalContext ec;
     
     
     public InmuebleBean(){
@@ -90,7 +98,7 @@ public class InmuebleBean implements Serializable{
         //String nick_admin = session.getAttribute("nick").toString();
         //Administrador ad = admL.findadm(nick_admin);
        
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec = FacesContext.getCurrentInstance().getExternalContext();
         
         
        
@@ -145,6 +153,17 @@ public class InmuebleBean implements Serializable{
         inmuebleL.crearInmueble(inmueble, x, y);
         return "index";
     }
+    
+    
+    public void cargar_direccion(){
+    
+       try {
+        this.direccion=inmuebleL.getDireccion(x,y);
+       }
+        catch(Exception e)
+        {}
+    }
+    
     
     public List<Inmueble> listarInmuebles(){
         return inmuebleL.AllInmueble();

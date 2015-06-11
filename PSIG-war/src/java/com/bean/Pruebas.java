@@ -71,6 +71,10 @@ public class Pruebas implements Serializable{
     private FacesContext contexto;
     private FacesMessage facesMessage;             
     private List<String> inmueble_basico;
+    
+    private String datos_inm;
+
+    
     private List<String> inmueble_completo;    
     private int metrossuper;      
     private String nombre;
@@ -86,6 +90,14 @@ public class Pruebas implements Serializable{
     
     public Pruebas(){
        
+    }
+    
+    public String getDatos_inm() {
+        return datos_inm;
+    }
+
+    public void setDatos_inm(String datos_inm) {
+        this.datos_inm = datos_inm;
     }
     
     //Metodos
@@ -150,14 +162,25 @@ public class Pruebas implements Serializable{
         return retorno;   
     }
     
+    
    
     //******************************************** 
+    public void cargar_direccion(){
+    
+       try {
+        this.datos_inm=inmuebleL.getInmueblebasico(x, y).toString();
+       }
+        catch(Exception e)
+        {}
+    }
+    
+    
     public String pruebo3(){
         String retorno=null;
         try{
             inmueble_basico = inmuebleL.getInmueblebasico(x,y);//le pasas las coordenadas y te busca el inmueble, te devuelve los datos en una lista de string
             //logger.warn("Consulta  " + resultado.toString());
-            retorno="DetalleInmueble";
+           // returno=inmueble_basico.toString();
         }
         catch(Exception e){
         }

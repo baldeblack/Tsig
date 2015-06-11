@@ -952,4 +952,64 @@ public class InmuebleL {
         
         return objetos;
     }
+
+    public String getDireccion(String x, String y) {
+        
+        String retorno="";
+         try{   
+            try { 
+               logger.warn("CONEXION A establecer");
+               conexion = OrigenDatos.getConnection();
+                if (conexion.isClosed()){
+                   logger.warn("CONEXION cerrada");
+                   PoolConexiones pool= new PoolConexiones() ;
+                   conexion = pool.getConnectionFromPool();
+                   logger.warn("CONEXION = "+ conexion.getSchema());
+                }
+            }
+            catch(ClassNotFoundException e){
+                e.printStackTrace();
+            }
+            try{
+                s = conexion.createStatement();
+                String consulta = "select * from num_puertas z where ST_Intersects("
+                        + "Geography(ST_Transform(z.geom,4326)),"
+                        + "ST_GeographyFromText('SRID=4326;POINT("
+                        + x 
+                        + " "
+                        + y 
+                        + ")'))";
+               
+                logger.warn("Consulta ="+consulta);
+                
+                try {
+                    ResultSet result = s.executeQuery(consulta);
+                    while (result.next()) {               // Situar el cursor
+                         logger.warn("Direccion "+ result.toString());
+                        // result.getString(1);                                                                  
+                        retorno= result.getString(4)+" "+ result.getString(4) ;   
+                        
+                    }
+                } 
+                catch (SQLException ex) { 
+                    ex.printStackTrace();
+                }                
+                conexion.close();
+                OrigenDatos.returnConnection(conexion);
+                //resultado =true; 
+               }
+            catch(SQLException e){
+                 e.printStackTrace();
+            }
+        } 
+        catch (SQLException e) {
+            logger.error("Error al consultar si hay interseccion");
+            e.printStackTrace();
+            resultado= false;
+        }
+        return retorno;
+        
+
+//To change body of generated methods, choose Tools | Templates.
+    }
 }

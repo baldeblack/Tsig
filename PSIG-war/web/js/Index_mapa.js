@@ -19,7 +19,7 @@ var inmueble = new OpenLayers.Layer.WMS(
 );
 
 inmueble.visibility=false;
-map.addLayer(inmueble);
+//map.addLayer(inmueble);
 
 //******Capa comercios************************************************** 
 var comercio = new OpenLayers.Layer.WMS(
