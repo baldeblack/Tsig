@@ -399,13 +399,94 @@ public class InmuebleL {
         }
      }
      
+     public List<Inmueble> findpreciomax(Double preciomax,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(preciomax != 0){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getValormax() <= preciomax){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getValormax() <= preciomax){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     } 
+      
+     public List<Inmueble> findprecio(Double preciomax,Double preciomin,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(preciomax != 0){
+            if(!lista.isEmpty()&& preciomax > preciomin){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getValormax() <= preciomax && inm.getValormin() >= preciomin){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()&& preciomax > preciomin){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getValormax() <= preciomax && inm.getValormin() >= preciomin){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }  
+      
+    public List<Inmueble> findpreciomin(Double preciomin,List<Inmueble> lista){
+        List<Inmueble> resultado = new ArrayList();
+        List<Inmueble> Allinm = AllInmueble();
+        if(preciomin != 0){
+            if(!lista.isEmpty()){              
+                  for(Inmueble inm : lista){              
+                      if(inm.getValormax() <= preciomin){
+                           resultado.add(inm);
+                      }                                    
+                  }              
+            }
+            else{
+                  if(!Allinm.isEmpty()){             
+                    for(Inmueble inm : Allinm){                 
+                        if(inm.getValormax() <= preciomin){
+                           resultado.add(inm);
+                        }                                
+                    }                          
+                  }   
+            }                  
+            return resultado;
+        }
+        else{
+            return lista;
+        }
+     }
+     
      public List<Inmueble> findproposito(String proposito,List<Inmueble> lista){
         List<Inmueble> resultado = new ArrayList();
         List<Inmueble> Allinm = AllInmueble();
-        if(proposito.equals("vender") || proposito.equals("alquilar")){
+        if(proposito.equalsIgnoreCase("Vender") || proposito.equalsIgnoreCase("Alquilar")){
           if(!lista.isEmpty()){              
               for(Inmueble inm : lista){              
-                  if(inm.getProposito().equals(proposito)){
+                  if(inm.getProposito().equalsIgnoreCase(proposito)){
                        resultado.add(inm);
                   }                                    
               }              
@@ -413,7 +494,7 @@ public class InmuebleL {
           else{
               if(!Allinm.isEmpty()){             
                 for(Inmueble inm : Allinm){                 
-                    if(inm.getProposito().equals(proposito)){
+                    if(inm.getProposito().equalsIgnoreCase(proposito)){
                        resultado.add(inm);
                     }                                
                 }                          
@@ -705,7 +786,7 @@ public class InmuebleL {
      
     
      
-    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada){
+    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada,Double preciomin,Double preciomax){
         List<Inmueble> Allinm = AllInmueble();
         List<Inmueble> lista = new ArrayList();
         List<Inmueble> inicio = new ArrayList();
@@ -728,7 +809,16 @@ public class InmuebleL {
         if(!Allinm.isEmpty()){
             
             lista = findproposito(proposito,inicio);  //vender o alquilar
-            lista = findhabitaciones(habitaciones,lista);
+            if(preciomax != 0 && preciomin != 0 ){
+                lista = findprecio(preciomax,preciomin,lista);  
+            }
+            if(preciomax == 0 && preciomin != 0 ){
+                lista =findpreciomin(preciomin,lista);
+            }
+            if(preciomax != 0 && preciomin == 0 ){
+                lista =findpreciomax(preciomax,lista);
+            }
+            lista = findhabitaciones(habitaciones,lista);                      
             lista = findbanio(banios,lista);
             lista = findpisos(pisos,lista);
             lista = findgarage(garage,lista);
