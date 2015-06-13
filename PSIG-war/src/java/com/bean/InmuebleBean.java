@@ -143,7 +143,7 @@ public class InmuebleBean implements Serializable{
         inmueble.setIdAdmin(adm);
         inmueble.setIdPropietario(prop);
         inmueble.setJardin(jardin);
-        inmueble.setPadron(2345);
+        inmueble.setPadron(padron);
         inmueble.setPisos(pisos);
         inmueble.setProposito(proposito);
         inmueble.setTipo(tipo);
