@@ -796,7 +796,7 @@ public class InmuebleL {
      
     
      
-    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada,Double preciomin,Double preciomax){
+    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada,Double preciomin,Double preciomax,String barrio){
         List<Inmueble> Allinm = AllInmueble();
         List<Inmueble> lista = new ArrayList();
         List<Inmueble> inicio = new ArrayList();
@@ -817,11 +817,18 @@ public class InmuebleL {
         }
         
         if(!Allinm.isEmpty()){
-            
+                        
             lista = findproposito(proposito,inicio);  //vender o alquilar
                 if(lista.isEmpty()){
                     return objetos;
+                }                          
+            if(!barrio.equalsIgnoreCase("Todos")){
+                lista = findInmBarrios(barrio); 
+                if(lista.isEmpty()){
+                    return objetos;
                 }
+            }
+            
             if(preciomax != 0 && preciomin != 0 ){
                 lista = findprecio(preciomax,preciomin,lista);  
             }
@@ -1223,4 +1230,35 @@ public class InmuebleL {
     public boolean AgregarImagen(Imagenes img){
          return imagenfacade.crearImagen(img);
      }
+    
+    public List<Inmueble> findInmBarrios(String barrio){
+        List<Inmueble> inmuebles = new ArrayList();
+        Statement s5 = null;
+        Connection conexion5 =  null;
+        String resulttabla="";  
+        try{
+            conexion5 =  Conexion_geografica.getConnection();
+            s5 = conexion5.createStatement();
+        }
+        catch (SQLException   e){
+            e.printStackTrace();
+        }
+        
+        String consultageo ="SELECT i.gid \n" +
+                            "FROM inmueble i JOIN barrios b\n" +
+                            "ON ST_CONTAINS(ST_TRANSFORM(b.geom,4326), i.geom) and b.barrio = '"+ barrio +"'";
+        try {
+            ResultSet result = s5.executeQuery(consultageo);
+            while (result.next()) {               // Situar el cursor          
+                resulttabla = result.getString(1);                                                  
+                int gidinm = Integer.parseInt(resulttabla);    
+                Inmueble getinm = inmfacade.findInmueble(gidinm);
+                inmuebles.add(getinm);
+            }                                  
+        } 
+        catch (SQLException ex) {}  
+                
+        return inmuebles;        
+    }
+    
 }
