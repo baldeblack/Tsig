@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <body>
 
@@ -20,20 +21,32 @@
                       </div>
                       <div class="panel-body">
                             <h:messages errorClass="msjError" infoClass="msjSuccess" />
-                            <h:form class="form-horizontal">
-                                <h:inputHidden class="form-control" value="#{altaPropietario.prop.idPropietario}" id="idPropietario"></h:inputHidden>
-                                <h:outputLabel value="nombre"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaPropietario.prop.nombre}" id="nombre"></h:inputText>
-                                <h:outputLabel value="apellido"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaPropietario.prop.apellido}" id="apellido"></h:inputText>
-                                <h:outputLabel  value="telefono"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaPropietario.prop.telefono}" id="telefono"></h:inputText>
-                                <h:outputLabel value="email"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaPropietario.prop.email}" id="email"></h:inputText>
-                                <h:inputHidden class="form-control" value="#{altaPropietario.prop.ci}" id="ci" ></h:inputHidden>
-                                <h:commandButton class="btn btn-success"  action="#{altaPropietario.editarPropietario()}" value="Editar"></h:commandButton>
+                            <form jsf:id="form-editp" data-toggle="validator" role="form">
+                                <input jsf:value="#{altaPropietario.prop.idPropietario}" type="text" class="form-control" id="idPropietario" />
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input jsf:value="#{altaPropietario.prop.nombre}" type="text" class="form-control" id="nombre" placeholder="Nombre" required="true" /> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Apellido</label>
+                                    <input jsf:value="#{altaPropietario.prop.apellido}" type="text" class="form-control" id="apellido" placeholder="Apellido" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefono</label>
+                                    <input jsf:value="#{altaPropietario.prop.telefono}" type="text" class="form-control" id="telefono" size="9" pattern="[0-9]{9}" placeholder="Telefono" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input jsf:value="#{altaPropietario.prop.email}" type="email" class="form-control" id="apellido" placeholder="correo@dominio.com" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cedula</label>
+                                    <input jsf:value="#{altaPropietario.prop.ci}" type="text" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" size="8" pattern="[0-9]{9}" maxlength="8" class="form-control" id="ci" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
 
-                            </h:form>
+                                <button class="btn btn-success" jsf:action="#{altaPropietario.editarPropietario()}">Crear</button>
+                            </form> 
                       </div>
                 </div>
             </ui:define>

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <body>
 
@@ -19,24 +20,35 @@
                           <h3>Alta Propietario</h3>
                       </div>
                       <div class="panel-body">
-                            
-                       <h:form class="form-horizontal">
-                            <h:messages errorClass="msjError" infoClass="msjSuccess" />
-                            <h:outputLabel value="Nombre:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaPropietario.nombre}" required="true" id="nombre"></h:inputText>
-                            <h:outputLabel value="Apellido:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaPropietario.apellido}" required="true" id="apellido"></h:inputText>
-                            <h:outputLabel  value="Telefono:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaPropietario.telefono}" id="telefono"></h:inputText>
-                            <h:outputLabel value="Email:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaPropietario.email}" id="email"></h:inputText>
-                            <h:outputLabel value="Cedula:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaPropietario.ci}" required="true" id="ci"></h:inputText>
+                           <form jsf:id="form-altap" data-toggle="validator" role="form">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input jsf:value="#{altaPropietario.nombre}" type="text" class="form-control" id="nombre" placeholder="Nombre" required="true" /> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Apellido</label>
+                                    <input jsf:value="#{altaPropietario.apellido}" type="text" class="form-control" id="apellido" placeholder="Apellido" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefono</label>
+                                    <input jsf:value="#{altaPropietario.telefono}" type="text" size="9" pattern="[0-9]{9}" class="form-control" id="telefono" placeholder="Telefono" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input jsf:value="#{altaPropietario.email}" type="email" class="form-control" id="apellido" placeholder="correo@dominio.com" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cedula</label>
+                                    <input jsf:value="#{altaPropietario.ci}" type="text" pattern="[0-9]{9}" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" size="8" maxlength="8" class="form-control" id="ci" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
 
-                            <h:commandButton class="btn btn-success"  action="#{altaPropietario.crearPropietario()}" value="Crear" />
-                        </h:form>
+                                <button class="btn btn-success" jsf:action="#{altaPropietario.crearPropietario()}">Crear</button>
+                            </form> 
+                       
                       </div>
                 </div>
+ 
             </ui:define>
 
         </ui:composition>

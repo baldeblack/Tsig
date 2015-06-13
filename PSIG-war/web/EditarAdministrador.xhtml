@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <body>
 
@@ -21,29 +22,48 @@
                       </div>
                       <div class="panel-body">
                             <h:messages errorClass="msjError" infoClass="msjSuccess" />
-                            <h:form class="form-horizontal">
-                                <h:outputLabel value="id"></h:outputLabel>
-                                <h:inputText class="form-control" readonly="true" value="#{altaAdministrador.adm.idAdmin}" id="id"></h:inputText>
-                                <h:outputLabel value="login"></h:outputLabel>
-                                <h:inputText readonly="true" class="form-control" value="#{altaAdministrador.adm.login}" id="login"></h:inputText>
-                                <h:outputLabel value="clave"></h:outputLabel>
-                                <h:inputSecret class="form-control" value="#{altaAdministrador.adm.clave}" id="clave"></h:inputSecret>
-                                <h:outputLabel value="nombre"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaAdministrador.adm.nombre}" id="nombre"></h:inputText>
-                                <h:outputLabel value="apellido"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaAdministrador.adm.apellido}" id="apellido"></h:inputText>
-                                <h:outputLabel value="cedula"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaAdministrador.adm.cedula}" id="cedula"></h:inputText>
-                                <h:outputLabel  value="telefono"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaAdministrador.adm.telefono}" id="telefono"></h:inputText>
-                                <h:outputLabel value="email"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaAdministrador.adm.email}" id="email"></h:inputText>
-                                <h:outputLabel value="rol"></h:outputLabel>
-                                <h:inputText class="form-control" value="#{altaAdministrador.adm.rol}" id="rol"></h:inputText>
-
-                                <h:commandButton class="btn btn-success"  action="#{altaAdministrador.editAdministrador()}" value="Editar"></h:commandButton>
-
-                        </h:form>
+                            
+                            <form jsf:id="form-edita" data-toggle="validator" role="form">
+                                
+                                <input jsf:value="#{altaAdministrador.adm.idAdmin}" type="hidden" class="form-control" id="id" /> 
+                                <!--<div class="form-group">
+                                    <label class="control-label">Login</label>-->
+                                <input jsf:value="#{altaAdministrador.adm.login}" type="hidden" class="form-control" id="login" placeholder="Login"/> 
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <label class="control-label">Clave</label>
+                                    <input jsf:value="#{altaAdministrador.adm.clave}" data-error="Debe ingresar 6 caracteres como minimo" data-minlength="6" type="text" class="form-control" id="clave" required="true" />
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input jsf:value="#{altaAdministrador.adm.nombre}" type="text" class="form-control" id="nombre" placeholder="Nombre" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Apellido</label>
+                                    <input jsf:value="#{altaAdministrador.adm.apellido}" type="text" class="form-control" id="apellido" placeholder="Apellido" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cedula</label>
+                                    <input jsf:value="#{altaAdministrador.adm.cedula}" type="text" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" pattern="[0-9]{9}" maxlength="8" class="form-control" id="cedula" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefono</label>
+                                    <input jsf:value="#{altaAdministrador.adm.telefono}" type="text" data-error="Debe ingresar un número" class="form-control" size="9" pattern="[0-9]{9}" id="telefono" maxlength="9" placeholder="Telefono" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input jsf:value="#{altaAdministrador.adm.email}" data-error="Email invalido" type="email" class="form-control" id="email" placeholder="correo@dominio.com" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <!--<div class="form-group">
+                                    <label class="control-label">Rol</label>
+                                    <input jsf:value="{altaAdministrador.rol}" type="text" class="form-control" id="rol" placeholder="" />
+                                </div>-->
+   
+                                <button class="btn btn-success" jsf:action="#{altaAdministrador.editAdministrador()}">Editar</button>
+                            </form>
                       </div>
                 </div>
             </ui:define>

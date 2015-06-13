@@ -20,7 +20,7 @@
                     </div>
                     <div class="panel-body">
                         <h:form class="form-horizontal" id="formulario">
-                            
+                            <div class="col-md-5">
                                 <h:outputLabel value="Titulo:" for="Titulo" />
                                 <h:inputText id="titulo" class="form-control" value="#{inmuebleBean.titulo}" title="Titulo" />
                                 <h:outputLabel value="Tipo:" for="tipo" />
@@ -29,17 +29,13 @@
                                 <h:selectOneMenu value="#{inmuebleBean.tipo}" title="tipo" id="tipo" class="form-control">
                                         <f:selectItem itemValue="1" itemLabel="Casa" />
                                         <f:selectItem itemValue="2" itemLabel="Apartamento" />
-                                        <f:selectItem itemValue="3" itemLabel="Terreno" />
                                 </h:selectOneMenu>
                                 <h:outputLabel value="Proposito:" for="proposito" />
                                 <h:selectOneMenu value="#{inmuebleBean.proposito}" title="proposito" id="proposito" class="form-control">
                                         <f:selectItem itemValue="Vender" itemLabel="Venta" />
                                         <f:selectItem itemValue="Alquilar" itemLabel="Alquiler" />
                                 </h:selectOneMenu>
-                         
-                                <h:outputLabel value="Valor minimo" for="valormin" />
-                                <h:inputText value="#{inmuebleBean.valormin}"   class="form-control" pt:type="number" pt:min="0" pt:max="9999999999" pt:required="true" required="true" title="valormin"/>
-                                
+
                                 <h:outputLabel value="Valor maximo" for="valormax" />
                                 <h:inputText value="#{inmuebleBean.valormax}"  class="form-control" pt:type="number" pt:min="0" pt:max="9999999999" pt:required="true" required="true" title="valormax"/>
                                 
@@ -51,16 +47,16 @@
                                 
                                 <h:outputLabel value="Baños:" for="banio" />
                                 <h:inputText value="#{inmuebleBean.banios}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="banio" />
+                                <div class="group-chebox-buscador">
+                                <div class="col-md-4"><h:outputLabel value="Garage" for="garage" /></div>
+                                <div class="col-md-2"><h:selectBooleanCheckbox  class="check-buscador"  value="#{inmuebleBean.garage}" id="garage" /></div>
                                 
-                                <h:outputLabel value="Garage" for="garage" />
-                                <h:selectBooleanCheckbox  class="form-control"  value="#{inmuebleBean.garage}" id="garage" />
+                                <div class="col-md-4"><h:outputLabel value="Jardin" for="jardin" /></div>
+                                <div class="col-md-2"><h:selectBooleanCheckbox class="check-buscador" value="#{inmuebleBean.jardin}" id="jardin" /></div>                  
+                                </div>
                                 
-                                <h:outputLabel value="Jardin" for="jardin" />
-                                <h:selectBooleanCheckbox class="form-control" value="#{inmuebleBean.jardin}" id="jardin" />
-                                
-                                
-                                   
-                                
+                                <div class="col-md-4" style="padding-left: 0px !important;"><h:outputLabel value="Padron:" for="padron" /></div>
+                                <h:inputText id="padron" class="form-control" value="#{inmuebleBean.padron}" title="padron" />
                                 <h:outputLabel value="Descripcion: " for="descripcion" />
                                 <h:inputTextarea cols="30" rows="10" id="descripcion" class="form-control" value="#{inmuebleBean.descripcion}" title="descripcion" />
                                 <h:outputLabel value="Direccion:" for="direccion" />
@@ -79,7 +75,7 @@
                                         <f:selectItem itemValue="cerrada" itemLabel="Cerrada" />
                                         <f:selectItem itemValue="cancelada" itemLabel="Cancelada" />
                                 </h:selectOneMenu>
-                            
+                            </div>
                             <div class="col-md-7">
                                 <spacer height="10" />
                                 <div id="map" style="width: 100%; height: 600px;"></div>
@@ -94,7 +90,7 @@
                                 </h:commandButton>
                             </div>
                             
-                            <div class="col-md-12" style="padding-top: 10px;padding-bottom: 10px;" >
+                            <div class="col-md-12" style="padding-top: 10px;padding-bottom: 10px;"  >
                                 <h:commandButton class="btn btn-success" onmousedown="GuardarPunto();" value="Guardar"  action="#{inmuebleBean.altaInmueble}"/>
                             </div>
                             

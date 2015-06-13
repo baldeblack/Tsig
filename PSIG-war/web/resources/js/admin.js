@@ -16,7 +16,7 @@ $(document).ready(function(){
     });
     
     $('#form-validator').validator();
-
+    $('#form-edita').validator();
     
 });
 
