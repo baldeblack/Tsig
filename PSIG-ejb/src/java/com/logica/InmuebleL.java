@@ -235,24 +235,34 @@ public class InmuebleL {
         return inmfacade.findAll();
     }
     
+    public List<Imagenes> findAllImgInm(){
+        return imagenfacade.findAllImg();
+    }
     
     public List<Imagenes> findImagenesInm(Object gidinmueble){
         List<Imagenes> all = imagenfacade.findAllImg();
-        List<Imagenes> resultado = null;
+        List<Imagenes> result = new ArrayList();
         
-        for(int i=0;i< all.size()-1;i++){
-            Imagenes img = (Imagenes) all.get(i);
-            
-            if(gidinmueble == img.getGidInm()){
-                resultado.add(img);
+        for (Imagenes imagenes : all) {
+            //Imagenes img = (Imagenes) all.get(i);
+            int idInm = imagenes.getGidInm().getGidInm();
+            if(gidinmueble.equals(idInm) ){
+                result.add(imagenes);
             } 
-        }           
-        return resultado;
+        }
+        /*for(int i=0;i< all.size()-1;i++){
+            Imagenes img = (Imagenes) all.get(i);
+            int idInm = img.getGidInm().getGidInm();
+            if(gidinmueble.equals(idInm) ){
+                result.add(img);
+            } 
+        } */          
+        return result;
     }
     
      public List<Imagenes> findImagenDestacada(Object gidinmueble){
         List<Imagenes> all = imagenfacade.findAllImg();
-        List<Imagenes> resultado = null;
+        List<Imagenes> resultado = new ArrayList();
         
         for(int i=0;i< all.size()-1;i++){
             Imagenes img = (Imagenes) all.get(i);
@@ -1209,4 +1219,8 @@ public class InmuebleL {
 
 //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public boolean AgregarImagen(Imagenes img){
+         return imagenfacade.crearImagen(img);
+     }
 }

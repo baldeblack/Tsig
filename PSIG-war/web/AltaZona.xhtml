@@ -16,9 +16,10 @@
                       </div>
                       <div class="panel-body">
                          <h:form class="form-horizontal" role="form" id="formulario">
-
-                            <h:messages errorClass="alert alert-danger" infoClass="alert alert-success" />
                             
+                            <h:messages errorClass="alert alert-danger alert-dismissable msjes" infoClass="alert alert-success alert-dismissable msjes"></h:messages>
+                            
+
                             <div class="col-md-12" style="padding-bottom: 10px;">
                                 <h:outputLabel value="Nombre de la Zona:" for="nombre_zona" />
                                 <h:inputText id="nombre_zona" value="#{zonaBean.nombre_zona}" class="form-control" title="nombre_zona" />
@@ -38,10 +39,6 @@
                         </h:form>   
                       
                       </div>
-                </div>
-                <div class="container">
-                    <h3>Alta de Zona</h3>
-                    
                 </div>
             </ui:define>
         </ui:composition>

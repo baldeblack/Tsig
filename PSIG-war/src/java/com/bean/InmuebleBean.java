@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -44,21 +45,23 @@ public class InmuebleBean implements Serializable{
     
     private static final Logger logger = Logger.getLogger(InmuebleBean.class.getName()); 
     
+    private String url;
+    private FacesMessage facesMessage;
     private String proposito;
     private String estado;
-    private Integer tipo;
-    @Digits(integer=9, fraction=0)
+    private int tipo;
+    //@Digits(integer=9, fraction=0)
     private Double valormin;
-    @Digits(integer=9, fraction=0)
+    //@Digits(integer=9, fraction=0)
     private Double valormax;
     private String direccion;
-    private Integer padron;
-     @Digits(integer=2, fraction=0)
-    private Integer banios;
-     @Digits(integer=2, fraction=0)
-    private Integer habitaciones;
-     @Digits(integer=2, fraction=0)
-    private Integer pisos;
+    private int padron;
+     //@Digits(integer=2, fraction=0)
+    private int banios;
+     //@Digits(integer=2, fraction=0)
+    private int habitaciones;
+     //@Digits(integer=2, fraction=0)
+    private int pisos;
     private Boolean garage;
     private Boolean jardin;
     private String descripcion;
@@ -387,7 +390,63 @@ public class InmuebleBean implements Serializable{
         inmuebleL.creardemandazona(gidzona);
     }
     
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String uploadFile(Inmueble inm){
+        this.inmueble = inm;
+        return "UploadFile";
+    }
     
+    public String agregarImagen(){
+        
+        Imagenes img = new Imagenes();
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        List<Imagenes> imges = inmuebleL.findImagenesInm(inmueble.getGidInm());
+        
+        if(imges == null || imges.isEmpty() ){
+            img.setDestacada(true);
+        }
+        else{
+            img.setDestacada(false);
+        }
+        
+        img.setGidInm(inmueble);
+        img.setRuta(url);
+        
+        if(inmuebleL.AgregarImagen(img)){
+            
+            facesMessage= new FacesMessage(FacesMessage.SEVERITY_INFO,"La imagen se creo correctamente",null);
+            contexto.addMessage(null, facesMessage);  
+        }
+        else{
+            facesMessage= new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al crear la imagen",null);
+            contexto.addMessage(null, facesMessage);
+            
+        }
+
+        return "UploadFile";
+    }
+    
+    
+    public String listarImagenesInm(Inmueble inm){
+        this.inmueble = inm;
+        return "ListarImagenesInm";
+    }
+    
+    public List<Imagenes> listarImagenesInmL(){
+        List<Imagenes> imagenesL = inmuebleL.findImagenesInm(inmueble.getGidInm());
+        return imagenesL;
+    }
+    
+     public List<Imagenes> listarAllImagenesInmL(){
+         return inmuebleL.findAllImgInm();
+     }
     
     
     

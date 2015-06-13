@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Quicksand|Gloria+Hallelujah|Pacifico|Satisfy);
+@import url(http://fonts.googleapis.com/css?family=Michroma|Bad+Script);
 /*
 font-family: 'Quicksand', sans-serif;
 font-family: 'Gloria Hallelujah', cursive;
@@ -28,21 +28,38 @@ font-family: 'Satisfy', cursive;
 }
 .link-logo{
     padding: 0px !important;
-    margin-top: 5px !important;
+    margin-top: 0px !important;
     margin-bottom: 0px !important;
 }
-
+.link-logo img{
+    padding: 0px !important;
+    margin: 0px !important;
+}
 .link-logo img,.link-logo span{
     display:inline-block !important;
 }
 
 .link-logo span{
-    font-family: 'Pacifico', cursive;
+    position: absolute;
+    font-family: 'Michroma', sans-serif;
     font-size: 30px !important;
-    color: black !important;
-    margin-top: 5px;
+    
+}
+.link-logo .geo{
+    font-family: 'Michroma', sans-serif;
+    color: white !important;
+    font-size: 30px !important;
+    left: 140px;
+    top:25px;
 }
 
+.link-logo .inmueble{
+    font-family: 'Michroma', sans-serif;
+    font-size: 30px !important;
+    color: white !important;
+    left: 238px;
+    top:25px;
+}
 .contenedor-mapa-index{
     margin-top: 70px;
 }
@@ -70,10 +87,6 @@ font-family: 'Satisfy', cursive;
     padding-bottom: 20px !important;
 }
 
-.msjes{
-    list-style-type: none !important;
-    list-style: none !important;
-}
 
 /*--------------  spinner  ----------------------*/
 
@@ -95,6 +108,20 @@ font-family: 'Satisfy', cursive;
   width: 100px;
 }
 .spinner3 input {
+  text-align: right;
+}
+
+.spinner4 {
+  width: 100px;
+}
+.spinner4 input {
+  text-align: right;
+}
+
+.spinner5 {
+  width: 100px;
+}
+.spinner5 input {
   text-align: right;
 }
 

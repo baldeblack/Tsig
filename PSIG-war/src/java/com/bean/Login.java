@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
  *
  * @author Gaston
@@ -20,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 @ManagedBean(name="loginBean")
 @SessionScoped
 public class Login{
-
+    
+    
     private String password;
     private String nick;
     private final HttpServletRequest httpServletRequest;
@@ -128,6 +130,5 @@ public class Login{
         }
 
     }*/
-
     
 }

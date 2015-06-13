@@ -52,4 +52,11 @@ public class ImagenesFacade extends AbstractFacade<Imagenes> implements Imagenes
         return imgreturn;
     }
     
+    @Override
+    public boolean crearImagen(Imagenes img){
+
+        em.persist(img);
+        return true;
+    }
+    
 }

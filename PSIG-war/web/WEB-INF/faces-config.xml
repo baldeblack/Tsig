@@ -99,4 +99,22 @@
         </navigation-case>
     </navigation-rule>
      <!--REGLAS DE NAVEGACION-->
+     
+     <navigation-rule>
+        <from-view-id>/ListaInmueble.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ListarImagenesInm</from-outcome>
+            <to-view-id>/ListarImagenesInm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+     <!--REGLAS DE NAVEGACION-->
+     
+    <navigation-rule>
+        <from-view-id>/UploadFile.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{fileUploadController.upload()}</from-action>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

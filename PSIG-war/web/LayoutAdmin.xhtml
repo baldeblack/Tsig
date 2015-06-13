@@ -13,9 +13,11 @@
         <h:outputStylesheet name="./css/cssLayout.css"/>-->
         <h:outputStylesheet name="css/bootstrap.css" />
         <h:outputStylesheet name="css/font-awesome.css"/>
+        <h:outputStylesheet name="css/snarl.css"/>
         <h:outputStylesheet name="css/admin.css"/>
         <h:outputScript name="js/jquery.js" />
         <h:outputScript name="js/bootstrap.js" />
+        <h:outputScript name="js/snarl.js" />
         <h:outputScript name="js/admin.js" />
         <title>Admin Panel - <ui:insert name="titulo">titulo</ui:insert></title>
     </h:head>
@@ -108,9 +110,9 @@
                             </h:link>
                         </li>
                         <li>
-                            <h:link outcome="/UploadFile">
+                            <h:link outcome="/ListaAllImgInm">
                                 <i class="fa fa-file"></i>
-                                Subir Archivo
+                                Lista Imagenes
                             </h:link>
                         </li>
                         <li><a href="#"><i class="fa fa-file"></i> Reportes</a></li>

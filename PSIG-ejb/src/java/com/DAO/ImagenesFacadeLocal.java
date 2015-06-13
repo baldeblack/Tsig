@@ -31,4 +31,6 @@ public interface ImagenesFacadeLocal {
     int count();
     public Imagenes findImgPrincipal(int gidinm);
     
+    boolean crearImagen(Imagenes img);
+    
 }
