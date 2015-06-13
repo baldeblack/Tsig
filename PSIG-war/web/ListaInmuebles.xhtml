@@ -45,6 +45,12 @@
                                 <h:column>
                                     <f:facet name="header">Acciones</f:facet>
                                     <h:commandLink action="#{inmuebleBean.uploadFile(i)}" >
+                                        <i class="fa fa-upload"></i>
+                                    </h:commandLink> |
+                                    <h:commandLink action="#{inmuebleBean.listarImagenesInm(i)}" >
+                                        <i class="fa fa-picture-o"></i>
+                                    </h:commandLink> |
+                                    <h:commandLink action="#{inmuebleBean.datalleInm(i)}" >
                                         <i class="fa fa-info-circle"></i>
                                     </h:commandLink> |
                                     <h:commandLink action="#{inmuebleBean.listarImagenesInm(i)}" >

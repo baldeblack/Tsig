@@ -469,10 +469,15 @@ public class InmuebleBean implements Serializable{
         return "UploadFile";
     }
     
-    
     public String listarImagenesInm(Inmueble inm){
         this.inmueble = inm;
         return "ListarImagenesInm";
+    }
+    
+    public String datalleInm(Inmueble inm){
+        this.inmueble = inm;  
+        //zonaL.creardemandazona(inm.getGidzona().getGidzona());
+        return "DetalleInmueble";
     }
     
     public List<Imagenes> listarImagenesInmL(){
