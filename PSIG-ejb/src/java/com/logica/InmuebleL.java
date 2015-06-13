@@ -301,6 +301,34 @@ public class InmuebleL {
          }
      }
      
+    public List<Inmueble> findtipoInmueble(int tipo,List<Inmueble> lista ){
+        List<Inmueble> Allinm = AllInmueble();
+         List<Inmueble> resultado = new ArrayList();
+         if(tipo != 0){
+            if(!lista.isEmpty()){                 
+                 for(Inmueble inm : lista){              
+                     if(inm.getTipo() == tipo){
+                          resultado.add(inm);
+                     }                                    
+                 }              
+             }
+            else{
+                if(!Allinm.isEmpty()){             
+                   for(Inmueble inm : Allinm){
+                       if(inm.getTipo() == tipo){
+                           resultado.add(inm);
+                       }                                
+                   }                          
+               }   
+            }                        
+            return resultado;
+         }
+         else{
+             return lista;
+         }                
+    }
+    
+    
      public List<Inmueble> findbanio(int cantidad,List<Inmueble> lista){
           List<Inmueble> resultado = new ArrayList();
           List<Inmueble> Allinm = AllInmueble();
@@ -796,7 +824,7 @@ public class InmuebleL {
      
     
      
-    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada,Double preciomin,Double preciomax,String barrio){
+    public List<Objeto> Filtro(int banios, int habitaciones, int pisos, boolean garage, boolean jardin, String proposito,int metroscosta, int metrossuper, int metrosparada,Double preciomin,Double preciomax,String barrio,int tipoinm){
         List<Inmueble> Allinm = AllInmueble();
         List<Inmueble> lista = new ArrayList();
         List<Inmueble> inicio = new ArrayList();
@@ -827,6 +855,11 @@ public class InmuebleL {
                 if(lista.isEmpty()){
                     return objetos;
                 }
+            }
+            
+            lista =  findtipoInmueble(tipoinm,lista);
+            if(tipoinm != 0 && lista.isEmpty()){
+                return objetos;
             }
             
             if(preciomax != 0 && preciomin != 0 ){
@@ -1285,4 +1318,5 @@ public class InmuebleL {
     
         return barrios;
     }
+    
 }
