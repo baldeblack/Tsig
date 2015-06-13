@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -17,28 +18,48 @@
                           <h3>Alta Administrador</h3>
                       </div>
                       <div class="panel-body">
-                        <h:messages errorClass="msjError" infoClass="msjSuccess" />
-                        <h:form class="form-horizontal">
-                            <h:outputLabel value="Login:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.login}" id="login"></h:inputText>
-                            <h:outputLabel value="Clave:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.clave}" id="clave"></h:inputText>
-                            <h:outputLabel value="Nombre:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.nombre}" id="nombre"></h:inputText>
-                            <h:outputLabel value="Apellido:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.apellido}" id="apellido"></h:inputText>
-                            <h:outputLabel value="Cedula:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.cedula}" id="cedula"></h:inputText>
-                            <h:outputLabel  value="Telefono:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.telefono}" id="telefono"></h:inputText>
-                            <h:outputLabel value="Email:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.email}" id="email"></h:inputText>
-                            <h:outputLabel value="Rol:"></h:outputLabel>
-                            <h:inputText class="form-control" value="#{altaAdministrador.rol}" id="rol"></h:inputText>
+                            <h:messages errorClass="alert alert-danger alert-dismissable msjes" infoClass="msjSuccess" />
+                        
+                            <form jsf:id="form-validator" data-toggle="validator" role="form">
+                                <div class="form-group">
+                                    <label class="control-label">Login</label>
+                                    <input jsf:value="#{altaAdministrador.login}" type="text" class="form-control" id="login" placeholder="Login" required="true" /> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Clave</label>
+                                    <input jsf:value="#{altaAdministrador.clave}" data-error="Debe ingresar 6 caracteres como minimo" data-minlength="6" type="password" class="form-control" id="clave" placeholder="" required="true" />
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input jsf:value="#{altaAdministrador.nombre}" type="text" class="form-control" id="nombre" placeholder="Nombre" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Apellido</label>
+                                    <input jsf:value="#{altaAdministrador.apellido}" type="text" class="form-control" id="apellido" placeholder="Apellido" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cedula</label>
+                                    <input jsf:value="#{altaAdministrador.cedula}" type="number" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" maxlength="8" class="form-control" id="cedula" placeholder="" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefono</label>
+                                    <input jsf:value="#{altaAdministrador.telefono}" type="number" data-error="Debe ingresar un número" class="form-control" id="telefono" placeholder="Telefono" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input jsf:value="#{altaAdministrador.email}" data-error="Email invalido" type="email" class="form-control" id="email" placeholder="correo@dominio.com" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Rol</label>
+                                    <input jsf:value="#{altaAdministrador.rol}" type="text" class="form-control" id="rol" placeholder="" />
+                                </div>
+   
+                                <button class="btn btn-success" jsf:action="#{altaAdministrador.crearAdministrador}">Crear</button>
+                            </form>
 
-                            <h:commandButton class="btn btn-success" action="#{altaAdministrador.crearAdministrador}" value="Crear"></h:commandButton>
-                            
-                       </h:form>
                       </div>
                 </div>
             </ui:define>

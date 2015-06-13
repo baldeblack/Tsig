@@ -30,11 +30,13 @@
                             <!--<p:growl id="messages" showDetail="true" />-->
                             <h:inputText id="url" value="#{inmuebleBean.url}" />   
                             <!--<p:fileUpload value="{fileUploadController.file}" mode="simple" skinSimple="true"/>-->
-                            <h:commandButton onclick="listaImagenes()" value="Submit" action="#{inmuebleBean.agregarImagen()}" />
-
+                            <h:commandButton value="Submit" action="#{inmuebleBean.agregarImagen()}" />
+                            
                         </h:form>
                           <script>
                               function listaImagenes(){
+                                  
+                                  $("#gidInm").val();
                                   
                                   
                               }

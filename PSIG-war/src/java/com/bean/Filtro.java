@@ -47,7 +47,8 @@ public class Filtro implements Serializable{
     private int metrosparada;
     private Double preciomin;
     private Double preciomax;
-    
+    private String barrio;
+    private int tipoinm;
     private int metrossuper;  
     private String resultado = "";
     private String estados = "";
@@ -68,7 +69,7 @@ public class Filtro implements Serializable{
         String retorno="index";
         
          //String retorno="index";
-        List<Objeto> objetos = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros,metrossuper,metrosparada,preciomin,preciomax);
+        List<Objeto> objetos = inmuebleL.Filtro(banios,habitaciones,pisos,garage,jardin,proposito,metros,metrossuper,metrosparada,preciomin,preciomax,barrio,tipoinm);
         String result = "";                
         for(Objeto obj : objetos){
             String cadena = obj.getCoordenadas();
@@ -99,6 +100,22 @@ public class Filtro implements Serializable{
         estados = result;
         return retorno;
     }
+
+    public String getBarrio() {
+        return barrio;
+    }
+
+    public void setBarrio(String barrio) {
+        this.barrio = barrio;
+    }
+
+    public int getTipoinm() {
+        return tipoinm;
+    }
+
+    public void setTipoinm(int tipoinm) {
+        this.tipoinm = tipoinm;
+    }
     
     
     public String getProposito() {
@@ -125,11 +142,11 @@ public class Filtro implements Serializable{
         this.estado = estado;
     }
 
-    public Integer getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 
@@ -189,35 +206,35 @@ public class Filtro implements Serializable{
         this.direccion = direccion;
     }
 
-    public Integer getPadron() {
+    public int getPadron() {
         return padron;
     }
 
-    public void setPadron(Integer padron) {
+    public void setPadron(int padron) {
         this.padron = padron;
     }
 
-    public Integer getBanios() {
+    public int getBanios() {
         return banios;
     }
 
-    public void setBanios(Integer banios) {
+    public void setBanios(int banios) {
         this.banios = banios;
     }
 
-    public Integer getHabitaciones() {
+    public int getHabitaciones() {
         return habitaciones;
     }
 
-    public void setHabitaciones(Integer habitaciones) {
+    public void setHabitaciones(int habitaciones) {
         this.habitaciones = habitaciones;
     }
 
-    public Integer getPisos() {
+    public int getPisos() {
         return pisos;
     }
 
-    public void setPisos(Integer pisos) {
+    public void setPisos(int pisos) {
         this.pisos = pisos;
     }
 

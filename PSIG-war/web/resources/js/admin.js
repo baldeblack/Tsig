@@ -14,6 +14,8 @@ $(document).ready(function(){
         //$('.absolute-wrapper').removeClass('slide-in');
 
     });
+    
+    $('#form-validator').validator();
 
     
 });
