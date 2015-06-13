@@ -76,7 +76,7 @@ public class InmuebleBean implements Serializable{
     private String y;
     private List<SelectItem> selectOneItemPropietario;
     private int idProp;
-
+    private int gidInm;
         
      @EJB
     private InmuebleL inmuebleL;
@@ -100,7 +100,7 @@ public class InmuebleBean implements Serializable{
         //String nick_admin = session.getAttribute("nick").toString();
         //Administrador ad = admL.findadm(nick_admin);
        
-       ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();        
         
         
        
@@ -110,7 +110,7 @@ public class InmuebleBean implements Serializable{
 	//setX(x);
         String valor_y = ec.getRequestParameterMap().get("form:punto_select_y");
 	//setX(y);
-        
+                
         
         
                 
@@ -128,10 +128,10 @@ public class InmuebleBean implements Serializable{
              }
         zon.setGidzona(1);
         zon.setNombre("Palermo");
-        adm.setIdAdmin(1);
+        adm.setIdAdmin(1);        
 
         
-        prop.setIdPropietario(idProp);
+        prop.setIdPropietario(idProp);       
        
         inmueble.setBanios(banios);
         inmueble.setDescripcion(descripcion);
@@ -181,6 +181,34 @@ public class InmuebleBean implements Serializable{
         
         return null;
     }
+    
+    public void editarInmueble(){
+        Inmueble inm = new Inmueble();
+        inm.setGidInm(gidInm);
+        inm.setBanios(banios);
+        inm.setDescripcion(descripcion);
+        inm.setDireccion(descripcion);
+        inm.setEstado(estado);
+        inm.setGarage(garage);
+        inm.setGidzona(zon);
+        inm.setHabitaciones(habitaciones);       
+        inm.setIdAdmin(adm);
+        inm.setIdPropietario(prop);
+        inm.setJardin(jardin);
+        inm.setPadron(padron);
+        inm.setPisos(pisos);
+        inm.setProposito(proposito);
+        inm.setTipo(tipo);
+        inm.setValormax(valormax);
+        inm.setValormin(0.0);
+        inm.setTitulo(titulo);
+        inmuebleL.editarInmueble(inm);
+    }
+    
+    
+    
+    
+    
     
     //Geter y Seter
     
@@ -246,6 +274,14 @@ public class InmuebleBean implements Serializable{
 
     public void setValormax(Double valormax) {
         this.valormax = valormax;
+    }
+
+    public int getGidInm() {
+        return gidInm;
+    }
+
+    public void setGidInm(int gidInm) {
+        this.gidInm = gidInm;
     }
 
     public String getDireccion() {
@@ -453,5 +489,5 @@ public class InmuebleBean implements Serializable{
     
     
     
-    
+    //cambio para gaston
 }
