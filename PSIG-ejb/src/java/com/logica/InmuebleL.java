@@ -1260,5 +1260,29 @@ public class InmuebleL {
                 
         return inmuebles;        
     }
+    public List<String> getallbarrios(){
+        List<String> barrios = new ArrayList();
+        Statement s5 = null;
+        Connection conexion5 =  null;
+        String resulttabla="";  
+        try{
+            conexion5 =  Conexion_geografica.getConnection();
+            s5 = conexion5.createStatement();
+        }
+        catch (SQLException   e){
+            e.printStackTrace();
+        }
+        
+        String consultageo ="select barrio from barrios";
+        try {
+            ResultSet result = s5.executeQuery(consultageo);
+            while (result.next()) {               // Situar el cursor          
+                resulttabla = result.getString(1);                                                  
+                barrios.add(resulttabla);                
+            }                                  
+        } 
+        catch (SQLException ex) {} 
     
+        return barrios;
+    }
 }
