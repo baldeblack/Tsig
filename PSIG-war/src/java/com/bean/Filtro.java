@@ -51,8 +51,7 @@ public class Filtro implements Serializable{
     private int tipoinm;
     private int metrossuper;  
     private String resultado = "";
-    private String estados = "";
-
+    private String estados = "";    
     
     
     @EJB
@@ -133,6 +132,7 @@ public class Filtro implements Serializable{
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }
+    
     
     public String getEstado() {
         return estado;
