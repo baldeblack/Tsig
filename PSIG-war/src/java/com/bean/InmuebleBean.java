@@ -489,5 +489,5 @@ public class InmuebleBean implements Serializable{
     
     
     
-    
+    //cambio para gaston
 }
