@@ -40,12 +40,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Cedula</label>
-                                    <input jsf:value="#{altaAdministrador.cedula}" type="text" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" size="8" pattern="[0-9]{9}" maxlength="8" class="form-control" id="cedula" placeholder="" required="true" />
+                                    <input jsf:value="#{altaAdministrador.cedula}" type="text" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" pattern="[0-9]{8}" maxlength="8" class="form-control" id="cedula" required="true" />
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Telefono</label>
-                                    <input jsf:value="#{altaAdministrador.telefono}" type="text" data-error="Debe ingresar un número" class="form-control" id="telefono" size="9" pattern="[0-9]{8}" maxlength="9"  placeholder="Telefono" required="true" />
+                                    <input jsf:value="#{altaAdministrador.telefono}" type="text" data-error="Debe ingresar un número" class="form-control" id="telefono" size="9" pattern="[0-9]{9}" maxlength="9"  placeholder="Telefono" required="true" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Email</label>
