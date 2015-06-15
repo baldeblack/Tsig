@@ -9,7 +9,14 @@
             <ui:define name="content">
                 <div class="contenedor-detalle">
                     <div class="col-md-12 text-center">
-                        <h1>#{inmuebleBean.inmueble.titulo}</h1> 
+                        <h1>
+                            <c:if test="#{inmuebleBean.inmueble.tipo eq 1}">
+                                Casa  
+                            </c:if>
+                            <c:if test="#{inmuebleBean.inmueble.tipo eq 2}">
+                                Apartamento   
+                            </c:if> /
+                            #{inmuebleBean.inmueble.titulo}</h1> 
                     </div>
                     <div class="container">
                         <!--<div class="row">-->
@@ -59,12 +66,7 @@
                                     <!-- Default panel contents -->
                                     <div class="panel-heading">
                                         
-                                        <c:if test="#{inmuebleBean.inmueble.tipo eq 1}">
-                                            Casa  
-                                        </c:if>
-                                        <c:if test="#{inmuebleBean.inmueble.tipo eq 2}">
-                                            Apartamento   
-                                        </c:if>
+                                        #{inmuebleBean.inmueble.direccion}
                                             
                                     </div>
                                     <div class="panel-body">
@@ -146,6 +148,16 @@
                 
                 <br/><br/><br/><br/><br/>
             </ui:define>
+            
+            
+             <ui:define name="bottom">
+                <div class="navbar navbar-inverse header-footer" role="navigation">
+                    <div class="container text-center">
+                        <h4>TSIG 2015 - Grupo 15</h4>
+                    </div>
+                </div>
+            </ui:define>
+            
         </ui:composition>
     </body>
 </html>

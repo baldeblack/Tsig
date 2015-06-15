@@ -214,10 +214,10 @@ public class InmuebleL {
         inmueble.setDireccion(inm.getDireccion());
         inmueble.setEstado(inm.getEstado());
         inmueble.setGarage(inm.getGarage());
-        inmueble.setGidzona(inm.getGidzona());
+        //inmueble.setGidzona(inm.getGidzona());
         inmueble.setHabitaciones(inm.getHabitaciones());
-        inmueble.setIdAdmin(inm.getIdAdmin());
-        inmueble.setIdPropietario(inm.getIdPropietario());
+        //inmueble.setIdAdmin(inm.getIdAdmin());
+        //inmueble.setIdPropietario(inm.getIdPropietario());
         inmueble.setJardin(inm.getJardin());
         inmueble.setPadron(inm.getPadron());
         inmueble.setPisos(inm.getPisos());
@@ -1293,6 +1293,7 @@ public class InmuebleL {
                 
         return inmuebles;        
     }
+    
     public List<String> getallbarrios(){
         List<String> barrios = new ArrayList();
         Statement s5 = null;
@@ -1315,7 +1316,7 @@ public class InmuebleL {
             }                                  
         } 
         catch (SQLException ex) {} 
-    
+        logger.warn("Barrios ="+barrios);
         return barrios;
     }
     

@@ -11,11 +11,13 @@ import com.entity.Inmueble;
 import com.entity.Objeto;
 import com.logica.InmuebleL;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -52,7 +54,7 @@ public class Filtro implements Serializable{
     private int metrossuper;  
     private String resultado = "";
     private String estados = "";    
-    
+    private List<SelectItem> selectOneItemBarrio;
     
     @EJB
     private InmuebleL inmuebleL;
@@ -344,7 +346,19 @@ public class Filtro implements Serializable{
         this.inmueble = inmueble;
     }
    
-    
+    public List<SelectItem> getSelectOneItemBarrio() {
+        this.selectOneItemBarrio = new ArrayList<SelectItem>();
+        List<String> listaBarros = inmuebleL.getallbarrios();
+        for (String barrio : listaBarros) {
+            SelectItem selectItem = new SelectItem(barrio,barrio);
+            this.selectOneItemBarrio.add(selectItem);
+        }
+        return selectOneItemBarrio;
+    }
+
+    public void setSelectOneItemBarrio(List<SelectItem> selectOneItemBarrio) {
+        this.selectOneItemBarrio = selectOneItemBarrio;
+    }
     
     
     

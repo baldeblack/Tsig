@@ -77,6 +77,9 @@ public class InmuebleBean implements Serializable{
     private List<SelectItem> selectOneItemPropietario;
     private int idProp;
     private int gidInm;
+    
+    //private String barrioInm;
+    //private List<SelectItem> selectOneItemBarrio;
         
      @EJB
     private InmuebleL inmuebleL;
@@ -182,7 +185,12 @@ public class InmuebleBean implements Serializable{
         return null;
     }
     
-    public void editarInmueble(){
+    public String editarInmueble(Inmueble inm){
+        this.inmueble = inm;
+        return "EditarInmueble";
+    }
+    
+    public String editarInmueble(){
         Inmueble inm = new Inmueble();
         inm.setGidInm(gidInm);
         inm.setBanios(banios);
@@ -190,10 +198,10 @@ public class InmuebleBean implements Serializable{
         inm.setDireccion(descripcion);
         inm.setEstado(estado);
         inm.setGarage(garage);
-        inm.setGidzona(zon);
+        //inm.setGidzona(zon);
         inm.setHabitaciones(habitaciones);       
-        inm.setIdAdmin(adm);
-        inm.setIdPropietario(prop);
+        //inm.setIdAdmin(adm);
+        //inm.setIdPropietario(prop);
         inm.setJardin(jardin);
         inm.setPadron(padron);
         inm.setPisos(pisos);
@@ -203,15 +211,11 @@ public class InmuebleBean implements Serializable{
         inm.setValormin(0.0);
         inm.setTitulo(titulo);
         inmuebleL.editarInmueble(inm);
+        
+        return "ListaInmueble";
     }
     
-    
-    
-    
-    
-    
     //Geter y Seter
-    
     public Inmueble getInmueble(){
         return this.inmueble;
     }
@@ -485,13 +489,39 @@ public class InmuebleBean implements Serializable{
         return imagenesL;
     }
     
-     public List<Imagenes> listarAllImagenesInmL(){
-         return inmuebleL.findAllImgInm();
-     }
+    public List<Imagenes> listarAllImagenesInmL(){
+        return inmuebleL.findAllImgInm();
+    }
     
+    /*public List<String> obtBarrios(){
+        return inmuebleL.getallbarrios();
+    }
     
+    public SelectItem[] obtenerBarrios(){
+        List<String> barrios = inmuebleL.getallbarrios();
+        SelectItem[] items = new SelectItem[barrios.size()];
+        int i = 0;
+        for(String g: barrios) {
+          items[i++] = new SelectItem(g, g);
+        }
+        return items;
+  
+        //return inmuebleL.getallbarrios();
+    }
     
-    
+    public List<SelectItem> getSelectOneItemBarrio() {
+        this.selectOneItemBarrio = new ArrayList<SelectItem>();
+        List<String> listaBarros = inmuebleL.getallbarrios();
+        for (String barrio : listaBarros) {
+            SelectItem selectItem = new SelectItem(barrio,barrio);
+            this.selectOneItemBarrio.add(selectItem);
+        }
+        return selectOneItemBarrio;
+    }
+
+    public void setSelectOneItemBarrio(List<SelectItem> selectOneItemBarrio) {
+        this.selectOneItemBarrio = selectOneItemBarrio;
+    }*/
     
     
     //cambio para gaston

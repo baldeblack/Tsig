@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./LayoutAdmin.xhtml">
+
+            <ui:define name="titulo">
+                Editar Inmueble
+            </ui:define>
+
+            <ui:define name="content">
+                <br />
+                <div class="panel with-nav-tabs panel-primary">
+                      <div class="panel-heading">
+                          <h3>Editar Inmueble</h3>
+                      </div>
+                      <div class="panel-body">
+                            <h:messages errorClass="msjError" infoClass="msjSuccess" />
+                            <h:form class="form-horizontal" id="formulario">
+                            <div class="col-md-5">
+                                <h:inputHidden id="gidInm" value="#{inmuebleBean.inmueble.gidInm}" />
+                                <h:outputLabel value="Titulo:" for="Titulo" />
+                                <h:inputText id="titulo" class="form-control" value="#{inmuebleBean.inmueble.titulo}" title="Titulo" />
+                                <h:outputLabel value="Tipo:" for="tipo" />
+                                <!--<h:inputText id="tipo" class="form-control" value="{inmuebleBean.tipo}" title="tipo" /> -->
+                                
+                                <h:selectOneMenu value="#{inmuebleBean.inmueble.tipo}" title="tipo" id="tipo" class="form-control">
+                                        <f:selectItem itemValue="1" itemLabel="Casa" />
+                                        <f:selectItem itemValue="2" itemLabel="Apartamento" />
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Proposito:" for="proposito" />
+                                <h:selectOneMenu value="#{inmuebleBean.inmueble.proposito}" title="proposito" id="proposito" class="form-control">
+                                        <f:selectItem itemValue="Vender" itemLabel="Venta" />
+                                        <f:selectItem itemValue="Alquilar" itemLabel="Alquiler" />
+                                </h:selectOneMenu>
+
+                                <h:outputLabel value="Valor maximo" for="valormax" />
+                                <h:inputText value="#{inmuebleBean.inmueble.valormax}"  class="form-control" pt:type="number" pt:min="0" pt:max="9999999999" pt:required="true" required="true" title="valormax"/>
+                                
+                                <h:outputLabel value="Pisos" for="pisos" />
+                                <h:inputText value="#{inmuebleBean.inmueble.pisos}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="banio" />
+                                
+                                <h:outputLabel value="Habitaciones:" for="habitaciones" />
+                                <h:inputText value="#{inmuebleBean.inmueble.habitaciones}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="habitaciones" />
+                                
+                                <h:outputLabel value="Baños:" for="banio" />
+                                <h:inputText value="#{inmuebleBean.inmueble.banios}"  class="form-control" pt:type="number" pt:min="0" pt:max="99" pt:required="true" required="true" title="banio" />
+                                <div class="group-chebox-buscador">
+                                <div class="col-md-4"><h:outputLabel value="Garage" for="garage" /></div>
+                                <div class="col-md-2"><h:selectBooleanCheckbox  class="check-buscador"  value="#{inmuebleBean.inmueble.garage}" id="garage" /></div>
+                                
+                                <div class="col-md-4"><h:outputLabel value="Jardin" for="jardin" /></div>
+                                <div class="col-md-2"><h:selectBooleanCheckbox class="check-buscador" value="#{inmuebleBean.inmueble.jardin}" id="jardin" /></div>                  
+                                </div>
+                                
+                                <div class="col-md-4" style="padding-left: 0px !important;"><h:outputLabel value="Padron:" for="padron" /></div>
+                                <h:inputText id="padron" class="form-control" value="#{inmuebleBean.inmueble.padron}" title="padron" />
+                                <h:outputLabel value="Descripcion: " for="descripcion" />
+                                <h:inputTextarea cols="30" rows="10" id="descripcion" class="form-control" value="#{inmuebleBean.inmueble.descripcion}" title="descripcion" />
+                                <h:outputLabel value="Direccion:" for="direccion" />
+                                <h:inputText id="direccion" class="form-control" value="#{inmuebleBean.inmueble.direccion}" title="direccion" />
+                                <h:outputLabel value="Propietario: " for="idPropietario" />
+                                
+                                <h:inputHidden id="idPropietario" value="#{inmuebleBean.inmueble.idPropietario}" />
+                                <h:inputHidden id="gidzona" value="#{inmuebleBean.inmueble.gidzona}" />
+                                <h:inputHidden id="idAdmin" value="#{inmuebleBean.inmueble.idAdmin}" />
+                                <!--<h:selectOneMenu id="idPropietario" value="{inmuebleBean.inmueble.idPropietario}" class="form-control">
+                                    <f:selectItem itemLabel="Seleccione propietario" itemValue=""/>
+                                    <f:selectItems value="{inmuebleBean.selectOneItemPropietario}"/>
+                                </h:selectOneMenu>-->
+                                
+                                <h:outputLabel value="Estado:" for="estado" />
+                                <h:selectOneMenu value="#{inmuebleBean.inmueble.estado}" title="estado" id="estado" class="form-control">
+                                        <f:selectItem itemValue="privada" itemLabel="Privada" />
+                                        <f:selectItem itemValue="publica" itemLabel="Publica" />
+                                        <f:selectItem itemValue="reservada" itemLabel="Reservada" />
+                                        <f:selectItem itemValue="cerrada" itemLabel="Cerrada" />
+                                        <f:selectItem itemValue="cancelada" itemLabel="Cancelada" />
+                                </h:selectOneMenu>
+                            </div>
+                            
+                            <div class="col-md-12" style="padding-top: 10px;padding-bottom: 10px;"  >
+                                <h:commandButton class="btn btn-success" value="Guardar"  action="#{inmuebleBean.editarInmueble()}"/>
+                            </div>
+                            
+                        </h:form>
+                            
+                            
+                            
+                            <!--<form jsf:id="form-editp" data-toggle="validator" role="form">
+                                <input jsf:value="{altaPropietario.prop.idPropietario}" type="text" class="form-control" id="idPropietario" />
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input jsf:value="{altaPropietario.prop.nombre}" type="text" class="form-control" id="nombre" placeholder="Nombre" required="true" /> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Apellido</label>
+                                    <input jsf:value="{altaPropietario.prop.apellido}" type="text" class="form-control" id="apellido" placeholder="Apellido" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Telefono</label>
+                                    <input jsf:value="{altaPropietario.prop.telefono}" type="text" class="form-control" id="telefono" size="9" pattern="[0-9]{9}" placeholder="Telefono" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input jsf:value="{altaPropietario.prop.email}" type="email" class="form-control" id="apellido" placeholder="correo@dominio.com" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cedula</label>
+                                    <input jsf:value="{altaPropietario.prop.ci}" type="text" data-error="Cedular de 8 caracteres solo números, sin punto ni guiones" pattern="[0-9]{8}" maxlength="8" class="form-control" id="ci" required="true" />
+                                    <div class="help-block with-errors"></div>
+                                </div>
+
+                                <button class="btn btn-success" jsf:action="{altaPropietario.editarPropietario()}">Crear</button>
+                            </form>-->
+                      </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

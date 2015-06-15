@@ -24,31 +24,54 @@
     <h:body>
 
         <div id="top">
-            <div class="navbar navbar-inverse navbar-fixed-top header-main" role="navigation">
+            <header id="mainHeader" class="navbar-fixed-top" role="banner" style="overflow: hidden; display: block;">
                 <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand link-logo"  href="#">
-                            <h:graphicImage library="img" class="logo" name="logo.png" />
-                            <span class="geo">GEO</span><span class="inmueble">INMUEBLES</span>
-                        </a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right menu-index">
-                            <!--<li><h:link outcome="/admin" value="Admin"/></li>-->
-                            <li><h:link outcome="/Pruebas" value="Busqueda"/></li>
-                            <li><h:link outcome="/AltaInmueble" value="Inmueble"/></li>
-                            <li><h:link outcome="/AltaZona" value="Zonas"/></li>
-                            <li><h:link outcome="/login" value="LogIn"/></li>
-                        </ul>
-                    </div>
+                    <nav class="navbar navbar-default scrollMenu" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                            <!--<a class="navbar-brand" href="#"><img src="img/logo.png" style="padding:0px;margin-top:0px;height:70px" alt="Schmoll Creative"></a>-->
+                            <a class="navbar-brand link-logo"  href="#">
+                                <h:graphicImage library="img" class="logo-png" name="logo.png" />
+                                <span class="geo">GEO</span><span class="inmueble">INMUEBLES</span>
+                            </a>
+                        
+                        </div>
+                        <div class="collapse navbar-collapse navbar-ex1-collapse" id="scrollTarget">
+                            <ul class="nav navbar-nav pull-right">
+                                <!--<li class=""><a href="#"><i class="fa fa-user"></i>Home</a> </li>-->
+                                <li>
+                                    <h:link outcome="/Pruebas">
+                                        <i class="fa fa fa-user"></i>
+                                        Busqueda
+                                    </h:link>
+                                </li>
+                                <li>
+                                    <h:link outcome="/AltaInmueble">
+                                        <i class="fa fa fa-user"></i>
+                                        Inmueble
+                                    </h:link>
+                                </li>
+                                <li>
+                                    <h:link outcome="/AltaZona">
+                                        <i class="fa fa fa-user"></i>
+                                        Zonas
+                                    </h:link>
+                                </li>
+                                <li>
+                                    <h:link outcome="/login">
+                                        <i class="fa fa fa-user"></i>
+                                        Login
+                                    </h:link>
+                                </li>
+                                <!--<li><a href="#"><i class="fa fa-user"></i>Services</a> </li>-->
+
+                            </ul>
+                        </div>
+
+                    </nav>
                 </div>
-            </div>
+            </header>
+
         </div>
 
         <div id="content" class="center_content">
@@ -57,11 +80,11 @@
 
         <div id="bottom">
             <ui:insert name="bottom">
-                <div class="navbar navbar-inverse navbar-fixed-bottom header-footer" role="navigation">
+                <!--<div class="navbar navbar-inverse navbar-fixed-bottom header-footer" role="navigation">
                     <div class="container text-center">
                         <h4>TSIG 2015 - Grupo 15</h4>
                     </div>
-                </div>
+                </div>-->
             </ui:insert>
         </div>
 
