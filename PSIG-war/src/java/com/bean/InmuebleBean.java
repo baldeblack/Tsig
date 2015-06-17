@@ -191,28 +191,21 @@ public class InmuebleBean implements Serializable{
     }
     
     public String editarInmueble(){
-        Inmueble inm = new Inmueble();
-        inm.setGidInm(gidInm);
-        inm.setBanios(banios);
-        inm.setDescripcion(descripcion);
-        inm.setDireccion(descripcion);
-        inm.setEstado(estado);
-        inm.setGarage(garage);
-        //inm.setGidzona(zon);
-        inm.setHabitaciones(habitaciones);       
-        //inm.setIdAdmin(adm);
-        //inm.setIdPropietario(prop);
-        inm.setJardin(jardin);
-        inm.setPadron(padron);
-        inm.setPisos(pisos);
-        inm.setProposito(proposito);
-        inm.setTipo(tipo);
-        inm.setValormax(valormax);
-        inm.setValormin(0.0);
-        inm.setTitulo(titulo);
-        inmuebleL.editarInmueble(inm);
+        //Inmueble inm = new Inmueble();
         
-        return "ListaInmueble";
+        if(inmuebleL.editarInmueble(inmueble))
+        {
+            //facesMessage= new FacesMessage(FacesMessage.SEVERITY_INFO,"El usuario se edito correctamente",null);
+            return "ListaInmuebles";
+        }
+        else
+        {
+            facesMessage= new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al editar usuario",null);
+            FacesContext.getCurrentInstance().addMessage(null,facesMessage);
+            return "EditarInmueble";
+        }
+
+
     }
     
     //Geter y Seter

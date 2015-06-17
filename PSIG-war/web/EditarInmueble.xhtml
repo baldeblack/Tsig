@@ -22,6 +22,7 @@
                           <h3>Editar Inmueble</h3>
                       </div>
                       <div class="panel-body">
+                            <!--<p:growl id="growl" showDetail="true" sticky="true" />-->
                             <h:messages errorClass="msjError" infoClass="msjSuccess" />
                             <h:form class="form-horizontal" id="formulario">
                             <div class="col-md-5">
@@ -66,11 +67,11 @@
                                 <h:inputTextarea cols="30" rows="10" id="descripcion" class="form-control" value="#{inmuebleBean.inmueble.descripcion}" title="descripcion" />
                                 <h:outputLabel value="Direccion:" for="direccion" />
                                 <h:inputText id="direccion" class="form-control" value="#{inmuebleBean.inmueble.direccion}" title="direccion" />
-                                <h:outputLabel value="Propietario: " for="idPropietario" />
+                                <!--<h:outputLabel value="Propietario: " for="idPropietario" />-->
                                 
-                                <h:inputHidden id="idPropietario" value="#{inmuebleBean.inmueble.idPropietario}" />
-                                <h:inputHidden id="gidzona" value="#{inmuebleBean.inmueble.gidzona}" />
-                                <h:inputHidden id="idAdmin" value="#{inmuebleBean.inmueble.idAdmin}" />
+                                <!--<h:inputHidden id="idPropietario" value="{inmuebleBean.inmueble.idPropietario}" />-->
+                                <!--<h:inputHidden id="gidzona" value="{inmuebleBean.inmueble.gidzona}" />
+                                <h:inputHidden id="idAdmin" value="{inmuebleBean.inmueble.idAdmin}" />-->
                                 <!--<h:selectOneMenu id="idPropietario" value="{inmuebleBean.inmueble.idPropietario}" class="form-control">
                                     <f:selectItem itemLabel="Seleccione propietario" itemValue=""/>
                                     <f:selectItems value="{inmuebleBean.selectOneItemPropietario}"/>

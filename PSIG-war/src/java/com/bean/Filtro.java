@@ -54,13 +54,15 @@ public class Filtro implements Serializable{
     private int metrossuper;  
     private String resultado = "";
     private String estados = "";    
-    private List<SelectItem> selectOneItemBarrio;
+    //private List<SelectItem> selectOneItemBarrio;
+    private List<String> barrios;
     
     @EJB
     private InmuebleL inmuebleL;
     private Inmueble inmueble = new Inmueble();
     
     public Filtro() {               
+        this.barrios = new ArrayList<String>();
         
     }
     
@@ -345,7 +347,58 @@ public class Filtro implements Serializable{
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
     }
-   
+
+    public List<String> getBarrios() {
+        
+        List<String> todos = inmuebleL.getallbarrios();
+        for (String bar : todos) {
+            barrios.add(bar);
+        }
+        return barrios;
+    }
+
+    public void setBarrios(List<String> barrios) {
+        this.barrios = barrios;
+    }
+    
+    /*public void obtener(AjaxBehaviorEvent event) {
+
+        if (htmlSelectCars == null) {
+
+         htmlSelectCars = new HtmlSelectOneMenu();
+
+        }
+
+
+
+        htmlSelectCars.getChildren().clear();
+
+
+
+        UISelectItems items = new UISelectItems();
+
+        items.setValue(getCars());
+
+        htmlSelectCars.getChildren().add(items);
+
+    }*/
+
+    public List<String> completeBarrio() {
+       /* List<String> allBarrios = inmuebleL.getallbarrios();
+        List<String> filteredBrrios = new ArrayList<String>();
+         
+        for (int i = 0; i < allBarrios.size(); i++) {
+            String skin = allBarrios.get(i);
+            if(skin.toLowerCase().contains(barrio)) {
+                filteredBrrios.add(skin);
+            }
+        }*/
+         
+        return inmuebleL.getallbarrios();
+    }
+    
+
+    /*
     public List<SelectItem> getSelectOneItemBarrio() {
         this.selectOneItemBarrio = new ArrayList<SelectItem>();
         List<String> listaBarros = inmuebleL.getallbarrios();
@@ -358,7 +411,7 @@ public class Filtro implements Serializable{
 
     public void setSelectOneItemBarrio(List<SelectItem> selectOneItemBarrio) {
         this.selectOneItemBarrio = selectOneItemBarrio;
-    }
+    }*/
     
     
     

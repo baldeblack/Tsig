@@ -91,9 +91,8 @@ font-family: 'Michroma', sans-serif;
     color:white;
 }
 
-.contenedor-busquedas{
-    padding-top: 20px;
-    padding-bottom: 20px !important;
+#growl_container{
+    z-index: 2000;
 }
 
 
@@ -795,6 +794,12 @@ h2.subTitle:after, h1.noSubtitle:after {
         position: relative !important;
         z-index: 0 !important;
     }
+    
+    .contenedor-busquedas{
+        padding-top: 0px;
+        padding-bottom: 0px !important;
+        display: -webkit-inline-box;
+    }
 }
 
 @media(min-width:768px){
@@ -823,6 +828,11 @@ h2.subTitle:after, h1.noSubtitle:after {
         font-size: 15px !important;
         left: 190px;
         top:30px;
+    }
+    .contenedor-busquedas{
+        padding-top: 0px;
+        padding-bottom: 0px !important;
+        display: -webkit-inline-box;
     }
 
 }
@@ -854,6 +864,12 @@ h2.subTitle:after, h1.noSubtitle:after {
         font-size: 20px !important;
         left: 190px;
         top:30px;
+    }
+    
+    .contenedor-busquedas{
+        padding-top: 20px;
+        padding-bottom: 20px !important;
+    
     }
 }
 
@@ -889,5 +905,11 @@ h2.subTitle:after, h1.noSubtitle:after {
         left: 190px;
         top:30px;
     }
+    .contenedor-busquedas{
+        padding-top: 20px;
+        padding-bottom: 20px !important;
+    
+    }
+
 }
 

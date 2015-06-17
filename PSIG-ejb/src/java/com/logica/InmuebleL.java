@@ -1313,10 +1313,12 @@ public class InmuebleL {
             while (result.next()) {               // Situar el cursor          
                 resulttabla = result.getString(1);                                                  
                 barrios.add(resulttabla);                
-            }                                  
+            } 
+            
         } 
         catch (SQLException ex) {} 
         logger.warn("Barrios ="+barrios);
+        
         return barrios;
     }
     

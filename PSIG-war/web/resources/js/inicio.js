@@ -20,7 +20,6 @@ $( window ).load(function() {
     animationLoop: false,
     slideshow: false,
     itemWidth: 210,
-    itemHeight: 210,
     itemMargin: 5,
     asNavFor: '#slider'
   });
@@ -30,7 +29,6 @@ $( window ).load(function() {
     controlNav: false,
     animationLoop: false,
     slideshow: false,
-    itemHeight: 400,
     sync: "#carousel"
   });
     
