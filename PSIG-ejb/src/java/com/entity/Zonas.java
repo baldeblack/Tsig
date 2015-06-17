@@ -38,7 +38,7 @@ public class Zonas implements Serializable {
     @NotNull
     @Column(name = "gidzona")
     private Integer gidzona;
-    @Size(max = 20)
+    @Size(max = 200)
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(mappedBy = "gidzona")

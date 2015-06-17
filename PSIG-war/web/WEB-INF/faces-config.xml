@@ -100,18 +100,18 @@
     </navigation-rule>
      <!--REGLAS DE NAVEGACION-->
      
-     <navigation-rule>
-        <from-view-id>/ListaInmueble.xhtml</from-view-id>
+    <navigation-rule>
+        <from-view-id>/ListaInmuebles.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>ListarImagenesInm</from-outcome>
             <to-view-id>/ListarImagenesInm.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/DetalleInmueble.xhtml</from-view-id>
+        <from-view-id>/ListaInmuebles.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>Consulta</from-outcome>
-            <to-view-id>/Consulta.xhtml</to-view-id>
+            <from-outcome>DetalleInmueble</from-outcome>
+            <to-view-id>/DetalleInmueble.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
@@ -122,6 +122,17 @@
             <to-view-id>/ListaInmuebles.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/DetalleInmueble.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{consultaBean.consultarInm()}</from-action>
+            <from-outcome>Consulta</from-outcome>
+            <to-view-id>/Consulta.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    
+  
      <!--REGLAS DE NAVEGACION-->
      
    

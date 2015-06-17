@@ -47,10 +47,10 @@ public class AdministradorFacade extends AbstractFacade<Administrador> implement
     public Administrador findadm(String login){
         List<Administrador> todosadm = findAll();
         
-        for(int i=0;i< todosadm.size();i++){
-            Administrador adm = (Administrador) todosadm.get(i);
-            if(login.equals(adm.getLogin())){  //busco si tiene el mismo login y si es asi lo retorno                
-                 return adm;
+        for (Administrador todosadm1 : todosadm) {
+            Administrador adm = (Administrador) todosadm1;
+            if(login.equals(adm.getLogin())){  //busco si tiene el mismo login y si es asi lo retorno
+                return adm;
             }
         }       
         return null;

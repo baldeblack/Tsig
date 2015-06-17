@@ -1322,4 +1322,8 @@ public class InmuebleL {
         return barrios;
     }
     
+    public Inmueble obtenerInmueblePorId(int gidinmueble){
+        return inmfacade.findInmueble(gidinmueble);
+    }
+    
 }

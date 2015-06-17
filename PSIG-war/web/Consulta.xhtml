@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <body>
 
@@ -9,7 +11,32 @@
 
             <ui:define name="content">
                 <div class="contenedor-detalle">
-                    
+                     <h:messages errorClass="alert alert-danger alert-dismissable msjes" infoClass="msjSuccess" />
+                        
+                    <form jsf:id="form-validator" data-toggle="validator" role="form">
+                        <!--<h:inputHidden value="{consultaBean.inmueble.gidInm}" />-->
+                        <div class="form-group">
+                            <label class="control-label">Mail</label>
+                            <input jsf:value="#{consultaBean.mail}" type="text" class="form-control" id="mail" placeholder="Mail" required="true" /> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nombre</label>
+                            <input jsf:value="#{consultaBean.nombre}" type="text" class="form-control" id="nombre" placeholder="Nombre" required="true" /> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Teléfono</label>
+                            <input jsf:value="#{consultaBean.telefono}" type="text" class="form-control" id="telefono" placeholder="Telefono" required="true" /> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Asunto</label>
+                            <input jsf:value="#{consultaBean.asunto}" type="text" class="form-control" id="asunto" placeholder="Asunto" required="true" /> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Descripcion</label>
+                            <textarea jsf:value="#{consultaBean.mensaje}" type="text" class="form-control" id="descripcion" placeholder="Login" required="true" /> 
+                        </div>
+                        <button class="btn btn-success" jsf:action="#{consultaBean.enviarCorreo()}">Crear</button>
+                    </form>
                 </div>
             </ui:define>
             <ui:define name="bottom">

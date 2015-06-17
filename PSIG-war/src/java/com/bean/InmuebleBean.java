@@ -27,6 +27,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import javax.validation.constraints.Digits;
 import javax.xml.bind.annotation.XmlTransient;
@@ -42,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class InmuebleBean implements Serializable{  
     @EJB
     private PropietarioL propietarioL;
+    @EJB
+    private AdministradorL admL;
     
     private static final Logger logger = Logger.getLogger(InmuebleBean.class.getName()); 
     
@@ -83,7 +86,8 @@ public class InmuebleBean implements Serializable{
         
      @EJB
     private InmuebleL inmuebleL;
-    private AdministradorL admL;
+    
+    
     private Inmueble inmueble = new Inmueble();
     private Zonas zon = new Zonas();
     private Administrador adm = new Administrador();
@@ -99,9 +103,10 @@ public class InmuebleBean implements Serializable{
         logger.warn("Valores x e y");
         
         /* ---- OBTENER ADMIN DE LA SESION TODAVIA ME FALTA ALGO OBTENGO EL NICK PERO ME DA ERROR AL BUSCAR ---*/
-        //HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        //String nick_admin = session.getAttribute("nick").toString();
-        //Administrador ad = admL.findadm(nick_admin);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        String nick_admin = session.getAttribute("nick").toString();
+        
+        Administrador admin1 = admL.findadm(nick_admin);
        
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();        
         
@@ -131,7 +136,7 @@ public class InmuebleBean implements Serializable{
              }
         zon.setGidzona(1);
         zon.setNombre("Palermo");
-        adm.setIdAdmin(1);        
+        //adm.setIdAdmin(1);        
 
         
         prop.setIdPropietario(idProp);       
@@ -143,7 +148,7 @@ public class InmuebleBean implements Serializable{
         inmueble.setGarage(garage);
         inmueble.setGidzona(zon);
         inmueble.setHabitaciones(habitaciones);       
-        inmueble.setIdAdmin(adm);
+        inmueble.setIdAdmin(admin1);
         inmueble.setIdPropietario(prop);
         inmueble.setJardin(jardin);
         inmueble.setPadron(padron);
@@ -156,7 +161,7 @@ public class InmuebleBean implements Serializable{
         
         logger.warn("valores x "+ x + "valor y "+ y);
         inmuebleL.crearInmueble(inmueble, x, y);
-        return "index";
+        return "ListaInmuebles";
     }
     
     

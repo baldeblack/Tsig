@@ -50,7 +50,7 @@ public class Inmueble implements Serializable {
     @NotNull
     @Column(name = "gid_inm")
     private Integer gidInm;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "proposito")
     private String proposito;
     @Size(max = 10)
@@ -63,7 +63,7 @@ public class Inmueble implements Serializable {
     private Double valormin;
     @Column(name = "valormax")
     private Double valormax;
-    @Size(max = 40)
+    @Size(max = 2000)
     @Column(name = "direccion")
     private String direccion;
     @Column(name = "padron")
@@ -78,10 +78,10 @@ public class Inmueble implements Serializable {
     private Boolean garage;
     @Column(name = "jardin")
     private Boolean jardin;
-    @Size(max = 100)
+    @Size(max = 2000)
     @Column(name = "descripcion")
     private String descripcion;
-    @Size(max = 50)
+    @Size(max = 200)
     @Column(name = "titulo")
     private String titulo;
     @OneToMany(mappedBy = "gidInm")
