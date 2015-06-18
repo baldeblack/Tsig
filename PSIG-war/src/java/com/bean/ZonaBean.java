@@ -3,7 +3,9 @@ package com.bean;
 import com.entity.Zonas;
 import com.logica.ZonaL;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -14,6 +16,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import org.apache.log4j.Logger;
+
 
 
 @ManagedBean
@@ -31,6 +34,7 @@ public class ZonaBean implements Serializable{
     private String zona_puntos;
     private String fechainicio;
     private String fechafin;
+    private List<String> reporte;
     
      @EJB
     private ZonaL zonaL;
@@ -138,12 +142,28 @@ public class ZonaBean implements Serializable{
         return retorno;
     }
     
-    public List<String> demandazonas(){
-        List<String> zonas = zonaL.demandaporzona(fechainicio,fechafin);
-        
-        //la lista retorna un string separado por comas en el siguiente orden:
-        //idzona,nombre zona,porcentaje,demanda(alta,media,baja)
-        return zonas;
+    public String demandazonas(){      
+
+                List<String> zonas = new ArrayList<String>();
+                zonas = zonaL.demandaporzona(fechainicio,fechafin);
+                String retorno= "";
+		for(String z : zonas){
+                    retorno = retorno + z;
+                }
+                //String pp = zonas.toString();
+                return retorno;
     }
-       
+
+    public List<String> getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(List<String> reporte) {
+        this.reporte = reporte;
+    }
+
+   
+    
+    
+    
 }

@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -22,14 +24,43 @@
                       <div class="panel-body">
                             <h:messages errorClass="alert alert-danger alert-dismissable msjes" infoClass="msjSuccess" />
                         
-                            <form jsf:id="form-validator" data-toggle="validator" role="form">
+                            <h:form id="form-validator">
                                 <div class="form-group">
-                                    <label class="control-label">Login</label>
-                                    <input jsf:value="#{altaAdministrador.login}" type="text" class="form-control" id="login" placeholder="Login" required="true" /> 
+                                    <h:outputLabel value="Fecha Inicio" for="Fecha Inicio" />
+                                    <h:inputText class="form-control" value="#{zonaBean.fechainicio}" id="fechainicio" title="fechainicio" required="true">
+                                        
+                                    </h:inputText>
+                                    <h:outputLabel value="Fecha Fin" for="Fecha Fin" />
+                                    <h:inputText class="form-control" value="#{zonaBean.fechafin}" id="fechafin" title="fechafin" required="true">
+                                       
+                                    </h:inputText>
+                                    
                                 </div>
-                                <button class="btn btn-success" jsf:action="#{altaAdministrador.crearAdministrador}">Crear</button>
-                            </form>
+                                <h:commandButton class="btn btn-success" onclick="reporte();"  value="Generar Reporte">
+                                    <f:ajax execute="fechainicio fechafin" render="output" />
+                                </h:commandButton>
+                                <!--<button  jsf:action="">Generar Reporte</button>-->
+                                <h:inputHidden id="output" value="#{zonaBean.demandazonas()}" />
+                            </h:form>
+                            
+                            <div id="tabla-reporte">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Barrio</th>
+                                            <th>Porcentaje (%)</th>
+                                            <th>Demanda</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="retorno">
 
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!--<script src="js/highcharts.js" target="body" />
+                            <script src="js/exporting.js" target="body" />-->
+                            <script src="js/reporte.js" target="body" />
                       </div>
                 </div>
             </ui:define>

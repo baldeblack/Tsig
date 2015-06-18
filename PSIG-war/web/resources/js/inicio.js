@@ -31,7 +31,7 @@ $( window ).load(function() {
     slideshow: false,
     sync: "#carousel"
   });
-    
+  $('#form-validator').validator();  
 });
 
 

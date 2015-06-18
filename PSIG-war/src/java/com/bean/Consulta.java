@@ -88,19 +88,21 @@ public class Consulta {
     {
         
         Inmueble inm = inmuebleL.obtenerInmueblePorId(inmueble.getGidInm());
-        String msj = mail+nombre+telefono+asunto+mensaje;
+        //String msj = "Consutlta sobre el Imueble "+inm.getTitulo()+"\nDatos del Inmueble: \nTipo:"+inm.getTipo()+"\nDireccion:"+inm.getDireccion()+"\n\n"+"Datos del contacto: \nMail:"+ mail +"\nNombre "+ nombre + "\nTelefono " +telefono;
+        
+        //enviar.EnvioMailto( admin1.getEmail(), asunto, msj);
+
         //EnvioMail mail = new EnvioMail();
         return "Consulta";
     }
     
-    public void consultarInm(ActionEvent event){
-        //Inmueble inm = inmuebleL.obtenerInmueblePorId(gidInm);
-        String buttonId = event.getComponent().getId();
+    public String consultarInm(int gidInm2){
+        Inmueble inm = inmuebleL.obtenerInmueblePorId(gidInm2);
+        this.inmueble = inm;
+        return "Consulta";
         //this.inmueble = inm;    
     }
-    public String outcome(){
-	return "Consulta";
-    }
+
 
     public Inmueble getInmueble() {
         return inmueble;

@@ -243,15 +243,15 @@ public class ZonaL {
                 int porcejate = Integer.parseInt(palabrasSeparadas[1]);
 
                 if(porcejate > cotasuperior){
-                    String alta = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",ALTA";
+                    String alta = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",ALTA:";
                     resultadofinal.add(alta);
                 }
                 if(porcejate <= cotasuperior && porcejate >= cotainferior){
-                    String media = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",MEDIA";
+                    String media = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",MEDIA:";
                     resultadofinal.add(media);
                 }
                 if(porcejate < cotainferior){
-                    String baja = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",BAJA";
+                    String baja = palabrasSeparadas[0]+","+palabrasSeparadas[2]+","+palabrasSeparadas[1]+",BAJA:";
                     resultadofinal.add(baja);
                 }            
             }

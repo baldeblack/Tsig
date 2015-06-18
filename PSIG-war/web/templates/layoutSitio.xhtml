@@ -30,10 +30,14 @@
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                             <!--<a class="navbar-brand" href="#"><img src="img/logo.png" style="padding:0px;margin-top:0px;height:70px" alt="Schmoll Creative"></a>-->
-                            <a class="navbar-brand link-logo"  href="#">
+                            <h:link outcome="/index">
+                                <h:graphicImage library="img" class="logo-png" name="logo_2.png" />
+                                <!--<span class="geo">GEO</span><span class="inmueble">INMUEBLES</span>-->
+                            </h:link>
+                            <!--<a   href="#">
                                 <h:graphicImage library="img" class="logo-png" name="logo.png" />
                                 <span class="geo">GEO</span><span class="inmueble">INMUEBLES</span>
-                            </a>
+                            </a>-->
                         
                         </div>
                         <div class="collapse navbar-collapse navbar-ex1-collapse" id="scrollTarget">
@@ -50,13 +54,13 @@
                                         <i class="fa fa fa-user"></i>
                                         Inmueble
                                     </h:link>
-                                </li>
-                                <li>
-                                    <h:link outcome="/AltaZona">
-                                        <i class="fa fa fa-user"></i>
-                                        Zonas
-                                    </h:link>
                                 </li>-->
+                                <li>
+                                    <h:link outcome="/index">
+                                        <i class="fa fa fa-home"></i>
+                                        Home
+                                    </h:link>
+                                </li>
                                 <li>
                                     <h:link outcome="/login">
                                         <i class="fa fa fa-user"></i>

@@ -56,6 +56,8 @@ public class Filtro implements Serializable{
     private String estados = "";    
     //private List<SelectItem> selectOneItemBarrio;
     private List<String> barrios;
+    private final String primero = "TODOS";
+
     
     @EJB
     private InmuebleL inmuebleL;
@@ -63,7 +65,7 @@ public class Filtro implements Serializable{
     
     public Filtro() {               
         this.barrios = new ArrayList<String>();
-        
+       
     }
     
     public String GetFiltrado(){
@@ -349,7 +351,7 @@ public class Filtro implements Serializable{
     }
 
     public List<String> getBarrios() {
-        
+        barrios.add(primero);
         List<String> todos = inmuebleL.getallbarrios();
         for (String bar : todos) {
             barrios.add(bar);
